@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		$(function() {
+			$('#user_userlist').datagrid({
+				title : '用户列表',
+				nowrap : false,
+				fit : true,
+				toolbar : '#user_toolbar',
+				fitColumns : true,
+				rownumbers : true,
+				singleSelect : true,
+				checkbox : false,
+				loadMsg : '加载中,请稍候...',
+				queryParams : {
+					time : 1406731675259
+				},
+				pagination : true,
+				url : 'user.do?loadByUsergroupId',
+				idField : 'id',
+				method : 'post',
+				sortOrder : 'asc',
+				pageList : [ 30, 50, 100, 200, 500 ],
+				columns : [ [ {
+					field : 'id',
+					checkbox : true
+				}, {
+					field : 'sex',
+					hidden : false,
+					title : '性别',
+					editor : null,
+					sortable : true,
+					styler : null,
+					width : null
+				}, {
+					field : 'sex',
+					hidden : false,
+					title : '性别',
+					editor : null,
+					sortable : true,
+					styler : null,
+					width : null
+				}, ] ],
+				onDbClickRow : null,
+			});
+		});
+	</script>
+	<table id="user_userlist" data-options="fit:true,border:false"></table>
+</body>
+</html>

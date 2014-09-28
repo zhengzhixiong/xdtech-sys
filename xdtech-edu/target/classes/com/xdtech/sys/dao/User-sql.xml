@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-statement>
+	<sql type="SQL" name="findUserByCondition">
+		<![CDATA[
+		SELECT 
+		  su.USER_ID AS ID,
+		  su.CREATE_TIME AS createTime,
+		  su.UPDATE_TIME AS updateTime,
+		  su.LOGIN_NAME AS loginName,
+		  su.NAME AS name,
+		  su.SEX AS sex 
+		FROM
+		  SYS_USER su where 1=1 
+		   <#if usergroupId??>
+		   	and su.USER_ID in (select sug.user_id from sys_user_usergroup sug where sug.usergroup_id=${usergroupId})
+		   </#if>
+		   
+		   <#if name??>
+		   	and su.name = '${name}'
+		   </#if>
+		 ]]>
+	</sql>
+	
+</dynamic-statement>

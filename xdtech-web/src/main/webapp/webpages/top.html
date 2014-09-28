@@ -1,0 +1,38 @@
+<script type="text/javascript" src="js/common/menu2.js"></script>
+
+<div style="background:#C9EDCC;width: 100%;height: 55px;">
+
+</div>
+
+
+<div style="background: #C9EDCC; padding: 2px; width: 100%;">
+<#list menus as m> 
+	<a href="javascript:void(0)" id="${'mb'+m.id}" class="easyui-menubutton" data-options="iconCls:'icon-add'<#if (m.children?size>0)>${',menu:\'#mm'+m.id+'\''}</#if>">${m.nameCN}</a>
+</#list>
+</div>
+
+<#list menus as m>
+	<#if (m.children?size>0)>
+		<@createSubMenu id=m.id data=m.children />
+	</#if>
+</#list>
+
+<#macro createSubMenu id data>
+	<div id="${'mm'+id}" style="width: 150px;">
+		<#list data as d>
+			<#if (d.children?size>0)>
+				 <div data-options="iconCls:'${(d.iconName)?default('icon-edit')}'">  
+		            <span>${d.nameCN}</span>  
+		            <div style="width:150px;">  
+		            	<#list d.children as dd>
+		            		 <div onClick="addTab('${dd.nameCN}','${(dd.pageUrl)?default('main.do?defaultPage')}','${(dd.iconName)?default('icon-edit')}')" data-options="iconCls:'icon-edit'">${dd.nameCN}</div>  
+		            	</#list>
+		            </div>  
+		        </div>  
+				<#else>
+				 <div title="${d.nameCN}" onClick="addTab('${d.nameCN}','${(d.pageUrl)?default('main.do?defaultPage')}','${(d.iconName)?default('icon-edit')}')"  data-options="iconCls:'${(d.iconName)?default('icon-edit')}'">${d.nameCN}</div>
+			</#if>
+			
+		</#list>
+	</div>
+</#macro>

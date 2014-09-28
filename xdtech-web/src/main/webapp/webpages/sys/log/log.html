@@ -1,0 +1,8 @@
+<div class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center',border:false">
+		<@eu.datagrid id="loglist" idField="id" toolbar="#loglist_toolbar"  url="log.do?loadGridDatas" item="com.xdtech.sys.vo.LogItem" />
+		<div id="loglist_toolbar" style="height: auto">
+			<@eu.linkbutton showName="刷新" shiro="sys:log:refresh" iconCls="icon-reload" onclick="loglist_refresh()"/>
+		</div>
+	</div>
+</div>

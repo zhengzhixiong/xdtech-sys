@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-statement>
+	<sql type="SQL" name="getGroupIdsByUserId">
+		select usergroup_id from sys_user_usergroup where user_id=${userId}
+	</sql>
+	
+</dynamic-statement>

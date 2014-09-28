@@ -1,0 +1,14 @@
+<script type="text/javascript">
+	
+</script>
+<div class="easyui-layout" data-options="fit:true">
+	
+    <div data-options="region: 'west', title: '字典列表',border:false, split: true," style="width: 580px;">
+			<@eu.datagrid id="dictionary_dictionarylist" idField="id" rownumbers="true" singleSelect="true"  url="dictionaryCode.do?loadByCondition" item="com.xdtech.sys.vo.DictionaryCodeItem" pagination="true" />
+    </div>
+ 
+
+	<div data-options="region:'center',border:false">
+<!-- 		<@eu.datagrid id="loglist" idField="id" url="log.do?loadGridDatas" item="com.xdtech.sys.vo.LogItem" pagination="false"/> -->
+	</div>
+</div>

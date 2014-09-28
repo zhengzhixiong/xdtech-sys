@@ -1,0 +1,236 @@
+<#macro dataGrid id dg>
+<table id="${id}"></table>
+	<script type="text/javascript">
+	$(function() {
+		$('${'#'+id}').datagrid({
+				title:'${dg.title}',
+	            height:'${dg.height}', //高度 
+	            pageSize: ${dg.pageSize},//每页显示的记录条数，默认为10 
+	            pageList: ${dg.pageListStr},//可以设置每页记录条数的列表
+				collapsible:${dg.collapsible?c},
+				iconCls:'${dg.iconCls}',
+				fitColumns:${dg.fitColumns?c},
+				resizeHandle:'${dg.resizeHandle}',
+				rownumbers:${dg.rownumbers?c},
+				pagination:${dg.pagination?c},
+				loadMsg:'${dg.loadMsg}',
+			    url:'${(dg.url)?default('')}',
+			    fit: true,
+			    columns:[[
+			    	<#list dg.columns as column>
+			    		${"{field:'"+column.field+"',title:'"+column.title+"'}"}<#if column_has_next>,</#if>
+			    	</#list>
+			    ]],
+			    toolbar: '#tb'
+			});
+		$('${'#'+id}').datagrid('getPager').pagination({ 
+		     beforePageText: '第',//页数文本框前显示的汉字  
+	         afterPageText: '页    共 {pages} 页',  
+	         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录', 
+		});
+	});
+	</script>
+	<div id="tb">
+		<div style="margin-bottom:5px;padding-left:5px;">
+			时间从: <input class="easyui-datebox" style="width: 80px">
+			到: <input class="easyui-datebox" style="width: 80px">
+			语言: <select class="easyui-combobox" panelHeight="auto"
+				style="width: 100px">
+				<option value="java">Java</option>
+				<option value="c">C</option>
+				<option value="basic">Basic</option>
+				<option value="perl">Perl</option>
+				<option value="python">Python</option>
+			</select> 
+			<a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+			<br />
+			语言: <select class="easyui-combobox" panelHeight="auto"
+				style="width: 100px">
+				<option value="java">Java</option>
+				<option value="c">C</option>
+				<option value="basic">Basic</option>
+				<option value="perl">Perl</option>
+				<option value="python">Python</option>
+			</select> 
+		</div>
+		
+		<div style="margin-bottom: 5px">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true">剪切</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove"
+				plain="true">移除</a>
+		</div>
+	
+	</div>
+</#macro>
+<script type="text/javascript" src="plug-in/sys/js/usergroup.js"></script>
+<script>
+var url;
+var usergroupId;
+function clickUsergroup(groupId) {
+	if(groupId) {
+		//loadUrl = '<%=basePath%>user.do?loadByUsergroupId2&usergroupId='+groupId;
+		usergroupId = groupId;
+		searchUser(groupId);
+	}
+	//console.log(loadUrl);
+	//$('#user_userlist').datagrid('reload');
+}
+
+function newUser(){
+	printLog(usergroupId);
+	if (usergroupId) {
+		$('#dlg').dialog('open').dialog('setTitle','新增用户');
+	    $('#fm').form('clear');
+	    url = 'user.do?editUser&usergroupId='+usergroupId;
+	} else {
+		alertMsg('请选择用户组.');
+	}
+    
+}
+function editUser(){
+    var row = $('#user_userlist').datagrid('getSelected');
+    if (row){
+        $('#dlg').dialog('open').dialog('setTitle','编辑用户'+row.loginName);
+        $('#fm').form('load',row);
+        url = 'user.do?editUser&id='+row.id+'&usergroupId='+usergroupId;
+    }
+}
+function saveUser(){
+    $('#fm').form('submit',{
+        url: url,
+        onSubmit: function(){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+				console.log(result);
+            if (!result.success){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.msg
+                });
+            } else {
+                $('#dlg').dialog('close');        // close the dialog
+                $('#user_userlist').datagrid('reload');    // reload the user data
+            }
+        }
+    });
+}
+function destroyUser(){
+    var row = $('#user_userlist').datagrid('getSelected');
+    if (row){
+        $.messager.confirm('确认','你确认要删除用户吗?',function(r){
+            if (r){
+                $.post('user.do?deleteUser',{id:row.id},function(result){
+                	console.log(result);
+                    if (result.success){
+                        $('#user_userlist').datagrid('reload');    // reload the user data
+                    } else {
+                        $.messager.show({    // show error message
+                            title: 'Error',
+                            msg: result.msg
+                        });
+                    }
+                },'json');
+            }
+        });
+    }
+}
+//表格查询  
+function searchUser(groupId){  
+    var params = $('#user_userlist').datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+    console.log(params);
+    var fields =$('#fm').serializeArray(); //自动序列化表单元素为JSON对象  
+    
+    $.each( fields, function(i, field){  
+        //params[field.name] = field.value; //设置查询参数  
+        printLog(field.name+"="+field.value);
+    });   
+	 if (groupId) {
+		 params['usergroupId'] = groupId;
+	 }
+	
+	 console.log(params);
+    $('#user_userlist').datagrid('reload'); //设置好查询参数 reload 一下就可以了  
+}  
+
+			
+	function loadUserRole(userId) {
+		var tab = $('#tabs_user').tabs('getSelected');
+		var index = $('#tabs_user').tabs('getTabIndex',tab);
+		printLog(index);
+		switch (index) {
+		case 0:
+			tab.panel('refresh', "user.do?userRole&userId=" + userId);
+			break;
+		case 1:
+			tab.panel("refresh", "user.do?usergroupRoleList&userId=" + userId);
+			break;
+		case 2:
+			tab.panel("refresh", "user.do?userRoleList&userId=" + userId);
+			break;
+		default:
+			tab.panel('refresh', "user.do?userRole&userId=" + userId);
+			break;
+		}
+		
+	}
+
+	function refreshGroup() {
+		$('#tt').tree('reload'); 
+	}
+	
+</script>
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'west',split:true,title:'用户组',collapsible:false,border:false,tools:[
+				{
+					iconCls:'icon-reload',
+					handler:function(){refreshGroup()}
+				}]"
+		" style="width: 200px;">
+		<ul id="tt" class="easyui-tree"
+			data-options="
+		          url: 'group.do?usergroupTree',
+		          method: 'post',
+		          animate: true,
+		          lines:true,
+		          formatter:function(node){
+		                    var s = node.text;
+		                    if (node.children){
+		                        s += '&nbsp;<span style=\'color:blue\'>(' + node.children.length + ')</span>';
+		                    }
+		                    return s;
+		          },
+		          onClick:function(node){
+						clickUsergroup(node.id);
+				  }
+		      ">
+		</ul>
+	</div>
+	<div data-options="region:'center'">
+		<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'south',split:true"
+				style="height: 300px; overflow: auto;">
+				<div class="easyui-tabs" id="tabs_user"
+					data-options="fit:true,border:false">
+					<div id="user_role" title="用户-角色"
+						data-options="fit:true,border:false" style="overflow: auto;">
+
+					</div>
+					<div title="用户组-角色" data-options="fit:true,border:false"
+						style="overflow: auto;"></div>
+					<div title="配置角色列表" data-options="fit:true,border:false"
+						style="overflow: auto;"></div>
+				</div>
+
+			</div>
+			<div data-options="region:'center',border:false">
+				<@dataGrid id="user_userlist" dg=dg/>
+			</div>
+		</div>
+
+	</div>
+</div>

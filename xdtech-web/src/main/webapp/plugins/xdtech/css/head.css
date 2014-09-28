@@ -1,0 +1,192 @@
+
+body,td,th {
+	font-size: 12px;
+	/*font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;*/
+}
+
+#logo {
+	height: 81px;
+	background: url(../images/top_logo.jpg) no-repeat left top;
+}
+#logo .logo_biaoti {
+	/*background: url(../images/top_biao_di.jpg) no-repeat left;*/
+	height: 49px;
+}
+.l {
+	float: left;
+}
+.r {
+	float: right;
+}
+
+#logo .logo_biaoti_box {
+	background: url(../images/top_biaobig_di.jpg) repeat-x;
+	height: 49px;
+	margin-left: 220px;
+}
+#logo .logo_an_box {
+	background-image: url(../images/top_anbig_di.jpg);
+	height: 31px;
+	margin-left: 220px;
+}
+#logo .logo_biaoti span {
+	font-size: 20px;
+	line-height: 45px;
+	color: #FFFFFF;
+	font-family: "Times New Roman", Times;
+	float: left;
+}
+#logo .logo_usfone {
+	background: url(../images/top_us_di.jpg) repeat-x;
+	height: 25px;
+	padding-right: 20px;
+	line-height: 20px;
+	float: left;
+}
+#logo .logo_usfone strong{
+	color: #FFFF00;
+	vertical-align: middle;
+	padding-right: 10px;
+	padding-left: 10px;
+	line-height: 24px;
+	font-size: 12px;
+	font-weight: normal;
+}
+.logo_usfone a:link,.logo_usfone a:visited,.logo_usfone a:active {
+	color: #FFFFFF;
+	text-decoration: none;
+	padding-right: 10px;
+	padding-left: 10px;
+	line-height: 24px;
+	background: url(../images/top_us_xian.jpg) no-repeat right center;
+}
+
+.logo_usfone a:hover {
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+#logo .logo_biaoti_box .logo_ustu {
+	background: url(../images/top_us_l.jpg) no-repeat left top;
+	float: left;
+	height: 25px;
+	width: 33px;
+}
+.logo_an_box ul {
+	margin: 0px;
+	padding: 0px;
+}
+.logo_an_boxli {
+	background-image: url(../images/top_an_xianbian.jpg);
+	background-repeat: repeat-x;
+	background-position: top;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #59abd6;
+	border-left-color: #59abd6;
+}
+
+.logo_an_boxli a:link,.logo_an_boxli a:visited,.logo_an_boxli a:active {
+	color: #FFFFFF !important;
+	text-decoration: none;
+}
+
+.logo_an_boxli a:hover {
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+
+.logo_an_box li {
+	margin: 0px;
+	float: left;
+	list-style-type: none;
+	line-height: 30px;
+}
+
+.logo_an_box a:link, .logo_an_box a:visited,.logo_an_box a:active{
+	padding-top: 6px;
+	padding-right: 10px;
+	padding-bottom: 6px;
+	padding-left: 0px;
+	text-decoration: none;
+
+}
+
+.logo_an_box li:hover {
+	color: #FFFFFF;
+	background-image: url(../images/top_an_xianbian1.jpg);
+	background-repeat: repeat-x;
+	background-position: top;
+	
+}
+.logo_an_link,.logo_an_link a:link, .logo_an_link a:visited,.logo_an_link a:active .logo_an_link li:hover{
+    color: #000 !important;
+	text-decoration: none;
+
+}
+.logo_an_link li:hover{
+    color: #fff !important;
+	text-decoration: none;
+
+}
+.logo_an_box a:hover {
+	color: #FFFFFF !important;
+}
+
+.logo_an_box .ico{
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	float: left;
+}
+
+.logo_an_box .ico_2 {
+	background-image: url(../images/ico2.png);
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico2.png");
+}
+.logo_an_box .ico_3 {
+	background-image: url(../images/ico3.png);
+		_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico3.png");
+}
+.logo_an_box .ico_4 {
+	background-image: url(../images/ico4.png);
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico4.png");
+}
+.logo_an_box .ico_5 {
+	background-image: url(../images/ico5.png);
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico5.png");
+}
+.logo_an_box .ico_6 {
+	background-image: url(../images/ico6.png);
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico6.png");
+}
+.logo_an_box .ico_7 {
+	background-image: url(../images/ico7.png);
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico7.png");
+}
+.logo_an_box .ico_8 {
+	background-image: url(../images/ico8.png);
+	_background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="images/ico8.png");
+}
+.logo_an_box .ico_9 {
+	background-image: url(../images/ico9.png);
+	background-position: 0px 0px;
+}
+#logo .logo_us {
+	width: auto;
+}
+.logo_an_div {
+	background-image: url(../images/top_an_xian.jpg);
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 28px;
+	float: left;
+}
