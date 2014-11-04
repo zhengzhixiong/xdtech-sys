@@ -18,6 +18,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xdtech.sys.service.DictionaryCodeService;
+import com.xdtech.sys.vo.DictionaryCodeItem;
+import com.xdtech.sys.vo.UserItem;
 import com.xdtech.web.model.Pagination;
+import com.xdtech.web.model.ResultMessage;
 
 /**
  * 
@@ -39,18 +43,37 @@ import com.xdtech.web.model.Pagination;
 @Scope("prototype")
 @RequestMapping("/dictionaryCode.do")
 public class DictionaryCodeController {
-	
+	@Autowired
 	private DictionaryCodeService dictionaryCodeService;
 	@RequestMapping(params = "dictionary")
 	public ModelAndView dictionary(HttpServletRequest request) {
 		return new ModelAndView("sys/dictionary/dictionary_ftl");
 	}
 	
+	@RequestMapping(params = "editDictionary")
+	public ModelAndView editDictionary(HttpServletRequest request,Long dictionaryId) {
+		if (dictionaryId!=null) {
+//			request.setAttribute("userItem", userService.loadUserItem(userId));
+		}
+		return new ModelAndView("sys/dictionary/editDictionary_ftl");
+	}
+	
+	@RequestMapping(params = "updateDictionary")
+	@ResponseBody
+	public ResultMessage updateDictionary(DictionaryCodeItem dictionaryCodeItem) {
+		ResultMessage r = new ResultMessage();
+//		if (userService.saveOrUpdateUser(userItem)) {
+//			r.setSuccess(true);
+//		}else {
+//			r.setSuccess(false);
+//		}
+		return r;
+	}
+	
 	@RequestMapping(params = "loadByCondition", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> loadByCondition(Pagination pg) {
-//		Map<String, Object> result = dictionaryCodeService.loadPageAndCondition(pg, null);
-//		return result;
-		return null;
+		Map<String, Object> result = dictionaryCodeService.loadPageAndCondition(pg, null);
+		return result;
 	}
 }

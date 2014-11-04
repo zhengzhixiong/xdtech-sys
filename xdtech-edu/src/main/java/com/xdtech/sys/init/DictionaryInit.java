@@ -14,10 +14,26 @@
  */
 package com.xdtech.sys.init;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.thoughtworks.xstream.XStream;
 import com.xdtech.common.service.BaseService;
+import com.xdtech.common.utils.ApplicationContextUtil;
+import com.xdtech.common.utils.EmptyUtil;
+import com.xdtech.core.init.InitCacheData;
 import com.xdtech.core.init.SysInitOperation;
 import com.xdtech.core.model.BaseModel;
+import com.xdtech.core.orm.utils.BeanUtils;
+import com.xdtech.sys.model.CodeValue;
 import com.xdtech.sys.model.DictionaryCode;
+import com.xdtech.sys.service.CodeValueService;
+import com.xdtech.sys.vo.CodeValueItem;
 
 /**
  * 数据字典初始化实现类
@@ -27,6 +43,7 @@ import com.xdtech.sys.model.DictionaryCode;
  * @see
  */
 public class DictionaryInit implements SysInitOperation{
+	Log log = LogFactory.getLog(DictionaryInit.class);
 
 	/**
 	 * 数据字典初始化
@@ -34,12 +51,42 @@ public class DictionaryInit implements SysInitOperation{
 	 * @create 2014-9-25下午9:42:14
 	 * @modified by
 	 */
-	public void initing(BaseService<BaseModel> baseService) {
-		DictionaryCode code = new DictionaryCode();
-		code.setKey("key");
-		code.setName("test");
-		baseService.save(code);
-		System.out.println("数据字典初始化");
+	public void initingToDb(BaseService<BaseModel> baseService) {
+		log.info("数据字典初始化开始......");
+		XStream xstream = new XStream(); 
+	    Reader reader = new InputStreamReader(  
+	    		DictionaryInit.class.getResourceAsStream("/com/xdtech/sys/init/DictionaryCode.xml"));  
+//		String filePath = DictionaryInit.class.getResource("").getPath()+"DictionaryCode.xml";
+//		InputStream is = this.getClass().getResourceAsStream("/DictionaryCode.xml");
+		
+        List<DictionaryCode> dictionaryCodes = (List<DictionaryCode>) xstream.fromXML(reader);
+        for (DictionaryCode dictionaryCode : dictionaryCodes) {
+        	baseService.save(dictionaryCode);
+        	List<CodeValue> codeValues = dictionaryCode.getCodeValues();
+        	if (EmptyUtil.isNotEmpty(codeValues)) {
+				for (CodeValue codeValue : codeValues) {
+					codeValue.setDictionaryCode(dictionaryCode);
+					baseService.save(codeValue);
+				}
+			}
+		}
+        
+        log.info("数据字典初始化结束......");
+	}
+
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-10-12下午9:18:03
+	 * @modified by
+	 * @param baseService
+	 */
+	public void initingToCache(BaseService<BaseModel> baseService) {
+		CodeValueService codeValueService = ApplicationContextUtil.getContext().getBean(CodeValueService.class);
+		Map<String, List<CodeValueItem>> codeMap = codeValueService.loadDictionMapItems();
+		for(String key:codeMap.keySet()) {
+			InitCacheData.dictionary.put(key,codeMap.get(key));
+		}
 	}
 
 }

@@ -105,6 +105,35 @@ $.formatString = function(str) {
 	return str;
 };
 
+function createFromWindow(title,href,submitUrl,callback,enableSaveButton) {
+	$.easyui.showDialog({
+        title: title,
+        maximizable: true,
+        autoRestore: true,
+        topMost: false,
+		enableApplyButton:false,
+		enableSaveButton:enableSaveButton,
+        href: href,
+        onSave: function (d) {
+			printLog(d);
+            var validate = d.form("validate");
+            printLog(validate);
+            if (validate) {
+           	    printLog(d.form("getData"));
+	           	$.ajax({
+	           	  type: 'POST',
+	           	  url: submitUrl,
+	           	  data: d.form("getData"),
+	           	  success: function(data) {callback(data);}
+	           	});
+            } else {
+                return false;
+            }
+        },
+    });
+}
+
+
 
 
 /**

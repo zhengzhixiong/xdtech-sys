@@ -23,7 +23,7 @@ public class DictionaryCode extends BaseModel implements Serializable{
     @Column(name = "DICTIONARY_CODE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
-	@Column(name = "DICT_KEY",length=100)
+	@Column(name = "DICT_KEY",length=100,unique=true)
 	private String key;
 	@Column(name = "DICT_NAME",length=100)
 	private String name;

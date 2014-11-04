@@ -27,6 +27,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.xdtech</groupId>
+			<artifactId>xdtech-message</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.xdtech</groupId>
 			<artifactId>xdtech-protal</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
@@ -48,7 +54,7 @@
 				</configuration>
 			</plugin>
 	    </plugins>
-		<finalName>xdteco-edu</finalName>
+		<finalName>xdtech-edu</finalName>
 	</build>
 	
 

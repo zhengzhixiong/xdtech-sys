@@ -3,7 +3,7 @@ function showMsg(info) {
 	$.messager.show({    // show error message
         title: '系统提示',
         msg: info,
-        timeout:1000,
+        timeout:500,
         showType:'slide'
     });
 }

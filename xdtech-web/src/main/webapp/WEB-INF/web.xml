@@ -5,6 +5,10 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>xdtech-web</display-name>
 
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>xdtechWeb.root</param-value>
+	</context-param>
 	<!-- spring配置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -26,6 +30,12 @@
 	<!-- 方便手动获取request信息 -->
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.xdtech.web.util.MemoryListener</listener-class>
 	</listener>
 
 
@@ -56,17 +66,17 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- javamelody filter start -->
-	<filter>  
-	        <filter-name>monitoring</filter-name>  
-	        <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>  
-	</filter>  
-	<filter-mapping>  
-	        <filter-name>monitoring</filter-name>  
-	        <url-pattern>/*</url-pattern>  
-	</filter-mapping>  
-	<listener>  
-	        <listener-class>net.bull.javamelody.SessionListener</listener-class>  
-	</listener>  
+<!-- 	<filter>   -->
+<!-- 	        <filter-name>monitoring</filter-name>   -->
+<!-- 	        <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>   -->
+<!-- 	</filter>   -->
+<!-- 	<filter-mapping>   -->
+<!-- 	        <filter-name>monitoring</filter-name>   -->
+<!-- 	        <url-pattern>/*</url-pattern>   -->
+<!-- 	</filter-mapping>   -->
+<!-- 	<listener>   -->
+<!-- 	        <listener-class>net.bull.javamelody.SessionListener</listener-class>   -->
+<!-- 	</listener>   -->
 	
 
 	<!-- hibernate 打开Session 进行延迟加载策略 session 一直到view层调用结束后才关闭 -->

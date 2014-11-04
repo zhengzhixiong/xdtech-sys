@@ -45,7 +45,7 @@ public class TestInit {
 				//进行排序
 				try {
 					initDataEntity = c.newInstance();
-					convertMethod = c.getMethod(SysInitOperation.INIT_METHOD);
+					convertMethod = c.getMethod(SysInitOperation.INIT_TO_DB_METHOD);
 					convertMethod.invoke(initDataEntity);
 				} catch (InstantiationException e) {
 					// TODO Auto-generated catch block

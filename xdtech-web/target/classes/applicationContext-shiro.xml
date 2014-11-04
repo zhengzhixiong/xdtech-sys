@@ -31,6 +31,7 @@
 			<value>
 				/login.jsp = anon
 				/*.do = authc
+				/codeCreater.do = authc
 			</value>
 		</property>
 	</bean>

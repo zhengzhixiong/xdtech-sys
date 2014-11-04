@@ -30,13 +30,11 @@ public class LogServiceImpl implements LogService{
 			logs = BeanUtils.copyListProperties(
 					LogItem.class, page.getResult());
 			rows = page.getTotalItems();
-		}
-		else {
+		}else {
 			List<Log> logList = logDao.find("from Log order by id desc", values);
 			logs = BeanUtils.copyListProperties(
 					LogItem.class, logList);
 			rows = logs.size();
-			
 		}
 		results.put("total", rows);
 		results.put("rows", logs);

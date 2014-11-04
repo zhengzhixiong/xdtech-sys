@@ -59,14 +59,15 @@
 		</property>
 		<property name="packagesToScan">
 			<list>
+				<value>com.xdtech.**.model</value>
 				<!-- 系统模块 -->
-				<value>com.xdtech.sys.model</value>
+<!-- 				<value>com.xdtech.sys.model</value> -->
 				<!-- 基础数据 -->
-				<value>com.xdtech.base.model</value>
+<!-- 				<value>com.xdtech.base.model</value> -->
 				<!-- 教务模块 -->
-				<value>com.xdtech.edu.model</value>
+<!-- 				<value>com.xdtech.edu.model</value> -->
 				<!-- 学籍模块 -->
-				<value>com.xdtech.stu.model</value>
+<!-- 				<value>com.xdtech.stu.model</value> -->
 			</list>
 		</property>
 	</bean>

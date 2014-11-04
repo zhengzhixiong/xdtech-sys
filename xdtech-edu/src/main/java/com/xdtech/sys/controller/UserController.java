@@ -38,6 +38,14 @@ public class UserController{
 //		return new ModelAndView("sys/user/user");
 		return new ModelAndView("sys/user/user_ftl");
 	}
+	@RequestMapping(params = "editUser")
+	public ModelAndView editUser(HttpServletRequest request,Long userId) {
+//		request.setAttribute("usergroupId", usergroupId);
+		if (userId!=null) {
+			request.setAttribute("userItem", userService.loadUserItem(userId));
+		}
+		return new ModelAndView("sys/user/editUser_ftl");
+	}
 	
 	@RequestMapping(params = "addUser")
 	public ModelAndView addUser(HttpServletRequest request,Long userId) {
@@ -124,9 +132,9 @@ public class UserController{
 		return new ModelAndView("sys/user/user_usergroup_role_list");
 	}
 	
-	@RequestMapping(params = "editUser")
+	@RequestMapping(params = "updateUser")
 	@ResponseBody
-	public ResultMessage editUser(UserItem userItem) {
+	public ResultMessage updateUser(UserItem userItem) {
 		ResultMessage r = new ResultMessage();
 		if (userService.saveOrUpdateUser(userItem)) {
 			r.setSuccess(true);

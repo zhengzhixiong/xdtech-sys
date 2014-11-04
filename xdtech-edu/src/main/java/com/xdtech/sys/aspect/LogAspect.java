@@ -66,21 +66,21 @@ public class LogAspect {
 		// 执行目标方法，并保存目标方法执行后的返回值
 		Object rvt = joinPoint.proceed();
 		if (!className.contains("LogService")) {
-			if (methodName.contains("save")||methodName.contains("update")||methodName.contains("delete")||methodName.contains("load")) {
-				//只记录增删改查日志
-				Log log = new Log();
-				User currentUser = SessionContextUtil.getCurrentUser();
-				HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-				log.setIp(RequestUtil.getClientIp(request));
-				if (currentUser==null) {
-					
-				}else {
-					log.setOperator(currentUser.getLoginName());
-				}
-				log.setOperateTime(new Date());
-				log.setMethod(className+"#"+methodName);
-				logService.save(log);
-			}
+//			if (methodName.contains("save")||methodName.contains("update")||methodName.contains("delete")||methodName.contains("load")) {
+//				//只记录增删改查日志
+//				Log log = new Log();
+//				User currentUser = SessionContextUtil.getCurrentUser();
+//				HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+//				log.setIp(RequestUtil.getClientIp(request));
+//				if (currentUser==null) {
+//					
+//				}else {
+//					log.setOperator(currentUser.getLoginName());
+//				}
+//				log.setOperateTime(new Date());
+//				log.setMethod(className+"#"+methodName);
+//				logService.save(log);
+//			}
 		}
 //		System.out.println("执行目标方法之后，模拟结束事务 ...");
 		return rvt;

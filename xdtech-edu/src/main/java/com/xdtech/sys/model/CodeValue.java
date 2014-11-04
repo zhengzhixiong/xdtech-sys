@@ -21,24 +21,17 @@ public class CodeValue extends BaseModel implements Serializable{
     @Column(name = "CODE_VALUE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 	@Column(name = "VALUE",length=100)
 	private String value;
 	@Column(name = "NAME",length=100)
 	private String name;
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
 	
 	@ManyToOne
-	@JoinColumn(name="DICTIONAR_CODE_ID")
+	@JoinColumn(name="DICTIONARY_CODE_ID")
 	private DictionaryCode dictionaryCode;
-	@Column(name = "CODE",length=100)
-	private String code;
 	
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 	public String getValue() {
 		return value;
 	}
@@ -63,6 +56,13 @@ public class CodeValue extends BaseModel implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+	
 	
 	
 }

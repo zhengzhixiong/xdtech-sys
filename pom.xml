@@ -17,6 +17,7 @@
 		<module>xdtech-mobile</module>
 		<module>xdtech-protal</module>
 		<module>xdtech-web</module>
+		<module>xdtech-message</module>
 	</modules>
 	
 	<build>

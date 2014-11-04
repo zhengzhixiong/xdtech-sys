@@ -18,6 +18,9 @@
         <dependent-module archiveName="xdtech-edu.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xdtech-edu/xdtech-edu">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="xdtech-message.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/xdtech-message/xdtech-message">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="xdtech-web"/>
         <property name="java-output-path" value="/xdtech-web/target/classes"/>
     </wb-module>
