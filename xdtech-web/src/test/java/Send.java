@@ -15,7 +15,7 @@ import java.net.URL;
 public class Send {
 	public static void main(String[] args) throws Exception {
 		//account=java4ever&password=zzxlp522&mobile=15859216627&content="+java.net.URLEncoder.encode("我想你了，这是通过短信接口发送。"))
-		String PostData = "account=java4ever&password=java4ever&mobile=15059156855&content="+java.net.URLEncoder.encode("这是我通过短信接口发送给你","utf-8");
+		String PostData = "account=java4ever&password=java4ever&mobile=15859216627&content="+java.net.URLEncoder.encode("您的订单编码：您好，你孩子的本次月考数学成绩99分，班级名次第二。如需帮助请联系客服。","utf-8");
         System.out.println(PostData);
 //        String ret = com.dxton.www.Send.SMS(PostData, "http://sms.106jiekou.com/utf8/sms.aspx");
 		System.out.println(SMS(PostData, "http://sms.106jiekou.com/utf8/sms.aspx"));

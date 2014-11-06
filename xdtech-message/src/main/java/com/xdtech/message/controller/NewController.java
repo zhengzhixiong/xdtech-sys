@@ -14,6 +14,8 @@
  */
 package com.xdtech.message.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,9 +66,9 @@ public class NewController {
 	}
 	
 	@RequestMapping(params = "editNew")
-	public ModelAndView editNew(HttpServletRequest request,Long newId) {
-		if (newId!=null) {
-			request.setAttribute("newItem", newService.loadNewItem(newId));
+	public ModelAndView editNew(HttpServletRequest request,Long id) {
+		if (id!=null) {
+			request.setAttribute("newItem", newService.loadNewItem(id));
 		}
 		return new ModelAndView("message/new/editNew_ftl");
 	}
@@ -88,6 +90,24 @@ public class NewController {
 	public ResultMessage deleteNew(long id) {
 		ResultMessage r = new ResultMessage();
 		if (newService.deleteNewInfo(id)) {
+			r.setSuccess(true);
+		}else {
+			r.setSuccess(false);
+		}
+		return r;
+	}
+	
+	@RequestMapping(params = "deleteNewItems")
+	@ResponseBody
+	public ResultMessage deleteNewItems(String ids) {
+		ResultMessage r = new ResultMessage();
+		if (StringUtils.isNotEmpty(ids)) {
+			String[] tempIds = ids.split(",");
+			List<Long> newIds = new ArrayList<Long>();
+			for (String id : tempIds) {
+				newIds.add(Long.valueOf(id));
+			}
+			newService.deleteNewInfo(newIds);
 			r.setSuccess(true);
 		}else {
 			r.setSuccess(false);

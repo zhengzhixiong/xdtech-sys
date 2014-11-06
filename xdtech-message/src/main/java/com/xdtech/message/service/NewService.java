@@ -14,6 +14,8 @@
  */
 package com.xdtech.message.service;
 
+import java.util.List;
+
 import com.xdtech.common.service.impl.IBaseService;
 import com.xdtech.message.model.New;
 import com.xdtech.message.vo.NewItem;
@@ -56,5 +58,7 @@ public interface NewService extends IBaseService<New>{
 	 * @return
 	 */
 	boolean deleteNewInfo(long id);
+	
+	boolean deleteNewInfo(List<Long> ids);
 
 }

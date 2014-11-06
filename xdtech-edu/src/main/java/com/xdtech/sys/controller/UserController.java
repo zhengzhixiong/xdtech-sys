@@ -29,15 +29,10 @@ public class UserController{
 	private UserService userService;
 
 	@RequestMapping(params = "user")
-	public ModelAndView user(HttpServletRequest request) {
-//		DataGrid userDataGrid = createDataGrid(UserDetail.class);
-//		userDataGrid.setId("userDg");
-//		userDataGrid.setTitle("用户列表");
-//		userDataGrid.setUrl("user.do?loadGridDatas");
-//		request.setAttribute("dg", userDataGrid);
-//		return new ModelAndView("sys/user/user");
+	public ModelAndView skipUser(HttpServletRequest request) {
 		return new ModelAndView("sys/user/user_ftl");
 	}
+	
 	@RequestMapping(params = "editUser")
 	public ModelAndView editUser(HttpServletRequest request,Long userId) {
 //		request.setAttribute("usergroupId", usergroupId);

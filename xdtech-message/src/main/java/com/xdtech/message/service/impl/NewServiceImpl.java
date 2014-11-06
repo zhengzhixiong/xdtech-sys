@@ -164,4 +164,19 @@ public class NewServiceImpl implements NewService {
 		return true;
 	}
 
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-11-4下午11:06:25
+	 * @modified by
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteNewInfo(List<Long> ids) {
+		for (Long id : ids) {
+			delete(id);
+		}
+		return true;
+	}
+
 }

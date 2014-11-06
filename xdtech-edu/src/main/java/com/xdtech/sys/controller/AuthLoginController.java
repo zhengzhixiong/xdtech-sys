@@ -1,5 +1,9 @@
 package com.xdtech.sys.controller;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -11,6 +15,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.xdtech.stu.service.StudentService;
 import com.xdtech.sys.service.AuthRealm;
@@ -28,7 +33,7 @@ public class AuthLoginController {
 
 	@RequestMapping(params = "login")
 	@ResponseBody
-	public ResultMessage login(String loginName, String password, String role) {
+	public ResultMessage login(String loginName, String password, String role,HttpServletRequest request) {
 		AuthenticationToken token = new UsernamePasswordToken(loginName,
 				password, Boolean.valueOf(true));
 
@@ -56,7 +61,25 @@ public class AuthLoginController {
 			rm.setSuccess(false);
 			rm.setMsg("用户名或密码有误，登录失败");
 		}
+		setLanguage(request);
 		return rm;
+	}
+	
+	private void setLanguage(HttpServletRequest request) {
+		String language = request.getParameter("language");
+//		if (language!=null) {
+			Locale locale = null;
+//			if (language.equals("zh_CN")) {
+//				locale = new Locale("zh","CN");
+//			}else if (language.equals("en_US")) {
+				locale = new Locale("en","US");
+//			}else if (language.equals("ja_JP")) {
+//				locale = new Locale("ja","CN");
+//			}else {
+//				locale = new Locale("zh","CN");
+//			}
+			request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
+//		}
 	}
 	
 	@RequestMapping(params = "logout")

@@ -164,5 +164,18 @@
         </property>  
     </bean>  
       
+      
+    <!-- 定义国际化消息 -->   
+   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
+     <property name="basenames">
+     	<list>
+			<value>local/xdtech</value>
+		</list>
+     </property>  
+   </bean>   
+     <!-- 国际化操作 拦截器 必需配置，可以和其它国际化方式通用 -->
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+    <!-- 基于Session的国际化配置 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 	
 </beans>

@@ -118,4 +118,7 @@
 	</bean>
 
 	<import resource="applicationContext-shiro.xml" />
+	
+	
+  
 </beans>
