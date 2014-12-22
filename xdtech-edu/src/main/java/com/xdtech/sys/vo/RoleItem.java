@@ -1,12 +1,19 @@
 package com.xdtech.sys.vo;
 
+import com.xdtech.web.freemark.item.GridColumn;
+
 public class RoleItem {
 	
 	private Long id;
+	@GridColumn(title="角色名称")
 	private String name;
+	@GridColumn(title="是否启用")
 	private boolean enable;
+	@GridColumn(title="角色编码")
 	private String code; 
+	@GridColumn(title="角色描述",width=200)
 	private String description;
+	@GridColumn(title="是否超级管理员")
 	private boolean superuser;  
 	public Long getId() {
 		return id;

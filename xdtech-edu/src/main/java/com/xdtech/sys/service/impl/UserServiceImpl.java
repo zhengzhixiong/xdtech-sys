@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xdtech.common.service.BaseService;
 import com.xdtech.common.utils.EmptyUtil;
 import com.xdtech.common.utils.EncryptUtil;
 import com.xdtech.core.dao.BaseDao;
@@ -111,8 +110,10 @@ public class UserServiceImpl implements UserService {
 		}
 		//复制前台修改的属性
 		BeanUtils.copyProperties(u, user);
-		List<UserGroup> userGroups = userGroupService.loadUserGroupsByIds(selectGroupIds);
-		u.setUserGroups(userGroups);
+		if (EmptyUtil.isNotEmpty(selectGroupIds)) {
+			List<UserGroup> userGroups = userGroupService.loadUserGroupsByIds(selectGroupIds);
+			u.setUserGroups(userGroups);
+		}
 		baseDao.save(u);
 		return true;
 	}
@@ -178,5 +179,20 @@ public class UserServiceImpl implements UserService {
 
 	public List<User> getAll() {
 		return userDao.getAll();
+	}
+
+
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-11-30下午12:27:06
+	 * @modified by
+	 * @param userIds
+	 */
+	public boolean deleteUserInfo(List<Long> userIds) {
+		for (Long id : userIds) {
+			delete(id);
+		}
+		return true;
 	}
 }

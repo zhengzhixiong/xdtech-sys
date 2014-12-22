@@ -58,6 +58,7 @@
 				<tr>
 					<td>用户组</td>
 					<td>
+<!-- 					        <input type="checkbox" checked onclick="$('#cc').combotree({cascadeCheck:$(this).is(':checked')})"> -->
 						<easy:comboTree url="group.do?usergroupTree&userId=${userItem.id}" multiple="true" name="groupIds"/>
 <!-- 						<select id="cc" class="easyui-combotree" style="width:153px;" data-options="url:'group.do?usergroupTree',required:true"></select> -->
 <!-- 						<select name="groupIds" class="easyui-combotree" data-options="url:'group.do?usergroupTree,required:true',method:'get'" multiple style="width:153px;"></select> -->

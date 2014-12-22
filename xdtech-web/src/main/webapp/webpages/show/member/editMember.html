@@ -1,0 +1,15 @@
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(memberItem.id)!}" />
+	<tr>
+		<td>昵称:</td>
+		<td>
+			<input name="nickName"  class="easyui-validatebox" data-options="required: true" value="${(memberItem.nickName)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>邮箱:</td>
+		<td>
+			<input name="email"  class="easyui-validatebox" data-options="required: true" value="${(memberItem.email)!}"/>
+		</td>
+	</tr>
+</table>

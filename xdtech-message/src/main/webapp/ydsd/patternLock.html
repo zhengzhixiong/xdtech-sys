@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/ed.css" rel="stylesheet">
+		<style>
+			.patt-wrap {
+				padding: 20px
+			}
+			.patt-wrap li {
+				margin: 20px;
+				width: 50px;
+				height: 50px;
+				-webkit-border-radius: 25px;
+				-moz-border-radius: 25px;
+				border-radius: 25px;
+			}
+			.pattern-holder {
+				width: 310px;
+				height: 310px;
+				position: relative;
+			}
+			.patt-holder {
+				margin: 0 auto;
+				background-size: auto 100%
+			}
+			.patt-wrap {
+				position: relative;
+				cursor: pointer
+			}
+			.patt-wrap ul, .patt-wrap li {
+				list-style: none;
+				margin: 0;
+				padding: 0
+			}
+			.patt-circ {
+				position: relative;
+				float: left;
+				box-sizing: border-box;
+				background: #fff;
+				-moz-box-sizing: border-box;
+				border: 3px solid #c9c9c9;
+			}
+			.patt-circ.hovered {
+				background: #3a3a3a;
+				border: 3px solid #c9c9c9
+			}
+			.patt-error .patt-circ.hovered {
+				border: 3px solid #bd0000
+			}
+			.patt-hidden .patt-circ.hovered {
+				border: 0
+			}
+			.patt-dots {
+				background: #fff;
+				width: 18px;
+				height: 18px;
+				border-radius: 9px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -9px;
+				margin-left: -9px
+			}
+			.patt-lines {
+				border-radius: 5px;
+				height: 10px;
+				background: rgba(0,89,183,1);
+				position: absolute;
+				transform-origin: 5px 5px;
+				-ms-transform-origin: 5px 5px;
+				-webkit-transform-origin: 5px 5px
+			}
+			.patt-hidden .patt-lines {
+				display: none
+			}
+			#patternUI, #patternCaptcha {
+				float: left;
+				margin: 0 20px
+			}
+			#actionButton {
+				clear: both
+			}
+			#refreshCaptcha, #submitCaptcha {
+				padding: 8px 20px;
+				margin: 10px 20px
+			}
+		</style>
+	</head>
+	<body>
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+			</div>
+			<div class="main">
+				<div id="example">
+					<h2 class="handPsTitle" id="userid"></h2>
+					<div style="width: 310px; height: 310px; position: relative;" id="patternHolder6" class="pattern-holder patt-holder">
+						<ul class="patt-wrap">
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+							<li class="patt-circ">
+								<div class="patt-dots"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cartTips" id="loginErr">
+			<h2></h2><h3 id="loginErrTip"></h3>
+			<button class="oneBtu" onClick="closeDi();">
+			</button>
+		</div>
+		<script type="text/javascript" src="js/patternBase.js"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<script src="js/patternLockScript.js"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+				var nation = function(json){
+					jQuery.i18n.properties({
+				 		name:'strings',
+				 		path:'i18n/',
+				 		mode:'both',
+				 		callback: function() {
+							$.each(json, function(i,e) {    
+								$(e.id).html($.i18n.prop(e.name));                                                     
+							});
+						}
+					});
+				}
+				//加快响应点击事件
+				init();
+				//国际化
+				var nationJson = [{"id":"title","name":"string_edaw"},{"id":".edBody h1","name":"pattern_lock_title"},
+					{"id":"#loginErr h2","name":"pattern_lock_pwdWorry"},{"id":"#loginErr button","name":"string_ok"},
+//					{"id":"#loginErr h3","name":"pattern_setlock_tryCount"}
+				];
+				nation(nationJson);
+//				$('').html($.i18n.prop("pattern_setlock_tryCount"));
+				
+			});
+			document.addEventListener("plusready", function() {
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				document.getElementById("userid").innerHTML = plus.storage.getItem("user");
+				// Android处理返回键
+				plus.ui.getSelfWindow().addEventListener("back", function() {
+
+					if ("Android" == plus.os.name) {
+						var winary = plus.ui.enumWindow();
+
+						if (confirm($.i18n.prop("string_reallyLogout"))) {
+							for (var i = 0; i < winary.length - 1; i++) {
+								plus.ui.closeWindow(winary[i]);
+							}
+							plus.cache.clear();
+							plus.runtime.quit();
+						}
+					}
+
+				}, false);
+			}, false);
+			
+			function popDialog(text) {
+				plus.ui.toast(text, {
+					duration : "short",
+					verticalAlign : "center"
+				});
+			}
+
+			function closeDi() {
+				$.skygqbox.hide();
+			}
+			var pwdCount = 4;
+			function getPwd(pwd) {
+				var psPwd = plus.storage.getItem("patternPwd");
+				var winary = plus.ui.enumWindow();
+				if (pwd.length > 3) {
+					if (psPwd == pwd) {
+						winary[winary.length - 2].setVisible(true);
+						plus.ui.getSelfWindow().close();
+					} else {
+						if (pwdCount > 0) {
+							$('#loginErr').skygqbox();
+							$("#loginErrTip").text($.i18n.prop("pattern_setlock_tryCount").replace('4',pwdCount--));
+						} else {
+							plus.storage.setItem("savePwd", "no");//标识：登录页面不保存密码
+							var tologin=null;
+							tologin = plus.ui.createWindow("login.html", {
+								name : "login.html",
+								scrollIndicator : "none",
+								scalable : false,
+							});
+							tologin.addEventListener('loaded', function() {
+								tologin.show("fade-in",300);
+								setTimeout(function() {
+									plus.cache.clear();
+									for (var i = 0; i < winary.length ; i++) {
+										plus.ui.closeWindow(winary[i]);
+									}
+								}, false);
+							}, 300);
+						}
+					}
+				} else {
+					popDialog($.i18n.prop("pattern_setlock_atLeast"));
+				}
+			}
+
+			function init() {
+				var lock = new PatternLock("#patternHolder6", {
+					mapper : function(e) {
+						return e
+					},
+					onDraw : function(e) {
+						getPwd(e);
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

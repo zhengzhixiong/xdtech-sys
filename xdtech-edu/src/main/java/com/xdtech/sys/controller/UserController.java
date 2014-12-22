@@ -1,9 +1,12 @@
 package com.xdtech.sys.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -40,6 +43,17 @@ public class UserController{
 			request.setAttribute("userItem", userService.loadUserItem(userId));
 		}
 		return new ModelAndView("sys/user/editUser_ftl");
+	}
+	@RequestMapping(params = "saveUser")
+	@ResponseBody
+	public ResultMessage saveUser(UserItem item) {
+		ResultMessage r = new ResultMessage();
+		if (userService.saveOrUpdateUser(item)) {
+			r.setSuccess(true);
+		}else {
+			r.setSuccess(false);
+		}
+		return r;
 	}
 	
 	@RequestMapping(params = "addUser")
@@ -150,6 +164,23 @@ public class UserController{
 		}
 		return r;
 	}
+	@RequestMapping(params = "deleteUserItems")
+	@ResponseBody
+	public ResultMessage deleteUserItems(String ids) {
+		ResultMessage r = new ResultMessage();
+		if (StringUtils.isNotEmpty(ids)) {
+			String[] tempIds = ids.split(",");
+			List<Long> userIds = new ArrayList<Long>();
+			for (String id : tempIds) {
+				userIds.add(Long.valueOf(id));
+			}
+			userService.deleteUserInfo(userIds);
+			r.setSuccess(true);
+		}else {
+			r.setSuccess(false);
+		}
+		return r;
+	}
 	/**
 	 * 
 	 * @description 跳转用户角色相关信息
@@ -166,7 +197,7 @@ public class UserController{
 			request.setAttribute("userId", userId);
 			request.setAttribute("userItem", userService.loadUserItem(userId));
 		}
-		return new ModelAndView("sys/user/userLinkRoles");
+		return new ModelAndView("sys/user/userLinkRole_ftl");
 	}
 	
 	

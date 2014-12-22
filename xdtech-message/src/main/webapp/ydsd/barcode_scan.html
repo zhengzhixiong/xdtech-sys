@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<!--<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>-->
+		<title></title>
+		<style type="text/css">
+		* {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		html {
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			margin: 0;
+			padding: 0;
+			}
+		#bcid {
+			width: 100%;
+			position: absolute;
+			top: 0px;
+			bottom: 44px;
+			text-align: center;
+			z-index: 0;
+		}
+		.tip {
+			color: #000;
+			font-weight: bold;
+			text-shadow: 0px -1px #103E5C;
+		}
+		footer {
+			width: 100%;
+			height: 44px;
+			position: absolute;
+			bottom: 0px;
+			line-height: 44px;
+			text-align: center;
+			color: #FFF;
+		}
+		.fbt {
+			width: 50%;
+			height: 100%;
+			background-color: #FFCC33;
+			float: left;
+		}
+		.fbt:active {
+		  	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+			box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+		}
+		</style>
+		
+		
+	</head>
+	<body style="background:#FFFFFF">
+		<div id="bcid">
+			<br/><br/><br/><br/><br/>
+			<p class="tip"></p>
+		</div>
+		<footer>
+			<div class="fbt" onclick="scanBack();"></div>
+			<div class="fbt" onclick="openInput('input.html');"></div>
+		</footer>
+	</body>
+	<script src="js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/fastclick.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);	//加快响应点击事件
+			//国际化
+			var nationJson = [{"id":"title","name":"string_edaw"},{"id":".tip","name":"scan_loading"},
+					{"id":"footer div:eq(0)","name":"string_log_cancel"},{"id":"footer div:eq(1)","name":"search_manualInput"}
+			];
+			nation(nationJson);
+		});
+		//声明扫描对象，等待窗口对象，窗口对象
+		var scan = null;
+		var floatWin = null;
+		document.addEventListener("plusready", function() {
+			//页面准备好了，创建并打开扫描对象
+			setTimeout(function(){
+				scan = new plus.barcode.Barcode('bcid');
+			    scan.onmarked = onmarked;
+			    scan.start( {conserve:false,filename:"_doc/barcode/"} );
+			    plus.ui.toast($.i18n.prop("scan_alignBarCode"),{duration:"short",verticalAlign:"center"});
+			},100);
+			
+			plus.ui.getSelfWindow().addEventListener("back", function() {
+				scanBack();
+			});
+		},false);
+		//点击返回按钮事件
+		function scanBack(){
+			var winary = plus.ui.enumWindow();
+			setTimeout(function() {
+				winary[0].setVisible(true);
+				for (var i = 1; i < winary.length ; i++) {
+					plus.ui.closeWindow(winary[i]);
+				}
+			},100);
+		}
+		
+		//扫描后执行此方法
+		function openScanResult(id,type, result, file ) {
+			var url = encodeURI(id);
+			var r = '{"Barcode":"'+result+'"}';
+			//创建等待窗口，提交数据
+			plus.ui.enumWindow()[0].evalJS("openwait()");
+			RequestData('APP_ProductByBarcode',r,0,0,function(d){
+				try{
+					if(d.Data){//如果数据库有数据返回.跳转到products.html页面
+						if (navigator.userAgent.indexOf("Html5Plus") > 0) {
+							floatWin = plus.ui.createWindow(url, {
+								name : url,
+								scalable : false
+							});
+							floatWin.show('zoom-out', 200);
+							floatWin.addEventListener('loaded', function() {
+								floatWin.evalJS("scaned('"+ type +"','"+ result +"','"+ file +"');");
+								 plus.ui.getSelfWindow().close();
+								scan = null;
+								floatWin = null;
+							}, false);
+						} else {
+							window.location.href = id;
+						}
+					}else{
+						//如果没有数据返回，alert提示信息
+						if(navigator.userAgent.indexOf("Html5Plus") > 0){
+							plus.ui.confirm(result+$.i18n.prop("search_noFindItInSystem"), function(i) {
+								if (0 == i) {
+								scan.start( {conserve:false,filename:"_doc/barcode/"} );
+								}
+							},$.i18n.prop("string_warmPrompt"), [$.i18n.prop("string_ok")] );
+						}
+					}
+				}catch(e){
+					
+				}
+//				plus.ui.enumWindow()[0].evalJS("closewait()");
+			},function(d){
+				//如果没有数据返回，alert提示信息
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				if(navigator.userAgent.indexOf("Html5Plus") > 0){
+					plus.ui.confirm(result+$.i18n.prop("search_noFindItInSystem"), function(i) {
+						if (0 == i) {
+						scan.start( {conserve:false,filename:"_doc/barcode/"} );
+						}
+					},$.i18n.prop("string_warmPrompt"), [$.i18n.prop("string_ok")] );
+				}
+			},function(){
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_warmPrompt"), function() {}, "请求失败", "确定");
+				
+			});
+		}
+		//打开手动输入页面
+		function openInput(id) {
+			var url = encodeURI(id);
+			if (navigator.userAgent.indexOf("Html5Plus") > 0) {
+				floatWin = plus.ui.createWindow(url, {
+					name : url,
+					scalable : false
+				});
+				floatWin.addEventListener('loaded', function() {
+					floatWin.show('zoom-out', 200);
+					 plus.ui.getSelfWindow().close();
+					floatWin = null;
+				}, false);
+			} else {
+				window.location.href = id;
+			}
+		}	
+				
+		// 二维码扫描成功
+		function onmarked( type, result, file ) {
+		    switch(type){
+		    	case plus.barcode.QR:
+		    	type = "QR";
+		    	break;
+		    	case plus.barcode.EAN13:
+		    	type = "EAN13";
+		    	break;
+		    	case plus.barcode.EAN8:
+		    	type = "EAN8";
+		    	break;
+		    	default:
+		    	type = "其它";
+		    	break;
+		    }
+		    result = result.replace(/\n/g, '');
+			openScanResult("products.html?id=",type,result,file);
+		}
+		</script>
+</html>

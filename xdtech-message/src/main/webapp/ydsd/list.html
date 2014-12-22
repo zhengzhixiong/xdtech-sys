@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+		<script type="text/javascript" src="js/ed.js"></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<style>
+			.pullUp{
+				text-align: center;height: 30px;line-height: 20px;
+			}
+			.pullUpLabel{
+				font-size: 10px;
+			}
+			.brandList li{
+				padding:0.5em;
+			}
+			.gotop{
+				position:fixed;
+				display: none;
+				right: 0.5em;
+				bottom: 3em;
+			}
+			.carList .details{
+				min-height:110px;
+				}
+			.carList.thousand .details h4{
+				font-size:1em;
+				line-height:1.2em;
+				margin:-0.2em 0 0.3em;
+				padding:3px 0;
+				min-height:5em;
+				height:auto;
+				}
+			.parmBrand {
+				margin-right:4em;
+				clear:both;
+				left:0;
+				bottom:0;
+				line-height:1em;
+				position:relative;
+			}
+			.thouPri {
+				clear:both;
+				bottom:0;
+				float:right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="edBody">
+			<h1 id="title">&nbsp;</h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">&nbsp;</span>
+			</div>
+			<div class="main">
+			<div class="search">
+					<input readonly="readonly" class="inText" style="width: 90%;" type="text" onclick="openSearch_history();"  placeholder="查询信息" />
+				</div>
+				<div class="filter">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="50%" class="leftTd"><span class="brandF down"  onClick="showFilter(this,'#brand');"></span></td>
+							<td><span class="priceF down" ></span></td>
+						</tr>
+					</table>
+				</div>
+            	<ul  class="brandList" id="brand">
+                </ul>
+            <div class="carList thousand">
+            </div>
+          <div id="containerpage">
+			 <div id="container"></div>
+			 <div id="pullUp" class="pullUp">
+				<span class="pullUpIcon"></span><span class="pullUpLabel"></span>
+			 </div>
+		 </div>
+        </div>
+		<div id="gotop" class="gotop"><img alt="" style="width: 30px;height: 30px;" src="img/goTop.png"></div> 		
+		</div>
+	</body>
+	<script type="text/javascript">
+		function imgSize(){
+		   var imgObj = new Image();
+		   imgObj.src = this.src;
+                var maxWidth =100; // 图片最大宽度   
+                var maxHeight =100;    // 图片最大高度   
+                var ratio = 0;  // 缩放比例  
+                var width = $(this).width();    // 图片实际宽度   
+                var height = $(this).height();  // 图片实际高度     // 检查图片是否超宽   
+				if(width > maxWidth){       
+                    ratio = maxWidth / width;   // 计算缩放比例       
+                    $(this).css("width", maxWidth); // 设定实际显示宽度       
+                    height = height * ratio;    // 计算等比例缩放后的高度       
+                    $(this).css("height", height);  // 设定等比例缩放后的高度   
+                }     // 检查图片是否超高  
+                if(height > maxHeight){       
+                    ratio = maxHeight / height; // 计算缩放比例      
+                    $(this).css("height", maxHeight);   // 设定实际显示高度       
+                    width = width * ratio;    // 计算等比例缩放后的高度       
+                    $(this).css("width", width);    // 设定等比例缩放后的高度   
+                }
+		}
+	
+			$(function() {
+			FastClick.attach(document.body); //加快响应点击事件
+			//国际化
+			var json = [{"id":".priceF","name":"list_price"},{"id":"title","name":"string_edaw"},
+				{"id":".brandF ","name":"list_allBrand"}
+			];
+			nation(json);
+			});
+
+		var type = 0; //1.手机 2.配件
+		var brandID = 0;	//筛选品牌，0为默认全部
+		var pageIndex = 1;  //当前页码
+		var errIndex = 0;//连接错误时的页码
+		var pageSize = 10;	//每页显示数量，默认为10
+		var orderType  = 0;	//正序1反序2 
+		var advertID = null;//广告列表的id
+		var title = '';
+		var scroll = 1;//判断是否是滚动过,1没有滚动过,0滚动过
+		var flat = 0;//是否加载了商品，0有数据，1没有加载数据
+		
+		var isLoading = false;  //正在加载中禁止继续执行函数
+		var isScrolling = 0;	//划动时禁止继续显示头底部
+		var isEnd = false;		//判断用户是否touchend
+		
+		//获取url传送过来的值
+		var urlinfo = window.location.href;
+		var info = urlinfo.split("?");
+		var typeinfo = "";
+		//添加商品列表节点 
+		function addProduct(data){
+			if(!$(window).scrollTop()){
+				$("#gotop").hide(900);
+			}
+			try{
+				if(data.Data){
+					var list =data.Data;
+					var html = "";
+					for (var i = 0; i < list.length; i++) {
+						var p = list[i];
+						html += '<div class="proCart"><div class="details" onclick="clicked(\'products.html?id='+p.ProductId+'\')'+'"><div class="imgShow"><span><img class="listImg" src="'+p.ThumbPicture+'"  onerror="javascript:this.src=\'images/logo.png\';"/></span></div><div class="detailsShow"><h4>'+p.ProductName+'</h4><div class="thouPri"><strong>￥'+p.EDawPrice+'</strong></div><div class="parmBrand">'+$.i18n.prop("list_brand")+p.Brand+'</div></div></div></div>';
+						//html += '<div class="proCart"><div class="details" onclick="clicked(\'products.html?id='+p.ProductId+'\')'+'"><div class="imgShow"><span><img class="listImg" src="'+p.ThumbPicture+'"  onerror="javascript:this.src=\'images/logo.png\';"/></span></div><div class="detailsShow"><h4>ProductName show here will showProductName show here will showProductName show here will showProductName show here will show</h4><div class="thouPri"><strong>￥'+p.EDawPrice+'</strong></div><div class="parmBrand">'+$.i18n.prop("list_brand")+p.Brand+'</div></div></div></div>';
+					}
+					$(".carList").append(html);
+					$('.imgShow img').each(function() {
+		                	var memberHeaderimg=$(this)[0];
+							memberHeaderimg.onload = function(){
+							imgSize.call(memberHeaderimg);
+						}
+					});
+					
+					//2014-6-5获取数据，少于10条的数据，不显示加载更多
+					//大于等于10条就显示加载 更多 ，等于零显示没有数据
+					if(0<list.length<10){
+						$('.pullUpLabel').html("");
+					}else if(list.length>=10){
+						$('.pullUpLabel').html($.i18n.prop("list_more"));
+					} else if(!list){
+						$('.pullUpLabel').html($.i18n.prop("list_nodata"));
+					}
+					isLoading = false;
+				}else{
+					$('.pullUpLabel').hide();
+				}
+			}catch(e){
+			}
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+		}
+		//跳转搜索页面
+		function openSearch_history() {
+			clicked('search_history.html?type=SJK', 'fade-in');
+		}
+		//调用APP_ProductListByAdvert接口连接数据，并把数据添加到页面
+		function requestDataByAdvert(){
+			var data = '{"AdvertID":"'+advertID+'","BrandID":"'+brandID+'","PriceOrderByType":"'+orderType+'","PageIndex":"'+pageIndex+'","PageSize":"'+pageSize+'"}';
+			RequestData('APP_ProductListByAdvert',data,0,0,function(d){
+				addProduct(d);
+				flat = 0;
+				if(!d.Data&& scroll){
+					flat = 1;
+					$(".carList").html("<div style='width:100%;height:30px;text-align:center;margin-top:3em;'>"+$.i18n.prop("list_noRelatedProduct")+"</div>");
+				}
+			},function(d){
+				pageIndex=errIndex;
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+			},function(){
+				pageIndex=errIndex;
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+			});
+			
+		}
+		
+		//调用APP_ProductListByType接口连接数据，并把数据添加到页面
+		function requestHTMLData(){
+			var data = '{"ProductType":"'+type+'","BrandID":"'+brandID+'","PriceOrderByType":"'+orderType+'","PageIndex":"'+pageIndex+'","PageSize":"'+pageSize+'"}';
+			RequestData('APP_ProductListByType',data,0,0,function(d){
+				addProduct(d);
+				flat = 0;
+				if(!d.Data&& scroll){
+					flat = 1;
+					$(".carList").html("<div style='width:100%;height:30px;text-align:center;margin-top:3em;'>"+$.i18n.prop("list_noRelatedProduct")+"</div>");
+				}
+			},function(){
+				pageIndex=errIndex;
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+			},function(){
+				pageIndex=errIndex;
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+			});
+		}	
+			
+		document.addEventListener("plusready", function() {
+			//显示等待窗口
+//			plus.ui.enumWindow()[0].evalJS("openwait()");
+			typeinfo = decodeURI(info[1].split("=")[1]);
+			//获取首页传过来的id
+			if(typeinfo.indexOf("#")>0){
+				title = typeinfo.split("#")[0];
+				$("#title").html(title);
+				//type = decodeURI(typeinfo);
+				keyW = typeinfo.split("#")[1];
+				type = keyW=="SJK"?1:keyW=="PJK"?2:0;
+				getBrand('APP_BrandListByType','{"Type":"'+type+'"}');
+				requestHTMLData();	//页面第一次加载
+			}
+			//2014-6-5 价格正反序
+			setTimeout(function(){
+				$('.priceF').click(function (){
+					$(this).toggleClass('up','down');
+					orderType = orderType==1?2:1;
+					pageIndex = 1;
+					if(!flat){//有数据才可以点击，按价格排序
+						plus.ui.enumWindow()[0].evalJS("openwait()");
+						$(".carList").empty();
+						if(advertID){
+							requestDataByAdvert();
+						}else{
+							requestHTMLData();
+						}
+					}
+				});
+				
+			},500);
+		},false);
+		
+			
+			function getBrand(byType,type){
+//				alert(type)
+				//连接品牌列表数据
+				RequestData(byType,type,0,0,function(data){
+					var list = data.Data.BrandList;
+					$("#brand").append("<li>"+$.i18n.prop("list_allBrand")+"<input value='0' type='hidden'/></li>");
+					for (var i = 0; i < list.length; i++) {
+						var html = "<li>"+ list[i].BrandName + "<input value='"+list[i].BrandId+"' type='hidden'/> </li>";
+						$("#brand").append(html);
+					}
+					//为品牌数据添加点击事件
+					$('.brandList li').click(function(){
+						 $('.brandF').removeClass('on')
+						 $('.brandList').hide();
+						 var bName = $(this).text();
+						 brandID = $(this).children().val();
+						 //品牌名字过长，截取
+						 if($(this).text().length>9){
+							bName = $(this).text().substring(0,10)+"..";
+						}
+						 
+						 $('.brandF').text(bName);
+						 //按品牌搜索，重置页码为1
+						 orderType  = 0;//设置排序为0，即默认
+						 pageIndex = 1;
+						 scroll = 1;//重置滚动标识为1
+						 $(".carList").empty();
+						 plus.ui.enumWindow()[0].evalJS("openwait()");
+						 if(advertID){
+						 	requestDataByAdvert();
+						 }else{
+							requestHTMLData();
+						}
+						 //改变显示品牌的状态
+						$('.brandF').removeClass('up');
+					});
+				},function(){},function(){
+				});
+			}
+		$(function() {
+			$("#gotop").click(//定义返回顶部点击向上滚动的动画
+				function(){$('html,body').animate({scrollTop:0},700);
+			}).hover(//为返回顶部增加鼠标进入的反馈效果，用添加删除css类实现
+				function(){$(this).addClass("hover");},
+				function(){$(this).removeClass("hover");
+			});
+			//下拉加载数据
+			$(window).bind('scroll', function() {
+				show();
+				if ($(window).scrollTop() > 100) {
+					$("#gotop").show(900);
+				}else {
+					$("#gotop").hide(900);
+				}
+			});
+			
+			//滚动的时候，加载数据
+			function show() {
+				if ($(window).scrollTop() + $(window).height() + 30 >= $(document).height()&&!isLoading) {
+					$('.pullUpLabel').html($.i18n.prop("list_loading"));
+					isLoading = true;
+//					var lastID = $(".listA:last input").val();
+					pageIndex++;
+					errIndex = pageIndex;//记录当前连接的页数，如果连接出错，再把重置pageIndex为当前页数
+					scroll = 0;//标识为滚动状态，如果没有数据刚不加载
+					plus.ui.enumWindow()[0].evalJS("openwait()");
+					if(advertID){
+						requestDataByAdvert();
+					}else{
+						requestHTMLData();
+					}
+				}else if($(window).scrollTop()==0){
+					$(".filter").show();
+					$('h1').show(100);
+					$('.topInfo').show(100);
+				}
+			}
+			
+		});
+
+	</script>
+</html>

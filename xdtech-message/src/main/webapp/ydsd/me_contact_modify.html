@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<style>
+			.selArea select {
+				border: none;
+				font-family: Tahoma, Geneva, sans-serif, '宋体';
+				font-size: 1em;
+				width: 100%;
+				color: #535353;
+			}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body>
+		<div class="edBody">
+			<h1 id="title"></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">&nbsp;</span>
+			</div>
+			<div class="main" style="margin-bottom:90px;">
+				<div class="reg">
+					<form>
+						<ul>
+							<li>
+								<h4>:</h4>
+								<input type="text" placeholder="" onBlur="" id="name"/>
+								<span class="alarmText"></span>
+							</li>
+							<li>
+								<h4>:</h4>
+								<input type="number"  placeholder="" onBlur="" id="phone"/>
+								<span class="alarmText"></span>
+							</li>
+							<li>
+								<label for="selProvince"><h4>:</h4>
+									<select id="selProvince" name="province" onChange="getCityData(this)"></select></label>
+							</li>
+							<li>
+								<label for="selCity"><h4>:</h4>
+									<select id="selCity" name="City"></select></label>
+							</li>
+							<li>
+								<label for="address"><h4>:</h4>
+									<input placeholder="" onBlur="" id="address">
+									</input><span id="addressTip"></span></label>
+							</li>
+							<li>
+								<h4>:</h4>
+								<input type="text" placeholder="" id="email" onBlur="checkEmail('#email')"/>
+								<span class="alarmText"></span>
+							</li>
+							<li>
+								<h4></h4>
+								<input type="number"  placeholder="QQ" id="qq"/>
+								<span class="alarmText"></span>
+							</li>
+							<li style="height:150px"></li>
+						</ul>
+					</form>
+					<div class="controlBtu footerCon">
+						<button class="sure" onClick="updateContact();">
+							
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="inputErr" class="cartTips">
+			<h2 style="color: #000000;"></h2>
+			<h3 id="inputErrTip"></h3>
+			<button class="oneBtu" onclick="closeDia();">
+			</button>
+		</div>
+		<div class="cartTips" id="updateErr">
+			<h2 style="color: #000000;"></h2><h3 id="updateErrTip"></h3><button class="oneBtu" onClick="closeDialog();"></button>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/m_ed.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/province_user.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fastclick.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);	//加快响应点击事件
+				//国际化
+				var nationJson = [{"id":"title","name":"string_edaw"},{"id":".sure","name":"string_saveUpdate"},
+					{"id":"#updateErr h2,#inputErr h2","name":"string_warmPrompt"},
+					{"id":"#title","name":"string_myContactWay"},{"id":"#inputErrTip","name":"string_updateSucceed"},
+					{"id":".oneBtu","name":"string_ok"}
+				];
+				var inputJson = [{"id":".reg ul li:eq(0) input","name":"recive_input_consignee"},{"id":".reg ul li:eq(1) input","name":"recive_input_phone"},
+					{"id":".reg ul li:eq(4) input","name":"recive_input_address"},{"id":".reg ul li:eq(5) input","name":"reg_input_emailAdd"},
+					{"id":".reg ul li:eq(6) input","name":"reg_input_tencent"}
+				];
+				nation(nationJson);
+				$('#updateErrTip').html($.i18n.prop("recive_pop_infoNoFillIn")+"<br />"+$.i18n.prop("recive_pop_FillInEnd"));
+				//input框例子提示
+				$('.reg ul li:eq(0) span').attr("onBlur",'check(this,"'+$.i18n.prop("string_onblur_consignee")+'")');
+				$('.reg ul li:eq(1) span').attr("onBlur",'check(this,"'+$.i18n.prop("string_onblur_phone")+'")');
+				$('.reg ul li:eq(4) span').attr("onBlur",'check(this,"'+$.i18n.prop("string_onblur_address")+'")');
+				$('.reg ul li:eq(0) h4').prepend($.i18n.prop("reg_contacts"));
+				$('.reg ul li:eq(1) h4').prepend($.i18n.prop("reg_phone"));
+				$('.reg ul li:eq(2) h4').prepend($.i18n.prop("reg_province"));
+				$('.reg ul li:eq(3) h4').prepend($.i18n.prop("reg_city"));
+				$('.reg ul li:eq(4) h4').prepend($.i18n.prop("reg_address"));
+				$('.reg ul li:eq(5) h4').prepend($.i18n.prop("reg_emailAdd"));
+				$('.reg ul li:eq(6) h4').prepend($.i18n.prop("reg_tencent"));
+			});
+			
+			function getCityData(obj){
+				var id = obj.options[obj.selectedIndex].value.split("#")[1];
+				getCity(id);
+			}
+			
+			//非空验证
+			function check(obj, text) {
+				if ($(obj).val().length < 1) {
+					$(obj).next().text(text);
+					$(obj).parent().addClass('alarmText');
+					return false;
+				} else {
+					$(obj).next().text("");
+					$(obj).parent().removeClass('alarmText');
+					return true;
+				}
+			}
+			//关闭蒙版,恢复滚动,跳转界面
+			function closeDia() {
+				$.skygqbox.hide();
+				remliste();
+				var e_win = plus.ui.enumWindow();
+				e_win[e_win.length-2].close();
+				openPage('me_contact.html');
+			}
+
+			/**
+			 * 检查手机号或电话号码的格式是否正确
+			 */
+			function checkPhone(obj, text) {
+				var pattern = /(^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/;
+				if (!pattern.test($(obj).val())) {
+					$(obj).next().text(text);
+					$(obj).parent().addClass("alarmText");
+					//										$(obj).focus();
+					return false;
+				} else {
+					$(obj).next().text("");
+					$(obj).parent().removeClass('alarmText');
+					return true;
+				}
+			}
+
+			/**
+			 * 检查输入的邮箱格式是否正确
+			 */
+			function checkEmail(obj) {
+				if ($("#email").val().toLowerCase().match(/[A-Za-z0-9_-]+[@](\S*)(net|com|cn|org|cc|tv|[0-9]{1,3})(\S*)/g) == null) {
+					$("#emailTip").text($.i18n.prop("string_onblur_email")).addClass("alarmText");
+					$("#emailTip").click(function() {
+						$("#email").focus();
+					});
+					$("#email").focus();
+					$(obj).parent().addClass("alarmText");
+					$("#reg").attr("disabled", true);
+					return false;
+				} else {
+					$("#emailTip").text("").removeClass("alarmText");
+					$(obj).parent().removeClass("alarmText");
+					return true;
+				}
+			}
+			//检查全部
+			function checkAll(){
+				if(check('#name',$.i18n.prop("string_onblur_consignee"))&&checkPhone('#phone',$.i18n.prop("string_onblur_phone"))&&check('#address',$.i18n.prop("string_onblur_address"))&&checkEmail('#email')){
+					return true;
+				}
+				openDialog("#updateErr");
+				return false;
+			}
+			//验证符合,发送连接
+			function updateContact() {
+				if(checkAll()){
+					var datas = '{"Contract": "' + $('#name').val() + '","Phone": "' + $('#phone').val() + '","QQ": "' + $('#qq').val() + '","Email": "' + $('#email').val() + '","Province":"' + $('#selProvince option:selected').html() + '",' + '"City":"' + $('#selCity  option:selected').html() + '","Address": "' + $('#address').val() + '"}';
+					RequestData('APP_UserContactUpdate', datas, 0, 0, function(e) {
+						$('#inputErr').skygqbox();
+						addliste();
+					}, function(e) {
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+						plus.ui.alert(e.Message, function() {}, "请求失败", "确定");;
+					},function(){
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+						plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+					});
+				}
+			}
+			//获取页面数据
+			function getData() {
+				RequestData('APP_UserDetail', '', 0, 0, function(e) {
+					$('#name').val(e.Data.Contract);
+					$('#address').val(e.Data.Address);
+					$('#phone').val(e.Data.Phone);
+					$('#email').val(e.Data.Email);
+					$('#qq').val(e.Data.QQ);
+					$('#province').val(e.Data.Province);
+					$('#City').val(e.Data.City);
+					//获取省份城市
+					getProvince(e.Data.Province);
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+				}, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert(e.Message, function() {}, "请求失败", "确定");;
+					setTimeout(function() {
+						openPage('me_contact.html');
+					}, 200);
+				},function(){
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+				});
+			}
+			
+			document.addEventListener("plusready", function() {
+				
+				getData();//获取数据
+				
+				if ("iOS" == plus.os.name) {//是IOS
+					//输入框获得焦点把顶部定位改为ansolute。因为在ios里打开输入框时，fixed失效
+					$("input,select").focusin(function() {
+						$("#title").css("position", "absolute");
+						$(".topInfo").css("position", "absolute");
+						$(".conBtu").css("position", "absolute");
+						$(".controlBtu").hide();
+					});
+					//输入没有焦点时，再修改为以前的。
+					$("input,select").focusout(function() {
+						$("#title").css("position", "fixed");
+						$(".topInfo").css("position", "fixed");
+						$(".conBtu").css("position", "fixed");
+						$(".controlBtu").show();
+					});
+				}
+	
+				if ("Android" == plus.os.name) {//是安卓
+					setTimeout(function() {
+						var height = $(window).height();
+						$(window).resize(function() {
+							if ($(window).height() < height) {//页面高度变小的时候隐藏按键
+								$(".controlBtu").hide();
+							} else if ($(window).height() == height) {//页面高度恢复的时候显示按键
+								$(".controlBtu").show();
+							}
+						});
+					}, 900);
+					$('input[type="number"]').each(function(i,el){
+						el.type = "text";
+						el.onfocus = function(){this.type="number";$(this).attr("onBlur",$(this).attr("onBlur"));};
+					    el.onblur = function(){this.type="text";};
+					});
+				}
+			}, false);
+		</script>
+	</body>
+</html>

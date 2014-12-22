@@ -47,7 +47,7 @@ public class StudentServiceImpl implements StudentService {
 			Map<String, String> values) {
 		Map<String, Object> results = new HashMap<String, Object>();
 
-		// Page<Student> page = studentDao.loadPageByCond(pg,values);
+//		 Page<Student> page = studentDao.loadPageByCond(pg,values);
 
 //		Page page = baseDao.findPageByNamedQuery(pg, "student.getByCondition",
 //				values);

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-statement>
+	<sql type="HQL" name="shop.goods.getByCondition">
+		<![CDATA[
+			select distinct g FROM Goods g,Category c WHERE 1=1 and c.id in elements (g.categories)
+			  <#if name??>
+					and g.name='${name}'
+			  </#if>
+			  <#if status??>
+					and g.status='${status}'
+			  </#if>
+			  <#if categoryIds??>
+					and c.id in (${categoryIds})
+			  </#if>
+			  order by g.createTime desc
+		 ]]>
+	</sql>
+</dynamic-statement>

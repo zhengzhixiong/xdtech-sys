@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>关于</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+        var ffid=33333;
+        $(document).ready(function() {
+            $(".quote_outer input[type=file]").change(function(event) {
+                event.preventDefault();
+                $(this).after('<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');});
+        });
+
+        $(function() {
+            $( ".selector" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#datepicker" ).datepicker();
+            $( "#Deadline" ).datepicker();
+        });
+    </script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+            $('#slider2').nivoSlider();
+
+            $('#carousel').carouFredSel({
+                circular: true,         // Determines whether the carousel should be circular.
+                infinite: true,         // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+                responsive: true,      // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+                direction: "left",      // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+                width: null,            // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+                height: null,           // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+                align: "center",
+                scroll : {
+                    items           : 1
+                },
+                wraper : {
+                    element     : "div",
+                    classname   : "col-sm-8"
+                }
+            });
+        });
+
+
+    </script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+		
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+		
+		<div style="clear: both;"></div>
+
+		<!-- about页面里中间内容 -->
+		<div class="top_container">
+			<div class="mobile-600 hidden-lg hidden-md hidden-sm visible-xs">
+
+				<div class="container">
+
+					<div class="col-sm-12">
+						<div class="col-sm-12 blueform-mobile-small">
+
+							<div class="height-15"></div>
+
+							<div class="get-free-quote">GET A FREE QUOTE NOW!</div>
+
+							<!-- 引入手机端提交界面表单 -->
+							<#include "mobilePostOrderForm.html">
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+
+				<div class="container white-background">
+
+					<div class="about-text-title">
+						<h3>ABOUT HERO PATCHES</h3>
+					</div>
+
+					<div class="about-text">
+						<p>&nbsp;</p>
+						<div>Hero Patches is a company founded on the core value of
+							providing the highest quality and the cheapest published prices
+							in the industry. ï¿½No manufacturer in the industry has lower
+							published prices than Hero Patches.</div>
+						<p>&nbsp;</p>
+						<div>Hero Patches provides top quality, low cost patches to
+							customers for every company, school, and organization on the
+							planet Earth. ï¿½Nobody can do patches cheaper or better.
+							ï¿½Nobody can beat our price!ï¿½Additionally, shipping is free
+							anywhere in the world.</div>
+						<div></div>
+						<div>Hero Patches offers countless options which means you
+							not only get the best quality patches at the lowest cost, but
+							Hero Patches also allows you to create something truly unique to
+							represent your company, your organization, your event, your
+							group, or yourself.</div>
+						<p>&nbsp;</p>
+						<div>To get started on a wonderful developing experience
+							just complete our quotation form. ï¿½One of our highly trained
+							patch experts will get back with you immediately with pricing.
+							ï¿½Additionally, our patch experts are trained to make sure you
+							receive expert advise on options and specifications to make sure
+							you get what you want, need, and desire, and at the lowest cost
+							to you.</div>
+						<p>&nbsp;</p>
+						<div>Hero Patches also provides superb design services free
+							of charge. Our Design Heroes are some of the best in the
+							industry. ï¿½Contracting this work out to a graphic designer can
+							cost you over $100. ï¿½If you require a design to be done form
+							scratch, or if you only need slight modifications to an existing
+							design, you will pay absolutely nothing!</div>
+						<p>&nbsp;</p>
+						<div>Do not think Hero Patches only offers the lowest
+							published prices for large quantity orders. ï¿½We offer the
+							lowest published prices for any quality, from as few as one to
+							many thousands. ï¿½So no matter what your patch needs is, Hero
+							Patches will provide the lowest cost.</div>
+						<p>&nbsp;</p>
+						<div>
+							<img class="aligncenter img-responsive size-full wp-image-74"
+								alt="about her patches photo"
+								src="images/about-her-patches-photo.jpg" width="552"
+								height="193" />
+						</div>
+						<p>&nbsp;</p>
+						<div>When you add everything up, the selection is simpleï¿½</div>
+						<div>
+							<em><strong>The Lowest Cost</strong></em>
+						</div>
+						<div>
+							<em><strong>Free Shipping</strong></em>
+						</div>
+						<div>
+							<em><strong>Free Design</strong></em>
+						</div>
+						<div>
+							<em><strong>No Minimum Order Quantities</strong></em>
+						</div>
+						<div>
+							<em><strong>Great Customer Service</strong></em>
+						</div>
+						<div>
+							<em><strong>Expert Advise and Support</strong></em>
+						</div>
+						<p>&nbsp;</p>
+						<div>It all adds up to the best custom patch provider in the
+							industry, Hero Patches.ï¿½Give us a call at 877.731.4711 and
+							speak to one of our Patch Heroes or fill out our quotation form
+							and one of our Patch Heroes will contact you.</div>
+						<p>&nbsp;</p>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+			<div id="wrapper">
+
+				<div class="slider-wrapper theme-default">
+
+
+
+					<div class="visible-lg visible-md visible-sm hidden-xs">
+
+
+
+						<div class="container">
+
+							<div class="">
+
+								<div class="col-sm-7 heropatches-about">
+
+									<div class="about-text-title">
+										<h3>ABOUT HERO PATCHES</h3>
+									</div>
+
+									<div class="about-text">
+										<p>&nbsp;</p>
+										<div>Hero Patches is a company founded on the core value
+											of providing the highest quality and the cheapest published
+											prices in the industry. ï¿½No manufacturer in the industry
+											has lower published prices than Hero Patches.</div>
+										<p>&nbsp;</p>
+										<div>Hero Patches provides top quality, low cost patches
+											to customers for every company, school, and organization on
+											the planet Earth. ï¿½Nobody can do patches cheaper or better.
+											ï¿½Nobody can beat our price!ï¿½Additionally, shipping is
+											free anywhere in the world.</div>
+										<div></div>
+										<div>Hero Patches offers countless options which means
+											you not only get the best quality patches at the lowest cost,
+											but Hero Patches also allows you to create something truly
+											unique to represent your company, your organization, your
+											event, your group, or yourself.</div>
+										<p>&nbsp;</p>
+										<div>To get started on a wonderful developing experience
+											just complete our quotation form. ï¿½One of our highly
+											trained patch experts will get back with you immediately with
+											pricing. ï¿½Additionally, our patch experts are trained to
+											make sure you receive expert advise on options and
+											specifications to make sure you get what you want, need, and
+											desire, and at the lowest cost to you.</div>
+										<p>&nbsp;</p>
+										<div>Hero Patches also provides superb design services
+											free of charge. Our Design Heroes are some of the best in the
+											industry. ï¿½Contracting this work out to a graphic designer
+											can cost you over $100. ï¿½If you require a design to be done
+											form scratch, or if you only need slight modifications to an
+											existing design, you will pay absolutely nothing!</div>
+										<p>&nbsp;</p>
+										<div>Do not think Hero Patches only offers the lowest
+											published prices for large quantity orders. ï¿½We offer the
+											lowest published prices for any quality, from as few as one
+											to many thousands. ï¿½So no matter what your patch needs is,
+											Hero Patches will provide the lowest cost.</div>
+										<p>&nbsp;</p>
+										<div>
+											<img class="aligncenter img-responsive size-full wp-image-74"
+												alt="about her patches photo"
+												src="images/about-her-patches-photo.jpg" width="552"
+												height="193" />
+										</div>
+										<p>&nbsp;</p>
+										<div>When you add everything up, the selection is
+											simpleï¿½</div>
+										<div>
+											<em><strong>The Lowest Cost</strong></em>
+										</div>
+										<div>
+											<em><strong>Free Shipping</strong></em>
+										</div>
+										<div>
+											<em><strong>Free Design</strong></em>
+										</div>
+										<div>
+											<em><strong>No Minimum Order Quantities</strong></em>
+										</div>
+										<div>
+											<em><strong>Great Customer Service</strong></em>
+										</div>
+										<div>
+											<em><strong>Expert Advise and Support</strong></em>
+										</div>
+										<p>&nbsp;</p>
+										<div>It all adds up to the best custom patch provider in
+											the industry, Hero Patches.ï¿½Give us a call at 877.731.4711
+											and speak to one of our Patch Heroes or fill out our
+											quotation form and one of our Patch Heroes will contact you.</div>
+										<p>&nbsp;</p>
+									</div>
+
+								</div>
+
+								<div class="col-sm-5 heropatches-about">
+
+									<div id="slider-form">
+
+										<div class="blueform">
+
+											<div class="col-sm-12">
+												<img src="images/get-free-quote.png" class="red-ribbon" />
+											</div>
+											&nbsp;
+											<!-- 引入web提交界面表单 -->
+											<#include "webPostOrderForm.html">
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="about-banner">
+
+								<img alt="" src="images/beat.png">
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- about页面里中间内容结束 -->
+
+		<!--引入底部-->
+		<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;">
+		</div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

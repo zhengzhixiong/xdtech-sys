@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+		 <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<link rel="stylesheet" type="text/css" href="css/reg.css"/>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/reg.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/province.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript" charset="utf-8">
+	    //加快响应点击事件
+		$(function() {
+			FastClick.attach(document.body);
+			//国际化
+			var nationJson = [{"id":"title","name":"string_edaw"},{"id":"#title","name":"reg_tile"},
+					{"id":"#reg","name":"string_reg"},
+					{"id":"#tips h2","name":"reg_regSucceed"},{"id":"#tips button","name":"string_ok"},{"id":".success","name":"reg_userAndPwdWillSend"},
+					{"id":"#errTips h2","name":"string_warmPrompt"},{"id":"#errTips button","name":"string_ok"},
+					{"id":"#cannotBack h3","name":"reg_infoWillDisappear"},
+					{"id":"#cannotBack button:eq(0)","name":"string_no"},{"id":"#cannotBack button:eq(1)","name":"string_yes"}
+			];
+			var nationInputJson = [{"id":".reg ul li:eq(0) input","name":"reg_input_company"},{"id":".reg ul li:eq(1) input","name":"reg_input_COHR"},
+						{"id":".reg ul li:eq(2) input","name":"reg_input_contacts"},{"id":".reg ul li:eq(3) input","name":"reg_input_phone"},
+						{"id":".reg ul li:eq(4) input","name":"reg_input_tencent"},{"id":".reg ul li:eq(5) input","name":"reg_input_emailAdd"},
+						{"id":".reg ul li:eq(8) input","name":"reg_input_address"},{"id":".reg ul li:eq(11) input","name":"reg_input_wechat"},
+						{"id":".reg ul li:eq(10) input","name":"reg_input_comment"}];
+			nation(nationJson,nationInputJson);
+			$('.regAdd').html($.i18n.prop("reg_completeTheInfo")+"<br />"+$.i18n.prop("reg_userAndPwdWillSend"));
+			$('#cannotBack h3').after($.i18n.prop("reg_reallyBack"));
+			$('.reg ul li:eq(0) h4').prepend($.i18n.prop("reg_company"));
+			$('.reg ul li:eq(1) h4').prepend($.i18n.prop("reg_COHR"));
+			$('.reg ul li:eq(2) h4').prepend($.i18n.prop("reg_contacts"));
+			$('.reg ul li:eq(3) h4').prepend($.i18n.prop("reg_phone"));
+			$('.reg ul li:eq(4) h4').prepend($.i18n.prop("reg_tencent"));
+			$('.reg ul li:eq(5) h4').prepend($.i18n.prop("reg_emailAdd"));
+			$('.reg ul li:eq(6) h4').prepend($.i18n.prop("reg_province"));
+			$('.reg ul li:eq(7) h4').prepend($.i18n.prop("reg_city"));
+			$('.reg ul li:eq(8) h4').prepend($.i18n.prop("reg_address"));
+			$('.reg ul li:eq(11) h4').prepend($.i18n.prop("reg_wechat"));
+			$('.reg ul li:eq(10) h4').prepend($.i18n.prop("reg_comment"));
+		});
+	    </script>
+		<style>
+			.controlBtu{
+				bottom: 0px;
+			}
+			
+			#reg{
+				width: 100%;
+			}
+			.regBtu.off{
+				background-color: #d8d8d8;
+				border: 1px solid #d0d0d0;
+			}
+		</style>
+		<script type="text/javascript">
+			getProvince();
+		document.addEventListener("plusready", function() {
+			
+			
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			if ("iOS" == plus.os.name) {
+				//输入框获得焦点把顶部定位改为ansolute。因为在ios里打开输入框时，fixed失效
+				$("input,select,textarea").focusin(function(){ 
+					$("#title").css("position","absolute");
+					$(".topInfo").css("position","absolute");
+					$(".conBtu").css("position","absolute");
+				});
+				//输入没有焦点时，再修改为以前的。
+				$("input,select,textarea").focusout(function(){ 
+					$("#title").css("position","fixed");
+					$(".topInfo").css("position","fixed");
+					$(".conBtu").css("position","fixed");
+				});
+			}
+			if ("Android" == plus.os.name) {
+				$('input[type="number"]').each(function(i,el){
+					el.type = "text";
+					el.onfocus = function(){this.type="number";$(this).attr("onBlur",$(this).attr("onBlur"));};
+				    el.onblur = function(){this.type="text";};
+				});
+			}
+		},false);
+		
+		//输入框获得焦点时，label文字改变颜色
+		setTimeout(function(){
+			$(".reg li input").focusin(function(){ 
+				$(this).prev().css("color","#004faf");
+			});
+			$(".reg li input").focusout(function(){ 
+				$(this).prev().css("color","#000");
+			});
+			
+			$(".reg li select").focusin(function(){ 
+				$(this).prev().css("color","#004faf");
+			});
+			$(".reg li select").focusout(function(){ 
+				$(this).prev().css("color","#000");
+			});
+		},900);
+		</script>
+		
+		
+	</head>
+
+	<body id="bodys">
+		<h1 id="title"></h1>
+			<div class="topInfo">
+				<div class="conBtu"  onClick="openDialog('#cannotBack')">
+					&nbsp;
+				</div>
+			</div>
+		<div class="edBody">
+			<div class="main noBottom">
+				<div class="reg">
+					<div class="regAdd">
+					</div>
+						<ul>
+							<li>
+								<label for="company"><h4>:</h4>
+								<input  style=" text-align:center" type="text" placeholder="" id="company" name="Company" onBlur="checkCompany('#company')"/>
+								<span id="companyTip"></span></label>
+							</li>
+							<li>
+								<label for="_company"><h4>:</h4>
+								<input style=" text-align:center" type="text" placeholder="" name="CompanyShortName" id="_company" onBlur="checkCompany2('#_company')"/>
+								<span id="_companyTip"></span></label>
+							</li>
+							<li>
+								<label for="contact"><h4>:</h4>
+								<input style=" text-align:center" type="text" placeholder="" name="Contract" onBlur="checkContact('#contact')" id="contact"/>
+								<span id="contactTip"></span></label>
+							</li>
+							<li> 
+								<label for="phone"><h4>:</h4>
+								<input style=" text-align:center" type="number"   placeholder="" name="Phone" onBlur="checkPhone('#phone')" id="phone"/>
+								<span id="phoneTip"></span></label>
+							</li>
+							<li>
+								<label for="qq"><h4>:</h4>
+								<input style=" text-align:center" type="number"  placeholder="" name="QQ" onBlur="checkQQ('#qq')" id="qq"/>
+								<span id="qqTip"></span></label>
+							</li>
+							<li>
+								<label for="email"><h4>:</h4>
+								<input style=" text-align:center" type="email" placeholder="" name="Email" onBlur="checkEmail('#email')" id="email"  value=""/>
+								<span id="emailTip"></span></label>
+							</li>
+							<li>
+								<label for="selProvince"><h4>:</h4>
+								<select id="selProvince" name="province" onChange="getCity(this.options[this.selectedIndex].value)">
+								</select></label>
+							</li>
+							<li>
+								<label for="selCity"><h4>:</h4>
+								<select id="selCity" name="City"></select></label>
+							</li>
+							<!--<li id='area' >
+								<label for="selArea"><h4>城&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区</h4>
+								<select name="Area" id="selArea"></select></label>
+							</li>-->
+							<li>
+								<label for="address"><h4>:</h4><input style=" text-align:center" placeholder="" name="Address" onBlur="checkAddress('#address')" id="address"></input><span id="addressTip"></span></label>
+							</li>
+							<li>
+								<label for="businesman"><h4>业务员:</h4>
+								<input style=" text-align:center" type="text" name="BusinesMan" onblur="checkBusinesMan('#businesman');" id="businesman" placeholder="推荐的业务员" />
+								<span id="businesmanTip"></span></label>
+							</li>
+							<li>
+								<label for="wechat"><h4>:</h4>
+								<input style=" text-align:center" type="text" name="WeChat" id="wechat" placeholder="" /></label>
+							</li>
+							<li>
+								<label for="remark"><h4>:</h4>
+								<input style=" text-align:center" type="text" name="Remark" id="remark" placeholder="" /></label>
+							</li>
+							
+							<li><button id="reg" class="regBtu  off" onClick="reg();" disabled="disabled"></button> </li>
+						</ul>
+		                
+					<div class="cartTips" id="tips">
+						<h2></h2>
+						<span class="success"></span>
+						<br/>
+						<button onClick="clicked('login.html')">
+						</button>
+					</div>
+					<div class="cartTips" id="errTips">
+						<h2></h2><span id="errTip"></span>
+						<br/>
+						<button type="button" onClick="closeDialog();">
+						</button>
+					</div>
+					<div class="cartTips" style="background: white;" id="cannotBack">
+						<h3></h3>
+						<br />
+						<button onClick="closeDialog();">
+						</button>
+						<button type="button" onClick="back();">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

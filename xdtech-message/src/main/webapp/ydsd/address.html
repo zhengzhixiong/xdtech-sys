@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="renderer" content="webkit">
+		<meta name="format-detection" content="telephone=no" />
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script type="text/javascript" src="js/ed.js"></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/net.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/fastclick.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.orderRN.off {
+				background-color: #d8d8d8;
+				border: 1px solid #d0d0d0;
+			}
+		</style>
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">&nbsp;</span>
+				<span class="orderRN" id="place" onclick="placeOrder()"></span>
+			</div>
+			<div class="main indexBg selectAdd" style="margin-bottom:40px;">
+			</div>
+			<div class="controlBtu footerCon footerCon">
+				<button class="buyNow" onclick="clicked('recive_add_modify.html')">
+				</button>
+				<button class="addCart" onclick="updateAddr()">
+				</button>
+			</div>
+		</div>
+		
+		<script>
+			$(function() {
+				FastClick.attach(document.body);	//加快响应点击事件
+				//国际化
+				var nationJson = [{"id":"title","name":"string_edaw"},{"id":".controlBtu button:eq(0)","name":"string_insert"},
+							{"id":".controlBtu button:eq(1)","name":"string_update"},{"id":".edBody h1","name":"recive_chooseAdd"},
+							{"id":".orderRN","name":"recive_placeOrder"}
+				];
+				nation(nationJson);
+			});
+			//2014-7-4  提交数据错误后可按钮再次点击
+			function RestorationClick(){
+				document.getElementById("place").onclick = function(){placeOrder();};
+			}
+			//立即下单
+			function placeOrder() {
+				//2014-7-4  提交数据后取消按钮点击时间
+				document.getElementById("place").onclick = function(){
+				};
+				$("#place").addClass('off');
+				var proInfo = plus.storage.getItem("products");	//获取购物车提交的商品数据
+				console.log(proInfo);
+				var buyNow = plus.storage.getItem("buyNow");
+				plus.ui.enumWindow()[0].evalJS("openwait()");
+				//连接后台是否商品价格有修改
+				RequestData('APP_Cart', "", 0, 0, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");	//关闭等待框
+					var jsonArray = $.parseJSON("["+proInfo+"]");
+					$.each(jsonArray, function(i,g) {    
+						$.each(e.Data.ProductList, function(j,f) {    
+							if(g.Product.ProductId==f.Product.ProductId){
+								if(g.Price!=f.Price){
+									back();
+								}
+							}
+						});
+					});
+					//获取页面上的地址信息
+					var phoneAndAdd = $('.on p').html().split('<br>');
+					var json = '{"ReceiptName":"' + $('.on h4').html() + '","Phone":"' + phoneAndAdd[0] + '","Address":"' + phoneAndAdd[1] + '","Products":[' + proInfo + ']}';
+					if(buyNow && buyNow=="buyNow"){
+						plus.ui.enumWindow()[0].evalJS("openwait()");
+						//提交订单
+						RequestData('APP_BuyNow', json, 0, 0, function(e) {
+							var id = e.Data;
+							//提交成功后清除本地数据
+							plus.storage.removeItem("products");
+							plus.storage.removeItem("buyNow");
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							clicked('order.html?id=' + id, 'fade-in');
+						}, function() {
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							plus.ui.alert($.i18n.prop("recive_placeOrderFailed"), function() {}, "请求失败", "确定");
+							RestorationClick();	//2014-7-8  后台返回数据后按钮才恢复点击事件
+							$("#place").addClass('on');
+							$("#place").removeClass('off');
+						},function(){
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							
+							plus.ui.confirm('您的请求超时', function(i) {
+								if (0 == i) {
+									clicked('order_list.html');
+								}
+							}, "请求失败", ['确定']);
+						});
+					}else{
+						plus.ui.enumWindow()[0].evalJS("openwait()");
+						//提交订单
+						RequestData('APP_CreateOrder', json, 0, 0, function(e) {
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							var id = e.Data;
+							//提交成功后清除本地数据
+							plus.storage.removeItem("products");
+							clicked('order.html?id=' + id, 'fade-in');
+						}, function() {
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							plus.ui.alert($.i18n.prop("recive_placeOrderFailed"), function() {}, "请求失败", "确定");
+							RestorationClick();	//2014-7-8  后台返回数据后按钮才恢复点击事件
+							$("#place").addClass('on');
+							$("#place").removeClass('off');
+						},function(){
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							plus.ui.confirm('您的请求超时', function(i) {
+								if (0 == i) {
+									clicked('order_list.html');
+								}
+							}, "请求失败", ['确定']);
+						});
+					}
+				}, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					RestorationClick();
+					$("#place").addClass('on');
+					$("#place").removeClass('off');
+				},function(){
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.confirm('您的请求超时', function(i) {
+						if (0 == i) {
+							clicked('order_list.html');
+						}
+					}, "请求失败", ['确定']);
+				});
+			}
+			//如果没有任何的地址，就显示此html
+			function emptyList() {
+				$('.orderRN,.addCart').hide();
+				$('.buyNow').css('width', '100%');
+				$('.main').html('<div class="icoShow"><div class="cartEmpty nopage">'+$.i18n.prop("recive_noAddress")+'<br>'+$.i18n.prop("recive_clickBottom")+'</div></div>');
+			}
+			//向页面添加html元素，把连接到的数据显示出来
+			function addAddr(data) {
+				try{
+					if (data.Data.DeliveryAddressList.length <= 0) {
+						emptyList();
+					} else {
+						var html = '';
+						var list = data.Data.DeliveryAddressList;
+						var addrFlag = false,addrId;
+						$.each(list, function(i, n) {
+							/*判断地址的完整性*/
+							if(!n.ReceiptName || !n.Phone || !n.Province || !n.City || !n.Address){
+								addrId = n.ID;
+								addrFlag = true;
+								return;
+							}
+							//如果是第一条，高亮显示(选中状态)
+							if (i == 0) {
+								html += '<div class="addList on""><input type="hidden" value="' + n.ID + '"/><span class="labelOn"></span><h4>' + n.ReceiptName + '</h4><p>' + n.Phone + '<br/>' + n.Province + " " + n.City+" "+ n.Address + '</p></div>';
+							} else {
+								html += '<div class="addList"><input type="hidden" value="' + n.ID + '"/><span class="labelOn"></span><h4>' + n.ReceiptName + '</h4><p>' + n.Phone + '<br/>' + n.Province + " " + n.City+" "+ n.Address + '</p></div>';
+							}
+						});
+						if(addrFlag&&addrId){
+							plus.ui.alert("收货地址不完整，请您先修改。", function() {
+								editAddr(addrId);
+							}, "地址不完整", "确定");
+							return;
+						}
+		
+						$(".main").append(html);
+						//添加样式切换(同时获取当前选中的节点，添加点击事件)
+						selectA = $('.addList:first');
+						$('.addList').click(function() {
+							$('.addList').removeClass('on');
+							$(this).addClass('on');
+							selectA = $(this);
+						});
+					}
+				}catch(e){
+				}
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				
+			}
+			//接收上一个页面传过来的参数
+			var urlinfo = window.location.href;
+			var info = urlinfo.split("=")[1];
+			//获取当前选择的节点。
+			var selectA = '';
+			//页面准备好了//创建等待窗口，然后连接地址列表数据
+			document.addEventListener("plusready", function() {
+				RequestData('APP_DeliveryAddress', '', 0, 0, function(data) {
+					addAddr(data);
+				}, function(data) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+				},function(){
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.confirm('您的请求超时', function(i) {
+						if (0 == i) {
+							back();
+						}
+					}, "请求失败", ['确定']);
+				});
+			}, false);
+
+			function deleteAddr() {
+				$('#rdelete').skygqbox();
+			}
+
+			function closeDi() {
+				$.skygqbox.hide();
+			}
+			
+			//删除当前选择的地址
+			function deleteAddress() {
+				if (selectA) {//如果当前有选中的节点，执行删除(提交id)
+					var id = selectA.children('input').val();
+					RequestData('APP_DeliveryAddressDelete', '{"ID": "' + id + '"}', 0, 0, function(data) {
+						closeDi();
+						selectA.remove();
+						selectA = $('.addList:first');
+						$(selectA).addClass('on');
+						var ul = $('.addList');
+						if (ul.length <= 0) {
+							//如果没有地址信息下单按钮为灰色
+							$(".orderRN").addClass('off');
+							emptyList();
+						}
+					}, function(data) {
+						plus.ui.alert($.i18n.prop("string_deleteFailed"), function() {}, "请求失败", "确定");
+					},function(){
+						plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+					});
+				}
+			}
+			//主要用于如果地址不完整就跳转到编辑页面
+			function editAddr(id){
+				clicked('recive_add_modify.html?id=' + id);
+			}
+			//跳转到更新页面
+			function updateAddr() {
+				if (selectA) {
+					var id = selectA.children('input').val();
+					clicked('recive_add_modify.html?id=' + id);
+				}
+			}
+
+		</script>
+	</body>
+</html>

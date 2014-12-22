@@ -1,0 +1,96 @@
+<script type="text/javascript">
+	function doSearchPerson(value) {
+		
+	}
+
+	//表格查询  
+	function searchPerson() {
+		var params = person_list.datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+		printLog(params);
+		person_list.datagrid('reload'); //设置好查询参数 reload 一下就可以了  
+	}
+
+	function addPerson() {
+		createFromWindow("新增消息信息", "person.do?editPerson", "person.do?savePerson",
+				function(data) {
+					printLog(data);
+					searchPerson();
+				});
+	}
+
+	function editPerson() {
+		var row = person_list.datagrid('getSelected');
+		if (row) {
+			createFromWindow("编辑消息信息", "person.do?editPerson&personId=" + row.id,
+					"person.do?savePerson", function(data) {
+						searchPerson();
+					});
+		} else {
+			showMsg('请选择编辑记录.');
+		}
+
+	}
+	
+	function deletePerson(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = person_list.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			$.messager.confirm('询问', '你确认要删除消息吗?', function(r) {
+				if (r) {
+					$.post('person.do?deletePerson', {
+						id : id
+					}, function(result) {
+						console.log(result);
+						if (result.success) {
+							person_list.datagrid('reload'); // reload the user data
+						}
+						showMsg(result.msg);
+					}, 'json');
+				}
+			});
+		} else {
+			showMsg("请选择操作记录.");
+		}
+	}
+
+	function deleteSelectPerson(){
+	    var row = person_list.datagrid('getSelected');
+	    if (row){
+	        $.messager.confirm('询问','你确认要删除消息吗?',function(r){
+	            if (r){
+	                $.post('person.do?deletePerson',{id:row.id},function(result){
+	                	console.log(result);
+	                    if (result.success){
+	                        person_list.datagrid('reload');    // reload the user data
+	                    }
+	                    showMsg(result.msg);
+	                },'json');
+	            }
+	        });
+	    }else {
+	    	showMsg("请选择操作记录.");
+	    }
+	}
+</script>
+
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center',border:false">
+		
+		<@eu.datagrid id="person_list" title="消息列表" toolbar="#personlist_search" idField="id" 
+			 url="person.do?loadList" rownumbers="true"
+			 item="com.xdtech.message.vo.PersonItem"/>
+		
+		<div id="personlist_search">
+			<div id="person_toolbar" style="height: auto">
+				
+				<@eu.linkbutton showName="新增" shiro="message:person:add" iconCls="icon-add" onclick="addPerson()"/>
+				<@eu.linkbutton showName="删除" shiro="message:person:delete" iconCls="icon-remove" onclick="deleteSelectPerson()"/>
+				<@eu.linkbutton showName="编辑" shiro="message:person:edit" iconCls="icon-edit" onclick="editPerson()"/>
+				<@eu.linkbutton showName="刷新" shiro="message:person:refresh" iconCls="icon-reload" onclick="searchPerson()"/>
+				
+			</div>
+		</div>
+	</div>
+</div>

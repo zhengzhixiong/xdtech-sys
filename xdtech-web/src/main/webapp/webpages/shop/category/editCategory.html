@@ -1,0 +1,27 @@
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(categoryItem.id)!}" />
+	<tr>
+		<td>类别编码:</td>
+		<td>
+			<input name="code"  class="easyui-validatebox" data-options="required: true" value="${(categoryItem.code)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>类别名称:</td>
+		<td>
+			<input name="name"  class="easyui-validatebox" data-options="required: true" value="${(categoryItem.name)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>描述:</td>
+		<td colspan="3">
+			<textarea style="height: 120px;" class="easyui-validatebox"  rows="6" cols="40" name="description">${(categoryItem.description)!}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td>备注:</td>
+		<td>
+			<textarea name="remark"  class="easyui-validatebox" rows="6" cols="40" >${(categoryItem.remark)!}</textarea>
+		</td>
+	</tr>
+</table>

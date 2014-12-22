@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/ed.css" rel="stylesheet">
+    <link rel="shortcut icon" href=".ico">
+    <meta name="renderer" content="webkit">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+	<script type="text/javascript" src="js/ed.js"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/fastclick.min.js" type="text/javascript"></script>
+
+  </head>
+  <body>
+  <div class="edBody">
+    <h1></h1>
+    <div class="topInfo">
+        <span class="conBtu" onClick="goToBack()">&nbsp;</span>
+        <span class="orderRN" id="query"></span>
+    </div>
+  	<div class="main noBottom">
+        <div class="filter searchLabel">
+            <div class="searchResult"></div>
+            <label for="search"><div class="label"><input type="number"  onkeydown="search()" placeholder="" id="search" /></div></label>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+    	FastClick.attach(document.body);	//加快响应点击事件
+    	//国际化
+		var nationJson = [{"id":"title","name":"string_edaw"},{"id":".edBody h1","name":"search_manualInput"},
+			{"id":"#query","name":"string_select"},{"id":".edBody h1","name":"search_manualInput"},
+			{"id":".searchResult","name":"search_inputProductBarCode"},{"id":"","name":""}
+		
+		];
+		nation(nationJson);
+		$('#search').attr("placeholder",$.i18n.prop("search_inputProductBarCode"));
+    });	
+    
+	document.addEventListener("plusready", function() {
+		plus.ui.getSelfWindow().addEventListener("back", function() {
+			goToBack();
+		});
+		if ("Android" == plus.os.name) {
+		$('input[type="number"]').each(function(i,el){
+			el.type = "text";
+			el.onfocus = function(){this.type="number";$(this).attr("onBlur",$(this).attr("onBlur"));};
+		    el.onblur = function(){this.type="text";};
+		});
+	}
+	});
+	
+	function clicked(id) {
+		plus.ui.enumWindow()[0].evalJS("openwait()");
+		var url = encodeURI(id);
+		if (navigator.userAgent.indexOf("Html5Plus") > 0) {
+			floatWin = plus.ui.createWindow(url, {
+				name : url,
+				scalable : false
+			});
+			floatWin.addEventListener('loaded', function() {
+				floatWin.show('zoom-out', 200);
+				setTimeout(function() {
+					floatWin = null;
+					plus.ui.getSelfWindow().setVisible(false);
+					
+				}, 200);
+			}, false);
+		} else {
+			window.location.href = id;
+		}
+	}
+	
+	function goToBack(){
+		setTimeout(function(){
+			var winary = plus.ui.enumWindow();
+			winary[0].setVisible(true);
+			for (var i = 1; i < winary.length ; i++) {
+				plus.ui.closeWindow(winary[i]);
+			}
+		},100);
+	}
+	
+	function toProduct(v){
+		var r = '{"Barcode":"'+v+'"}';
+		plus.ui.enumWindow()[0].evalJS("openwait()");
+		RequestData('APP_ProductByBarcode',r,0,0,function(d){
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			try{
+				if(d.Data){//如果数据库有数据返回.跳转到products.html页面
+					//输入关键字后跳转到商品页面
+					clicked('products.html?keyword=input#'+v);
+				}else{
+					//如果没有数据返回，alert提示信息
+					if(navigator.userAgent.indexOf("Html5Plus") > 0) plus.ui.alert(v+$.i18n.prop("search_noFindItInSystem"),'',$.i18n.prop("string_warmPrompt"));
+				}
+			}catch(e){}
+		},function(d){
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			//如果没有数据返回，alert提示信息
+			if(navigator.userAgent.indexOf("Html5Plus") > 0) plus.ui.alert(v+$.i18n.prop("search_noFindItInSystem"),'',$.i18n.prop("string_warmPrompt"));
+			
+		},function(){
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+		});
+	}
+	
+	function search(){
+		if(event.keyCode==13){
+			var v = $("#search").val().trim();
+			if(v){
+				toProduct(v);
+			}
+		}
+	}
+	setTimeout(function(){
+		$("#query").click(function(){
+			var v = $("#search").val().trim();
+			if(v){
+				toProduct(v);
+			}
+		});
+		
+	},500);
+	
+	</script>
+  </body>
+</html>

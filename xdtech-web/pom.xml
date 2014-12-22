@@ -23,7 +23,6 @@
 			<groupId>com.xdtech</groupId>
 			<artifactId>xdtech-edu</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.xdtech</groupId>
@@ -41,7 +40,11 @@
 			<artifactId>xdtech-mobile</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-		
+<!-- 		<dependency> -->
+<!-- 			<groupId>net.sf.jasperreports</groupId> -->
+<!-- 			<artifactId>jasperreports</artifactId> -->
+<!-- 			<version>4.7.0</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 	<build>
 		<plugins>
@@ -56,6 +59,4 @@
 	    </plugins>
 		<finalName>xdtech-edu</finalName>
 	</build>
-	
-
 </project>

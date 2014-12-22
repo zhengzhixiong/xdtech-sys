@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="renderer" content="webkit">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<style>
+			.gotop {
+				position: fixed;
+				display: none;
+				right: 0.5em;
+				bottom: 6em;
+			}
+			.carList.orderEd .details h4{
+							font-size:1em;
+							line-height:1.2em;
+							margin:-0.2em 0 0.3em;
+							padding:3px 0;
+							min-height:5em;
+							height:auto;
+				}
+			.carList.orderEd .proNumber{
+				position:absolute;
+				bottom:0em;
+				right:0;
+				color:#004eae;
+				font-size:1em;
+				}
+			.parmBrand, .thouPri {
+				bottom:0em;
+			}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<span class="conBtu" onclick="clicked('order_list.html',true)">&nbsp;</span>
+			</div>
+			<div class="main indexBg"></div>
+			<div style="width:100%;height: 2em;margin-top: 2em;"></div>
+			<div id="gotop" class="gotop">
+				<img alt="" style="width: 30px;height: 30px;" src="img/goTop.png">
+			</div>
+		</div>
+		</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/fastclick.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/orderclick.js"></script>
+		<style>
+			#express {
+				background-color: #DDDDDD;
+				text-align: center;
+			}
+			.carList.orderEd .details{
+				min-height:110px;
+				}
+			.carList.orderEd .details h4{
+							font-size:1em;
+							line-height:1.2em;
+							margin:-0.2em 0 0.3em;
+							padding:3px 0;
+							min-height:5em;
+							height:auto;
+				}
+			.carList.orderEd .proNumber{
+				position:absolute;
+				bottom:0em;
+				right:0;
+				color:#004eae;
+				font-size:1em;
+				}
+			.parmBrand, .thouPri {
+				bottom:0em;
+			}
+		</style>
+		<script>
+		function imgSize(){
+		   var imgObj = new Image();
+		   imgObj.src = this.src;
+                var maxWidth =100; // 图片最大宽度   
+                var maxHeight =100;    // 图片最大高度   
+                var ratio = 0;  // 缩放比例  
+                var width = $(this).width();    // 图片实际宽度   
+                var height = $(this).height();  // 图片实际高度     // 检查图片是否超宽   
+				if(width > maxWidth){       
+                    ratio = maxWidth / width;   // 计算缩放比例       
+                    $(this).css("width", maxWidth); // 设定实际显示宽度       
+                    height = height * ratio;    // 计算等比例缩放后的高度       
+                    $(this).css("height", height);  // 设定等比例缩放后的高度   
+                }     // 检查图片是否超高  
+                if(height > maxHeight){       
+                    ratio = maxHeight / height; // 计算缩放比例      
+                    $(this).css("height", maxHeight);   // 设定实际显示高度       
+                    width = width * ratio;    // 计算等比例缩放后的高度       
+                    $(this).css("width", width);    // 设定等比例缩放后的高度   
+                }
+		}
+		
+		
+			$(function() {
+				//国际化
+				var json = [{"id" : ".edBody h1","name" : "orderDetail_orderDetails"},{"id":"title","name":"string_edaw"}
+				];
+				nation(json);
+			});
+			var pageSize = 2;
+			//至少2
+
+			//宽度设为100%
+			$(window).resize(function() {
+				$('.modifyPro').width('100%');
+				$('.modifyPro .list').width('100%');
+			});
+			//点击按钮显示物流信息
+			function logistInfo() {
+				$('#logisticsName').show();
+				$('#logisticsInfo').hide();
+				$('.shipped ul').show();
+			}
+			document.addEventListener("plusready", function() {
+//				返回键监听
+				if ("Android" == plus.os.name) {//是安卓
+					setTimeout(function() {//延时300MS添加监听回退事件
+						plus.ui.getSelfWindow().addEventListener("back", function() {
+							clicked('order_list.html', true)//跳转到订单列表页面
+						}, false);
+					}, 300);
+				}
+
+				//获取URL上的订单ID
+				var urlinfo = window.location.href;
+				var info = urlinfo.split("?");
+				var typeinfo = "";
+				if (info.length > 1) {
+					typeinfo = info[1].split("=")[1];
+					type = decodeURI(typeinfo);
+					var logJson = [{"enname" : "zhongtong","zhname" : "中通"}, {"enname" : "shentong","zhname" : "申通"}, 
+						{"enname" : "ems","zhname" : "EMS"}, {"enname" : "shunfeng","zhname" : "顺丰"}, 
+						{"enname" : "zhaijisong","zhname" : "宅急送"},{"enname" : "yuantong","zhname" : "圆通速递"}];
+					//连接订单详细数据
+					RequestData('APP_OrderDetail', '' + type + '', 0, 0, function(e) {
+						var order = e.Data.Order;
+						//var shipStatus = order.ShipStatus==0?$.i18n.prop("orderlist_notShipped"):$.i18n.prop("orderlist_shipped");
+						var processState = order.ProcessStatusShow == "未受理" ? '<div class="status s01">' + order.ProcessStatusShow :order.ProcessStatusShow == "已受理" ?'<div class="status s02">' + order.ProcessStatusShow:'<div class="status" style="color: grey;">' + order.ProcessStatusShow;
+						var orderDetails = "";
+						orderDetails = '<div class="orderInner"><div class="orderList"><div class="recipient"><table border="0" cellspacing="0" cellpadding="0">' + '<tr><td width="80">' + $.i18n.prop("orderDetail_consignee") + ':</td><td>' + order.ReceiptName + '</td><td align="right">' + order.Phone + '</td></tr>' + '<tr><td valign="top">' + $.i18n.prop("orderDetail_shippingAddress") + ':</td><td colspan="2" valign="top">' + order.Address + '</td></tr></table></div>';
+						var ExpressCompany = "shunfeng";
+						$.each(logJson, function(o,p) {
+							if(p.zhname == order.Express){
+								ExpressCompany = p.enname;
+							}
+						});
+						//连接物流信息
+						var logData = '{"ExpressCompany":"'+ExpressCompany+'","ExpressNum":"' + order.ExpressNum + '"}';
+						//判断是否发货，有则显示物流信息
+						RequestData('APP_ExpressQuery', logData, 0, 0, function(data) {
+							plus.ui.enumWindow()[0].evalJS("closewait()");//关闭等待框
+							var json = JSON.parse("[" + data.Data.Value + "]");
+							$.each(json, function(i, e) {
+								if (e.status == 200) {
+									//写入数据
+									orderDetails += '<div id="logisticsInfo" class="logistics Btuu" onclick="logistInfo()"><span>' + $.i18n.prop("orderDetail_logisticsInfo") + '</span></div><div id="logisticsName" class="logistics" style="display: none">' + order.Express + '：' + order.ExpressNum + '</div><div class="shipped"><ul style="display:none">';
+									$.each(e.data, function(i, e) {
+										if (i == 0) {
+											orderDetails += '<li>' + e.context + '<span>' + e.time + '</span><span class="shippStyle on"></span></li>';
+										} else {
+											orderDetails += '<li>' + e.context + '<span>' + e.time + '</span><span class="shippStyle"></span></li>';
+										}
+									});
+								} else {
+									if(order.ShipStatusShow!="已发货"){
+										orderDetails += '<div class="logistics">' + $.i18n.prop("orderDetail_noLogistics") + '</div>';
+									}
+								}
+							});
+							//订单号太长 把订单号取消显示
+							orderDetails += '</ul><div class="showRec"></div></div><div class="handle">' + processState + '</div><div class="moreInfo"><span>' + order.ID + '</span><span>' + order.CreateDate + '</span></div></div></div>';
+							//orderDetails += '</ul><div class="showRec"></div></div><div class="handle">' + processState + '</div><div class="moreInfo"><span>' + $.i18n.prop("orderDetail_orderId") + ': ' + order.ID + '</span><span>' + $.i18n.prop("orderDetail_orderDate") + ': ' + order.CreateDate + '</span></div></div></div>';
+							if (e.Data.OrderProductList != null) {
+								$.each(e.Data.OrderProductList, function(i, e) {
+									var product = e.Product;
+									//默认显示10条，其它数据隐藏
+//									if (i < pageSize) {
+										var e_num = e.OldNum ;
+										if(e.Num!=0){
+											e_num += '('+e.Num +')';
+										}
+										orderDetails += '<div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="' + product.ThumbPicture + '"  onerror="javascript:this.src=\'images/logo.png\';"/>' + '</span></div><div class="priceRi"><strong>￥' + parseInt(e.Price) + '</strong></div><div class="detailsShow"><h4>' + product.ProductName + '</h4><div class="parmValue">' + product.Model + '<br></div></div><div class="proNumber">X' + e_num + '</div></div></div></div>';
+//									} else {
+//										orderDetails += '<div class="carList orderEd" style="display:none"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="' + product.ThumbPicture + '"  onerror="javascript:this.src=\'images/logo.png\';"/>' + '</span></div><div class="priceRi"><strong>￥' + e.Price + '</strong><span>X' + e.OldNum + '</span></div><div class="detailsShow"><h4>' + product.ProductName + '</h4><div class="parmValue">' + product.Model + '<br></div></div></div></div></div>';
+//									}
+								
+								});
+						}
+							var payBtn = order.ShipStatusShow == "未付款" ? '<span class="alreadyPay" onclick="clicked(\'pay.html\')">' + $.i18n.prop("orderDetail_immediate") + '</span>' : '<span class="overPay">' + order.ShipStatusShow + '</span>';
+							if(order.ProcessStatusShow == "已注销"){
+								payBtn = '<span class="overPay">' + order.ShipStatusShow + '</span>'
+							}
+							orderDetails += '<div class="orderPrice"><div class="handleCon"><div class="text">'+$.i18n.prop("order_total")+':<strong>￥' + order.TotalMoney + '</strong></div>' + payBtn + '</div></div>'
+							$(".main").html(orderDetails);
+							$('.imgShow img').each(function() {
+				                	var memberHeaderimg=$(this)[0];
+									memberHeaderimg.onload = function(){
+										imgSize.call(memberHeaderimg);
+									}
+							});
+							//绑定CLICK事件
+							$('#logisticsName,.shipped').click(function() {
+								$('#logisticsName').hide();
+								$('.shipped').hide();
+								$('#logisticsInfo').show();
+							});
+							$('#logisticsInfo').click(function() {
+								$('#logisticsName').show();
+								$('.shipped').show();
+								$('#logisticsInfo').hide();
+							})
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+						}, function() {
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+						},function(){
+							plus.ui.enumWindow()[0].evalJS("closewait()");
+							plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+						});
+					}, function() {
+						plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+					},function(){
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+						plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+					});
+				}
+				var indexPage = 1;
+				//加载页码
+				var isLoading = false;
+				//是否显示中
+				var isEnd = false;
+				$(function() {
+					FastClick.attach(document.body);
+					//是否所有商品显示完
+//					function showPro() {
+//						var proList = $('.orderEd');
+//						var proMax = (indexPage + 1) * pageSize - 1;
+//						if (proMax > proList.length)
+//							proMax = proList.length;
+//						if (isEnd)
+//							return;
+//						for (var i = (indexPage++) * pageSize; i <= proMax; i++) {
+//							$('.orderEd:eq(' + i + ')').show();
+//						}
+//						
+//						if (proMax == proList.length)
+//							isEnd = true;
+//						isLoading = false;
+//						
+//					}
+
+					$("#gotop").click(//定义返回顶部点击向上滚动的动画
+					function() {
+						$('html,body').animate({
+							scrollTop : 0
+						}, 400);
+					}).hover(//为返回顶部增加鼠标进入的反馈效果，用添加删除css类实现
+					function() {
+						$(this).addClass("hover");
+					}, function() {
+						$(this).removeClass("hover");
+					});
+					//下拉加载数据
+					$(window).bind('scroll', function() {
+//						if ($(window).scrollTop() + $(window).height() >= $(document).height() && !isLoading) {
+//							isLoading = true;
+//							showPro();
+//						}
+						if ($(window).scrollTop() > 100) {
+							$("#gotop").show(900);
+						} else {
+							$("#gotop").hide(900);
+						}
+					});
+				});
+			}, false);
+		</script>
+	</body>
+</html>

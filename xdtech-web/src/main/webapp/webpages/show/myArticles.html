@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<#include "headImport.html">
+<title>会员中心 -Max</title>
+</head>
+<body data-nav="profile" data-autopager="true">
+	<#include "navigation.html">
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-12">
+				<ol class="breadcrumb">
+					<li><a href="#">首页</a></li>
+					<li><a href="#">会员中心</a></li>
+					<li class="active">我的帖子</li>
+				</ol>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-3">
+				<div class="list-group">
+					<a href="member.do?toEditMember" class="list-group-item">
+						<i class="fa fa-edit fa-fw"></i> 修改信息
+					</a> <a href="show.do?skip&url=postArticle" class="list-group-item">
+						<i class="fa fa-image fa-fw"></i> 发表帖子
+					</a> <a href="article.do?myArticles" class="list-group-item active">
+						<i class="fa fa-image fa-fw"></i> 我的帖子
+					</a> <a href="show.do?skip&url=myComments" class="list-group-item">
+						<i class="fa fa-comment-o fa-fw"></i> 我的评论
+					</a> <a href="member.do?logout" class="list-group-item"> <i
+						class="fa fa-power-off fa-fw"></i> 退出登录
+					</a>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-md-9">
+				<#list articles as article>
+					<div class="post-comment" data-comment-count="1000"
+						data-user-id="22" data-post-id="${(article.id)!}">
+						<div id="comment-loop">
+							<div class="comment-item">
+								<p>
+									<strong>${(article.title)!}/${(article.createTime)?string("yyyy-MM-dd HH:mm:ss")}</strong>
+								</p>
+								<div class="comment-content">
+									<a target="_blank" href="#">${(article.content)!} </a>
+								</div>
+							</div>
+	
+						</div>
+					</div>
+				</#list>
+			</div>
+
+
+			<script src="show/js/jquery.js"></script>
+			<script src="show/js/jquery.cookie.js"></script>
+			<script src="show/js/bootstrap.js"></script>
+			<script src="show/js/main.js"></script>
+			<script src="show/js/jquery.validate.js"></script>
+</body>
+</html>

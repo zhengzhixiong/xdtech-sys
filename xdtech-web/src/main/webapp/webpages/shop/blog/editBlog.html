@@ -1,0 +1,56 @@
+<script type="text/javascript">
+	$(function() {
+		$('#editBlogForm').form({
+			onSubmit : function() {
+// 				var isValid = $(this).form('validate');
+// 				alert(isValid);
+				return true;
+			},
+			success : function(result) {
+				result = $.parseJSON(result);
+				if (result.success){
+                	$.messager.show({
+		                title:'系统提示',
+		                msg:'操作成功.'
+		            });
+                	reloadBlog();
+                } else {
+                    $.messager.show({    // show error message
+                        title: '系统提示',
+                        msg: result.msg
+                    });
+                }
+			}
+		});
+	});
+</script>
+<form id="editBlogForm" method="post" action="blog.do?saveBlog" enctype="multipart/form-data">
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(blogItem.id)!}" />
+	<input name="status" type="hidden" value="${(blogItem.status)!0}" />
+	<input name="image" type="hidden" value="${(blogItem.image)!}" />
+	<tr>
+		<td>标题:</td>
+		<td>
+			<input name="title"  class="easyui-validatebox" style="width:515px" data-options="required: true" value="${(blogItem.title)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>图片:</td>
+		<td>
+			<#if (blogItem.image)?exists>
+				<img alt=""  src="${(blogItem.image)!}" width="100px">
+				<input type="file" name="imageFile" hidden="true"/> 
+			<#else>
+				<input type="file" name="imageFile"/> 
+			</#if>
+		</td>
+	</tr>
+	<tr>
+		<td>内容:</td>
+		<td>
+			<textarea style="height: 150px;width:515px" class="easyui-validatebox"  rows="6"  name="content">${(blogItem.content)!}</textarea>
+		</td>
+	</tr>
+</table>
+</form>

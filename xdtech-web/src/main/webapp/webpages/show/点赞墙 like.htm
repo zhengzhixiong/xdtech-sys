@@ -1,0 +1,399 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="ie6"><![endif]-->
+<!--[if IE 7]>   <html class="ie7"><![endif]-->
+<!--[if IE 8]>   <html class="ie8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Web App">
+<meta name="format-detection" content="telephone=no">
+
+<meta name="360-site-verification" content="846c5179bc82eccd68fd000fb2036682" />
+<meta name="baidu_union_verify" content="a7a36270ac6900fa8bd453946a7a85c9">
+<meta property="qc:admins" content="35362544462056654" />
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="stylesheet" id="css" href="/styles/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/styles/font.css" type="text/css">
+<link rel="stylesheet" href="/themes/bootstrap/base.css" type="text/css">
+<script>var PATH="/";</script><meta name="keywords" content="前端之路,前端,WEBAPP,YCKIT,CMS,PHP">
+<meta name="description" content="真正的简约不是删繁就简，而是在纷繁中构建秩序。">
+<meta name="author" content="野草">
+<title>点赞墙 - 金哲博客</title>
+</head>
+<body data-nav="like">
+
+<nav class="navbar navbar-fixed-top navbar-default navbar-yckit" role="navigation">
+  <div class="container">
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">金哲博客</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+	      <span class="navbar-red"></span>
+	      <span class="navbar-yellow"></span>
+	      <span class="navbar-green"></span>
+      </a>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      		<li id="nav-1">
+			<a  href="/category/1/"><i class="fa fa-fw fa-heart-o"></i>&nbsp;记录生活</a>
+					</li>
+				<li id="nav-2">
+			<a  href="/category/2/"><i class="fa fa-fw fa-bell-o"></i>&nbsp;开发实践</a>
+					</li>
+				<li id="nav-3">
+			<a  href="/category/3/"><i class="fa fa-fw fa-folder-o"></i>&nbsp;分享干货</a>
+					</li>
+				<li id="nav-4">
+			<a  href="/category/4/"><i class="fa fa-fw fa-cutlery"></i>&nbsp;吃货秘笈</a>
+					</li>
+				<li id="nav-5" class="dropdown">
+			<a  class="dropdown-toggle" data-toggle="dropdown" href="/category/5/"><i class="fa fa-fw fa-coffee"></i>&nbsp;YCKIT专栏 <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						<li><a href="/category/6/"><i class="fa fa-fw fa-file"></i>&nbsp;功能使用</a></li>
+						<li><a href="/category/7/"><i class="fa fa-fw fa-desktop"></i>&nbsp;模板主题</a></li>
+						<li><a href="/category/8/"><i class="fa fa-fw fa-laptop"></i>&nbsp;二次开发</a></li>
+						</ul>
+					</li>
+		       <li id="nav-more">
+       <a class="dropdown-toggle" data-toggle="dropdown" href="#">更多 <span class="caret"></span></a>
+  <ul class="dropdown-menu" role="menu">
+      <li><a href="/music/"><i class="fa fa-fw fa-music"></i>&nbsp;心情电台</a></li>
+      <li><a href="/say/"><i class="fa fa-fw fa-volume-up"></i>&nbsp;在线留言</a></li>
+      <li><a href="/readers/"><i class="fa fa-fw fa-book"></i>&nbsp;读者排行</a></li>
+      <li><a href="/like/"><i class="fa fa-fw fa-thumbs-o-up"></i>&nbsp;点赞排行</a></li>
+      </ul>
+       </li>
+      </ul>
+     
+	<div class="navbar-right" id="user">
+     
+	</div>
+    </div>
+  </div>
+</nav>
+ <div id="banner" class="pr">
+	<canvas id="particles" class="pa"></canvas>
+	<br><br>
+	<h1 class="text-center">专注前端技术、深入体验细节</h1>
+	<p class="text-center">真正的简约不是删繁就简，而是在纷繁中构建秩序。</p>
+</div>
+<div class="container">
+<div class="row">
+	<div class="col-xs-12 col-md-2 hidden" id="left">
+		
+ 
+<h3 class="title text-right">搜索<span>&nbsp;/&nbsp;SEARCH</span></h3>
+<div class="tags text-right">
+	<div class="navbar-form navbar-right" role="search" id="search" data-title="请输入关键字">
+        <div class="form-group pr">
+          <input type="text" id="keyword" value="" class="form-control" placeholder="Search">
+          <i class="fa fa-search pa cp" style="right:10px;top:10px"></i>
+        </div>
+	</div>
+</div>
+		 
+<h3 class="title text-right">标签<span>&nbsp;/&nbsp;TAGS</span></h3>
+<div class="tags  text-right">
+	<a href="/tag/YCKIT/">YCKIT</a>
+	<a href="/tag/%E6%97%B6%E9%97%B4/">时间</a>
+	<a href="/tag/JS/">JS</a>
+	<a href="/tag/MAC/">MAC</a>
+	<a href="/tag/%E6%A8%A1%E5%9D%97/">模块</a>
+	<a href="/tag/%E5%AF%86%E7%A0%81/">密码</a>
+	<a href="/tag/chrome/">chrome</a>
+	<a href="/tag/%E6%99%BA%E5%B0%9A/">智尚</a>
+	<a href="/tag/%E8%A5%BF%E6%B9%96/">西湖</a>
+	<a href="/tag/%E6%9D%AD%E5%B7%9E/">杭州</a>
+	<a href="/tag/%E5%89%8D%E7%AB%AF/">前端</a>
+	<a href="/tag/%E6%BB%A4%E9%95%9C/">滤镜</a>
+	<a href="/tag/webkit/">webkit</a>
+	<a href="/tag/Finder/">Finder</a>
+	<a href="/tag/XtraFinder/">XtraFinder</a>
+	<a href="/tag/%E6%8E%A5%E5%8F%A3/">接口</a>
+	<a href="/tag/%E5%8D%87%E7%BA%A7/">升级</a>
+	<a href="/tag/301/">301</a>
+	<a href="/tag/%E8%B0%83%E7%94%A8/">调用</a>
+	<a href="/tag/%E7%BC%96%E8%BE%91%E5%99%A8/">编辑器</a>
+</div>
+ 		<p class="title text-right">友情链接<span>&nbsp;/&nbsp;LINK</span></p>
+<div class="tags text-right">
+		<a href="http://wuwen.org" target="_blank">无闻</a>
+		<a href="http://phtv.ifeng.com/program/jqgcs/" target="_blank">军情观察室</a>
+		<a href="https://www.rocboss.com" target="_blank">rocboss</a>
+		<a href="http://dmku.net" target="_blank">动漫酷</a>
+		<a href="http://yckit.com" target="_blank">野草工坊</a>
+		<a href="http://imku.net" target="_blank">向林博客</a>
+		<a href="http://yuur.net" target="_blank">遇见网</a>
+	</div>
+		<h3 class="title text-right">联系<span>&nbsp;/&nbsp;CONTACT</span></h3>
+<div id="left_px"></div>
+<div class="text-left" id="left_pin">
+<img src="/data/DCA3B5A85DB9C002B3AFC19A842385C4.jpg" width="135" id="weixin">
+</div>
+	</div>
+	<div class="col-xs-12 col-md-9 col-lg-7">
+		<h3 class="title">
+			点赞排行<span>&nbsp;/&nbsp;LIKE</span>
+		</h3>
+				
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/25.html">
+				<img src="http://static.jinzhe.net/data/post/201411/thumb.525AC9EBD96C4A2BF65D6A43A9E72979.jpg" alt="杭州西湖一游" width="180">
+				<span class="pa">4</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/25.html">杭州西湖一游</a></h4>
+				<div class="media-content">前几天去了杭州西湖玩玩，去了后感觉和上海气候差不多的，也下了一天的雨。不过雨天游西湖也别有一番滋味。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/15.html">
+				<img src="http://static.jinzhe.net/data/post/201410/thumb.DA18962F6A7AD3A8FCFD97AACAD6FE51.jpg" alt="国庆长假这几天的生活清单！" width="180">
+				<span class="pa">4</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/15.html">国庆长假这几天的生活清单！</a></h4>
+				<div class="media-content">国庆假期的这几天里，过得还算充实。陪老婆去购物、去爬山、下馆子等。而且这几天天气很舒服，秋风凉爽，阳光温暖。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/10.html">
+				<img src="http://static.jinzhe.net/data/post/201409/thumb.7CBFB6273849F93E080132BF8CF6B105.jpg" alt="前端福音！Iconfont阿里巴巴矢量图标库" width="180">
+				<span class="pa">3</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/10.html">前端福音！Iconfont阿里巴巴矢量图标库</a></h4>
+				<div class="media-content">无意中在网上看到了iconfont图标库，是阿里巴巴团队倾力打造，设计和前端开发的便捷工具。以前一直使用国外的fontawesome 。fontawesome 是一个很优秀的前端图标字体库，但是很遗憾...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/28.html">JS秒数转成分秒时间格式</a></h4>
+				<div class="media-content">// 格式化秒数到时间格式
+Number.prototype.formatTime=function(){
+&nbsp; &nbsp; // 计算
+&nbsp; &nbsp; var h=0,i...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/12.html">
+				<img src="http://static.jinzhe.net/data/post/201409/thumb.B55ECE4C2A4435E68E8D63DC1469FBCC.jpg" alt="基于Masonry插件制作瀑布流页面" width="180">
+				<span class="pa">2</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/12.html">基于Masonry插件制作瀑布流页面</a></h4>
+				<div class="media-content">瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动，这种布局还会不断加载数据块并附加至当前尾部。最早采用此布局的网站是Pinterest，逐渐...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/11.html">
+				<img src="http://static.jinzhe.net/data/post/201409/thumb.FFC947F95B77DFE63A0FAE106650D60C.jpg" alt="JS 控制VIEWPORT在微信上正常显示" width="180">
+				<span class="pa">2</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/11.html">JS 控制VIEWPORT在微信上正常显示</a></h4>
+				<div class="media-content">经常在做移动手机网站的时候由于需要在微信平台推广我们不得不去兼容他。在IOS上由于苹果把控的很好，浏览器内核都是统一的。所以自然没有兼容问题。但是安卓就不同了，碎片化的缘故。加上微信的WEBVIEW是...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/2.html">
+				<img src="http://static.jinzhe.net/data/post/201409/thumb.B3F67FD9DBC279F29B591463530F20CE.jpg" alt="WEB前端开发规范" width="180">
+				<span class="pa">2</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/2.html">WEB前端开发规范</a></h4>
+				<div class="media-content">我想前端开发过程中, 无论是团队开发, 还是单兵做站, 有一份开发文档做规范, 对开发工作都是很有益的. 本文档由本人编写, 部分意见来源于网络, 以此感谢, 片面及有误的地方, 希望大家指正. 另,...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/29.html">YCKIT V4二次开发模块入门</a></h4>
+				<div class="media-content">YCKIT是一个功能模块化的PHP框架，很适合初学者和敏捷开发需求者的需求。甚至开发一个简单功能都不需要一个小时就可以完成了。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/23.html">YCKIT V4 之主题包中编写PHP调用数据</a></h4>
+				<div class="media-content">有时候制作模板的时候需要编写PHP代码来调用特殊数据内容，但是直接在模板里面写不太方便。YCKIT支持主题包内PHP调用接口，满足了开发者建站特殊所需。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/16.html">
+				<img src="http://static.jinzhe.net/data/post/201410/thumb.FEDFD3547E38D48C5264AFB4ACFCA03E.png" alt="用了才知道！MAC下Sublime Text3如何安装插件？" width="180">
+				<span class="pa">1</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/16.html">用了才知道！MAC下Sublime Text3如何安装插件？</a></h4>
+				<div class="media-content">用了Sublime Text 好多年了！一直都是手写代码没去注意插件这个。现在发现插件真心好用，真是有点相见恨晚的感觉。安装插件前大家要安装很多东西，JAVA SDK&NODEJS&git 等等。还有...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/14.html">
+				<img src="http://static.jinzhe.net/data/post/201410/thumb.DACECBCFA3BDFC3061573DAE10D402EE.jpg" alt="吃货必杀技！美味辣白菜" width="180">
+				<span class="pa">1</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/14.html">吃货必杀技！美味辣白菜</a></h4>
+				<div class="media-content">辣白菜是我们朝鲜族平日里舌尖上的美食，不管每顿饭有没有肉，但是辣白菜是不能缺的。今天我教大家如何简单的制作辣白菜。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/8.html">
+				<img src="http://static.jinzhe.net/data/post/201409/thumb.461CD55C5AD6BB1FC454C30EAEBDA340.png" alt="Mac 下安装Phonegap开发环境" width="180">
+				<span class="pa">1</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/8.html">Mac 下安装Phonegap开发环境</a></h4>
+				<div class="media-content">什么是Phonegap呢？Phonegap是一个利用HTML5去开发App的框架。可以为安卓、iOS、WP、黑莓、火狐等移动操作系统。采用HTML5来编写交互界面。其优点是编写一次可以编译到各种移动平...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/7.html">
+				<img src="http://static.jinzhe.net/data/post/201409/thumb.65FA312E2FD1F00BCC33F907CF09D3E3.jpg" alt="记得那年写过一首诗" width="180">
+				<span class="pa">1</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/7.html">记得那年写过一首诗</a></h4>
+				<div class="media-content">记得这首诗在2004年在海南海口汉江婷韩国料理当传菜员的时候写的。现在很多人说写代码很苦逼，其实我觉得这是身在福中不知福罢了。虽然在餐厅上班不会像程序员一样加班到半夜甚至凌晨，但是上班时间非常久。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/27.html">WEBKIT内核浏览器filter滤镜整理</a></h4>
+				<div class="media-content">经常做一些webapp的时候需要用到。-webkit-filter:grayscale(1); //100%灰度
+-webkit-filter:blur(2px);  //模糊，此处为2像素
+-w...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/26.html">Chrome下去掉保存密码后输入框变成黄色背景样式</a></h4>
+				<div class="media-content">做前端的童鞋一定经常遇到过chrome保存密码后input输入框会变成黄色，对于正在开发中的项目，老是出来黄色背景很是不爽。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/24.html">
+				<img src="http://static.jinzhe.net/data/post/201410/thumb.08F0DD3A29505186FA0947C0153385A0.png" alt="神器！Mac OSX上Finder增强插件XtraFinder" width="180">
+				<span class="pa">0</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/24.html">神器！Mac OSX上Finder增强插件XtraFinder</a></h4>
+				<div class="media-content">用习惯了WINDOWS文件夹操作方式的朋友在MAC上难免会对Finder产生抱怨，比如没有剪切功能，也不能新建文件。现在好了有了XtraFinder可以让Finder像WINDOWS一样方式操作了。而...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/22.html">升级小菜一碟！YCKIT 旧版本数据转移到YCKIT V4.x</a></h4>
+				<div class="media-content">YCKIT 发布于2012年初，到至今有2个免费发布版本V2012和V2013版本。V4版本在各个方面都有不少提升，从架构上还是后台UI和操作上绝对比之前版本好很多。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/21.html">YCKIT V4.1~v4.1.1升级之301永久重定向实现方法</a></h4>
+				<div class="media-content">因为版本升级关系会遇到rewrite规则变化，这样已经被搜录的文章会访问不到。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<a class="media-left pull-left pr" href="/post/20.html">
+				<img src="http://static.jinzhe.net/data/post/201410/thumb.3739CD6AC13130ACEAE8990166795A46.png" alt="YCKIT V4 之调用管理使用" width="180">
+				<span class="pa">0</span>
+			</a>
+
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/20.html">YCKIT V4 之调用管理使用</a></h4>
+				<div class="media-content">调用管理是YCKIT V4中得一个特色功能。能让站长不需要懂PHP就可以使用标签调用出自己想要显示的文章列表。调用支持按照选择的分类，或者文章的ID来进行显示，而且支持包含封面、推荐等条件属性。使用调...</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div class="media media-yckit">
+						<div class="media-body">
+				<h4 class="media-heading"><a href="/post/19.html">很屌！Sumlime text3 插件Emmet</a></h4>
+				<div class="media-content">EMMET是类似ZEN CODING的代码速写HTML插件，使前端WEB开发者提升工作效率。</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+				<div id="post-append"></div>
+		<br>
+		<div class="text-center">
+			<div id="more" class="cp" style="display:none">下一页</div>
+		</div>
+			</div>
+	<div class="col-xs-12 col-md-3" id="right">
+			<h3 class="title">赞助广告<span>&nbsp;/&nbsp;AD</span></h3>
+	<a href="http://yckit.com" target="_blank" style="display:block;margin-top:10px;padding:40px 0;background:#5DC266;color:#fff;font-size:2em;line-height:40px;border-radius:2px;" class="text-center">
+YCKIT<br>值得拥有
+</a>			 		 		 	<div id="right_px"></div>
+	</div>
+
+</div>
+</div>
+ 
+<div id="footer">
+	<div class="container">
+
+		<div class="pull-left" id="footer-left">
+					<a href="/page/2.html">免责声明</a>&nbsp;-&nbsp;					<a href="/page/1.html">关于本站</a>				</div>
+		<div class="pull-right" id="footer-right">
+	 		 <a href="http://yckit.com" title="本站基于 YCKIT v4.1.5 驱动" target="_blank">YCKIT v4.1.5</a>&nbsp;&copy;&nbsp;2012~2014&nbsp;<b>金哲博客</b>
+			<span id="footer-right-line">
+						&nbsp;/&nbsp;
+	 		<a href="http://www.miitbeian.gov.cn">蜀ICP备14010229号-2</a>
+	 			 		&nbsp;/&nbsp;
+			<script src="http://s4.cnzz.com/stat.php?id=4072237&web_id=4072237" language="JavaScript"></script>			</span>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<div id="totop" title="返回顶部" data-placement="left" class="px text-center cp tip"><i class="fa fa-angle-up"></i></div>
+</body>
+</html>
+
+<script src="/scripts/jquery.js"></script>
+<script src="/scripts/jquery.cookie.js"></script>
+<script src="/scripts/bootstrap.js"></script>
+<script src="/themes/bootstrap/scripts/main.js"></script>

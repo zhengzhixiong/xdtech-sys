@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>about</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+        var ffid=33333;
+        $(document).ready(function() {
+            $(".quote_outer input[type=file]").change(function(event) {
+                event.preventDefault();
+                $(this).after('<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');});
+        });
+
+        $(function() {
+            $( ".selector" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#datepicker" ).datepicker();
+            $( "#Deadline" ).datepicker();
+        });
+    </script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+            $('#slider2').nivoSlider();
+
+            $('#carousel').carouFredSel({
+                circular: true,         // Determines whether the carousel should be circular.
+                infinite: true,         // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+                responsive: true,      // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+                direction: "left",      // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+                width: null,            // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+                height: null,           // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+                align: "center",
+                scroll : {
+                    items           : 1
+                },
+                wraper : {
+                    element     : "div",
+                    classname   : "col-sm-8"
+                }
+            });
+        });
+
+
+    </script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+
+		<div style="clear: both;"></div>
+
+		<!-- 页面里中间内容 -->
+		<div class="top_container">
+
+
+
+
+
+			<div class="mobile-600 hidden-lg hidden-md hidden-sm visible-xs">
+
+				<div class="container">
+
+					<div class="col-sm-12">
+
+
+
+						<div class="col-sm-12 blueform-mobile-small">
+
+							<div class="height-15"></div>
+
+							<div class="get-free-quote">GET A FREE QUOTE NOW!</div>
+
+							<form role="form" method="POST" id="contact-form"
+								class="mobile-small-new-form" enctype="multipart/form-data">
+
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label for="edit-title-1">Name:</label><input type="text"
+											id="m-Name" name="form[Name]" placeholder="Name"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="edit-title-1">Phone:</label><input type="text"
+											id="m-Phone" name="form[Phone]" placeholder="Phone"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="edit-title-1">Email:</label><input type="text"
+											id="m-Email" name="form[Email]" placeholder="Email"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="Quantity">Quantity:</label><select id="Quantity"
+											name="variations[Quantity]]" class="form-text form-control"><option
+												value="30">10</option>
+											<option value="31">20</option>
+											<option value="32">50</option>
+											<option value="33">100</option>
+											<option value="34">200</option>
+											<option value="35">300</option>
+											<option value="36">500</option>
+											<option value="37">1000</option>
+											<option value="38">2000</option>
+											<option value="39">3000</option>
+											<option value="40">4000</option>
+											<option value="41">5000</option>
+											<option value="42">7500</option>
+											<option value="43">10000</option></select>
+									</div>
+								</div>
+								<input type="hidden" id="m-Deadline" name="form[Deadline]"
+									placeholder="Deadline" class="form-text form-control" /><input
+									type="hidden" value="1" name="Product" />
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="edit-title-1">AlternativeEmail</label><input
+											type="text" id="m-AlternativeEmail"
+											name="form[AlternativeEmail]" placeholder="AlternativeEmail"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<script type="text/javascript">
+
+                                $('#m-AlternativeEmail').parent().parent().addClass('TopTd');
+
+                            </script>
+
+								<div class="clearfix"></div>
+
+								<div class="col-md-12">
+
+									<div class="clearfix"></div>
+
+									<div class="center-submit">
+
+										<input name="button"
+											class="btn btn-warning submit-blue-form btn-lg btn-block"
+											id="button" value="Give me your best price"
+											onclick="return check_valid1();" type="submit">
+
+									</div>
+
+								</div>
+
+							</form>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+			<div id="wrapper">
+
+				<div class="slider-wrapper theme-default">
+
+
+
+					<div class="visible-lg visible-md visible-sm hidden-xs">
+
+
+
+						<div class="container">
+
+							<div class="">
+
+								<div class="col-sm-7 heropatches-about">
+
+									<div class="about-text-title">
+										<h3>Special Options</h3>
+									</div>
+
+
+
+									<p>We can add special options to your patch that can make
+										your patch both more functional and beautiful.  Some of these
+										special options are exclusive to only Hero Patches.  Please
+										call us at 877-731-4711 or email us if you would like to
+										discuss these special options.</p>
+									<p>
+										<a
+											href="images/special_options_heropatches.jpg"><img
+											class="aligncenter img-responsive size-full wp-image-139"
+											alt="special_options_heropatches"
+											src="images/special_options_heropatches.jpg"
+											width="689" height="360" /></a>
+									</p>
+								</div>
+
+								<div class="col-sm-5 heropatches-about">
+
+									<div id="slider-form">
+
+										<div class="blueform">
+
+											<div class="col-sm-12">
+												<img
+													src="http://heropatches.com/wp-content/themes/heropatches/images/get-free-quote.png"
+													class="red-ribbon" />
+											</div>
+											&nbsp;
+
+											<form role="form" method="POST" id="contact-form"
+												class="new-improved-form" enctype="multipart/form-data">
+
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">Name: *</label><input
+															type="text" id="Name" name="form[Name]"
+															placeholder="Name" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">Phone:</label><input type="text"
+															id="Phone" name="form[Phone]" placeholder="Phone"
+															class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">Email: *</label><input
+															type="text" id="Email" name="form[Email]"
+															placeholder="Email" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="Size">Size:</label><select id="Size"
+															name="variations[Size]]" class="form-text form-control"><option
+																value="1">2 inches</option>
+															<option value="2">2.5 inches</option>
+															<option value="3">3 inches</option>
+															<option value="4">3.5 inches</option>
+															<option value="5">4 inches</option>
+															<option value="6">4.5 inches</option>
+															<option value="7">5 inches</option>
+															<option value="8">5.5 inches</option>
+															<option value="9">6 inches</option>
+															<option value="10">6.5 inches</option>
+															<option value="11">7 inches</option>
+															<option value="12">7.5 inches</option>
+															<option value="13">8 inches</option>
+															<option value="14">8.5 inches</option>
+															<option value="15">9 inches</option>
+															<option value="16">9.5 inches</option>
+															<option value="17">10 inches</option>
+															<option value="18">10.5 inches</option>
+															<option value="19">11 inches</option>
+															<option value="20">11.5 inches</option>
+															<option value="21">12 inches</option></select>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="PercentageofEmbroidery">% Embroidery:</label><select
+															id="PercentageofEmbroidery"
+															name="variations[PercentageofEmbroidery]]"
+															class="form-text form-control"><option
+																value="27">50%</option>
+															<option value="28">75%</option>
+															<option value="29">100%</option></select>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="Quantity">Quantity:</label><select
+															id="Quantity" name="variations[Quantity]]"
+															class="form-text form-control"><option
+																value="30">10</option>
+															<option value="31">20</option>
+															<option value="32">50</option>
+															<option value="33">100</option>
+															<option value="34">200</option>
+															<option value="35">300</option>
+															<option value="36">500</option>
+															<option value="37">1000</option>
+															<option value="38">2000</option>
+															<option value="39">3000</option>
+															<option value="40">4000</option>
+															<option value="41">5000</option>
+															<option value="42">7500</option>
+															<option value="43">10000</option></select>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">Date needed: </label><input
+															type="text" id="Deadline" name="form[Deadline]"
+															placeholder="Deadline" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<div id="edit-field-fq-image-0-1-ahah-wrapper">
+															<div class="form-item"
+																id="edit-field-fq-image-0-1-upload-wrapper">
+																<label for="File">Image Upload:</label>
+																<div class="filefield-upload clear-block">
+																	<input style="width: 68%" type="file"
+																		class="form-file wmds-form-file" id="File" name="File" />
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<input type="hidden" value="1" name="Product" />
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">AlternativeEmail</label><input
+															type="text" id="AlternativeEmail"
+															name="form[AlternativeEmail]"
+															placeholder="AlternativeEmail"
+															class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="Notes">Notes: </label>
+														<textarea cols="60" rows="1" id="Notes" name="form[Notes]"
+															placeholder="Notes"
+															class="form-textarea  resizable form-control"></textarea>
+													</div>
+												</div>
+												<script type="text/javascript">
+
+                                                $('#AlternativeEmail').parent().parent().addClass('TopTd');
+
+                                            </script>
+
+												<div class="clearfix"></div>
+
+												<div class="col-md-12">
+
+													<div class="clearfix"></div>
+
+													<div class="center-submit">
+
+														<input name="button"
+															class="btn btn-warning submit-blue-form btn-lg btn-block"
+															id="button" value="Give me your best price"
+															onclick="return check_valid1();" type="submit">
+
+													</div>
+
+												</div>
+
+											</form>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+	</div>
+
+
+
+	<!--    special options-->
+
+	<div class="container">
+
+		<div class="gallery_block">
+
+
+
+			<div class="gallery_part">
+
+				<div class="hero-patches">
+
+					<h3>
+						<span name="Add ons">Add ons</span>
+					</h3>
+
+				</div>
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/add-on-pin.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Pin Patches: These patches are very useful for businesses and organizations that don&#8217;t want to permanently sew or adhere their patch onto clothing.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/add-on-pin-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Pin Patches</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Button-Loop.jpg.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Button loop patches allow your patches to be versatile and they also give your custom insignia an amazing and unique look.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Button-Loop.jpg-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Button Loop</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/frayededges.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Frayed Edges: Provides our customers with another way to add a distinct look to your patch.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/frayededges-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Frayed Edges</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/vintage-patches1.png"
+						rel="prettyPhoto[gallery]"
+						title="<p>Vintage Worn Style: Jazz up your patches by choosing Torn Style to add more texture and attitude on your patches.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/vintage-patches1-150x150.png">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Vintage Worn Style</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Puff-Patch.-jpg.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Puff patches will make your patch stand out! The text and words on your patch will appear 3D.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Puff-Patch.-jpg-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Puff Patches</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Crystals-.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Add Crystals or Real Swarovski Crystals to your patch. To our knowledge we are the only company that offers this feature.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Crystals--150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Crystals</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/merrowedborder1.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Merrowed Border: Our patches come standard laser cut. However, some of our customers like rounding the edges of their patches with merrowed borders. Merrowed borders are particularly popular for boy scout, fire and police department patches.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/merrowedborder1-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Merrowed Border</div>
+
+
+
+				</div>
+
+
+
+				<div class="clearfloat"></div>
+
+			</div>
+
+			<div class="gallery_part">
+
+				<div class="hero-patches">
+
+					<h3>
+						<span name="Backing Options">Backing Options</span>
+					</h3>
+
+				</div>
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-softpile.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Patch with Generic Loop Backing, soft pile. It is particularly popular among military, police departments, airsoft and paintball teams. This patch has the loop side which you can either sewn on or iron onto any uniform or apparel. This backing will be cut to the exact shape and dimension of the embroidered patch you order.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-softpile-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Soft Pile</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-softandhardpile.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Patch with hard and soft pile is particularly popular among military, police departments, airsoft and paintball teams. This patch has both hook and loop sides which you can either sewn on or iron onto any uniform or apparel. This backing will be cut to the exact shape and dimension of the embroidered patch you order.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-softandhardpile-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Hard and Soft Pile</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-vlcro-loop.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Patch with Velcro Loop Backing, this is particularly popular among military, police departments, airsoft and paintball teams. This patch has the Velcro loop side which you can either sewn on or iron onto any uniform or apparel. This backing will be cut to the exact shape and dimension of the embroidered patch you order.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-vlcro-loop-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Velcro Loop</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-vlcro-hook.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Patch with Velcro Hook Backing, this is particularly popular among military, police departments, airsoft and paintball teams. This patch has the hook side which you can either sewn on or iron onto any uniform or apparel. This backing will be cut to the exact shape and dimension of the embroidered patch you order.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-vlcro-hook-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Velcro Hook</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-vlcro-patch.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Patch with Velcro Hook and Loop Backing is particularly popular among military, police departments, airsoft and paintball teams. This patch has both hook and loop sides which you can either sewn on or iron onto any uniform or apparel. This backing will be cut to the exact shape and dimension of the embroidered patch you order.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-vlcro-patch-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Velcro Hook and Loop</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-wearablemagnet.png"
+						rel="prettyPhoto[gallery]"
+						title="<p>Wearable Magnet Patch &#8211; This special option includes 2 powerful magnets on each patch (one behind the patch and the other one concealed beneath the clothes fabric).No need to stitch or use a pin that might ruin your fabric.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-wearablemagnet-150x150.png">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Wearable Magnet</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-hardpile.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Patch with Generic Hook Backing, hard pile. It is particularly popular among military, police departments, airsoft and paintball teams. This patch has the hook side which you can either sewn on or iron onto any uniform or apparel. This backing will be cut to the exact shape and dimension of the embroidered patch you order.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-hardpile-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Hard Pile</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/backing-adhesive.png"
+						rel="prettyPhoto[gallery]"
+						title="<p>This allows you to stick your patch onto clothing for temporary purposes. It makes for great promotional products. Recently a company used our adhesive backing as a free giveway for their customers to adhere onto skateboards. Another one of our customers passed out over 25,000 patches at a concert for participants to adhere to their clothing.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/backing-adhesive-150x150.png">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Adhesive</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Iron-on-backing.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Iron on option will allow you to adhere the patch to clothing, caps and bags using a heat transfer machine or an ordinary house iron. Many of our customers find this option to be quicker and more convenient than sewing the patch on. Iron-on backing also provides a well finished look to the patch.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Iron-on-backing-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Iron on</div>
+
+
+
+				</div>
+
+
+
+				<div class="clearfloat"></div>
+
+			</div>
+
+			<div class="gallery_part">
+
+				<div class="hero-patches">
+
+					<h3>
+						<span name="Special Materials">Special Materials</span>
+					</h3>
+
+				</div>
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/reflective-patch.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Reflective: These reflective patches use the same background as is used in ANSI certified safety apparel. This patch is great to improve the visibility of those wearing patches during night time or poor weather conditions. Please note that the embroidery must be less than 100% so that the reflective material will show.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/reflective-patch-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Reflective</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Felt-Patch.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Felt Patch: Our felt patches are made of felt as opposed to cotton. It gives the patch a more old fashioned, retro feel.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Felt-Patch-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Felt Patch</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/gingham-patch.-jpg.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Gingham Patch: Add patterns by choosing Gingham Line, available in different colors: Pink, Blue, Yellow, Purple, Red and Green.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/gingham-patch.-jpg-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Gingham Patch</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/camoflouge-desert-camo-embroidered-patch.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Camouflage: Usually used by Military, Airsoft and Paintball but is also availed by some customers to get that unique look for their patch. We have dozens of Camouflage variations available including digital camo patterns &#8211; inquire now to get a free quote!</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/camoflouge-desert-camo-embroidered-patch-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Camouflage</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/100Organic.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>100% Organic Cotton: The thread is made from 100% organic cotton and the dye used to create the pigmentation is certified as not containing chemicals that are harmful to the environment. This is a great patch for businesses and organizations that want to do their part to help the environment.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/100Organic-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">100% Organic</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/50Organic.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>50% Organic Cotton: The thread is made from 100% organic cotton combined with regular twill. This is a great patch for businesses and organizations that want to do their part to help the environment.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/50Organic-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">50% Organic</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Chenille-Patch-Little-Lamb.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Chenille is a fabric made with fringed thread used as the weft in combination with wool or cotton. This special material is great for making your patch look more luxurious and beautiful.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Chenille-Patch-Little-Lamb-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Chenille Patch</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/Glow-In-The-Dark.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Glow in the Dark: Available color for now is the standard white thread that glows green in the dark</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/Glow-In-The-Dark-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Glow in the Dark</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/custom-neon-patch.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Neon Thread: This patch uses neon thread in bright, vibrant colors.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/custom-neon-patch-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Neon Thread</div>
+
+
+
+				</div>
+
+
+
+				<div class="display-inline-block">
+
+					<a
+						href="images/specialmaterials-metallic.jpg"
+						rel="prettyPhoto[gallery]"
+						title="<p>Metallic Thread: This option allows for a truly beautiful patch with special thread made from a metallic base. These patches naturally shine and will add a lot of character to your patch.</p>
+">
+
+						<img class="design-options-patches" alt=""
+						src="images/specialmaterials-metallic-150x150.jpg">
+
+
+
+					</a>
+
+
+
+					<div class="special-option-title">Metallic Thread</div>
+
+
+
+				</div>
+
+
+
+				<div class="clearfloat"></div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<!--页面里中间内容结束 -->
+
+	<!--引入底部-->
+	<#include "footer.html">
+	
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;"></div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

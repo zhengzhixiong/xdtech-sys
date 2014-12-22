@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<style>
+			.controlBtu{
+				height: auto;
+			}
+			.gotop{
+				position:fixed;
+				display: none;
+				right: 0.5em;
+				bottom: 6.5em;
+			}
+		</style>
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1 id="title"></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">
+				</span>
+			</div>
+			<div class="main indexBg" style="margin-bottom:35px;">
+                <div class="contact">
+	                    <ul>
+							<li class="topAdd"><h3>:</h3><span class="address"></span></li>
+	                    </ul>
+                </div>
+			</div>
+			<div style="width: 100%;height: 2em;margin-top: 2.6em;"></div>
+			<div class="controlBtu footerCon">
+                <button class="sure" onclick="clicked('cs_submit.html')" ></button>
+            </div>
+            <div class="cartTips" style="background: white;" id="cannotBack">
+                <h3></h3>
+                <p></p>
+                <button type="button" onClick="closeDiv('#cannotBack');">
+                </button> 
+            </div>
+		</div>
+		<div id="gotop" class="gotop"><img alt="" style="width: 30px;height: 30px;" src="img/goTop.png"></div>
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+	<script type="text/javascript" src="js/ed.js"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript" src="js/fastclick.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	$(function() {
+		FastClick.attach(document.body);	//加快点击事件响应时间
+		//国际化
+		var nationJson = [{"id":"title","name":"string_edaw"},
+			{"id":".sure","name":"string_submitNewCustomerService"},
+			{"id":"#title","name":"service_after"},{"id":"#cannotBack button","name":"string_ok"},
+			{"id":"#cannotBack h3","name":"string_submitSucceed"},{"id":"#cannotBack p","name":"string_requestHasBeenSubmitAll"}
+		];
+		nation(nationJson);
+		$('.contact h3').prepend($.i18n.prop("string_customerService"));
+	});
+	//页码，显示的条数
+	var index = 1;
+	var size = 10;
+//	var reasonType = "返修";
+	var hasPro = 0;//是否连接到数据
+	//连接数据，关闭等待窗口，并添加数据到页面上
+	function getData(){
+		var data = '{"PageIndex": "'+index+'","PageSize": "'+size+'"}';
+		RequestData('APP_AftersaleServiceList', data, 0, 0, function(e) {
+			var d = e.Data;
+			var html = "";
+			var cost = 0;
+			$(".address").html(d.Address);
+			if(d.AftersaleServices){
+				hasPro = 1;//连接到数据
+				$.each(d.AftersaleServices, function(i,n) {    
+//					if(n.Type=='1'){
+//						reasonType = $.i18n.prop("string_changeGoods");
+//					}
+					var name = n.ProductName;
+					if(n.ProductName.length>15){
+						name = n.ProductName.substring(0,16)+"..";
+					}
+					if(n.Cost){
+						cost = n.Cost;
+					}
+					
+					html = '<ul onclick="clicked(\'cs_details.html?id='+n.ID+'\')"><li><h4>'+n.ID+'</h4><span class="more bigText">'+$.i18n.prop("string_seeDetails")+'</span></li>'+
+	                    '<li><h4>'+$.i18n.prop("string_productName")+'</h4><span>'+name+'</span></li>'+
+	                    '<li><h4>'+$.i18n.prop("string_customerServiceType")+'</h4><span>'+n.TypeName+'</span></li>'+
+	                    '<li><h4>'+$.i18n.prop("string_status")+'</h4><span>'+n.StatusName+'</span></li>'+
+	                    '<li><h4>'+$.i18n.prop("string_repairCosts")+'</h4><span>￥'+cost+'</span></li></ul>';                                      
+					$('.contact').append(html);
+				});
+			}else{
+				hasPro = 0;
+			}
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+		}, function(d) {
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+		},function(){
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+		});
+	}
+	//页面准备好了，连接数据
+	document.addEventListener("plusready", function() {
+		plus.ui.enumWindow()[0].evalJS("openwait()");
+		getData();
+		
+	},false);
+	
+		$(function() {
+			$("#gotop").click(//定义返回顶部点击向上滚动的动画
+				function(){$('html,body').animate({scrollTop:0},700);
+			}).hover(//为返回顶部增加鼠标进入的反馈效果，用添加删除css类实现
+				function(){$(this).addClass("hover");},
+				function(){$(this).removeClass("hover");
+			});
+			
+			//下拉加载数据
+			$(window).bind('scroll', function() {
+				if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+					if(hasPro){
+						index++;
+						plus.ui.enumWindow()[0].evalJS("openwait()");
+						getData();
+					}
+				}
+				if ($(window).scrollTop() > 100) {
+					$("#gotop").show(900);
+				}else {
+					$("#gotop").hide(900);
+				}
+			});
+
+		});
+	</script>
+	</body>
+</html>

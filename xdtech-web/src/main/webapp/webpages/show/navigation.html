@@ -1,0 +1,155 @@
+<nav class="navbar navbar-fixed-top navbar-default navbar-yckit" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">站名</span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="show.do?index"> 
+				<span class="navbar-red"></span>
+				<span class="navbar-yellow"></span> 
+				<span class="navbar-green"></span>
+			</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li id="nav-1">
+					<a href="show.do?skip&url=jlsh">
+						<i class="fa fa-fw fa-heart-o"></i>&nbsp;记录生活
+					</a>
+				</li>
+				<li id="nav-2">
+					<a href="show.do?skip&url=kfsj">
+						<i class="fa fa-fw fa-bell-o"></i>&nbsp;开发实践
+					</a>
+				</li>
+				<#if member??>
+						<li class="dropdown">
+						    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						    	<i class="fa fa-fw fa-coffee"></i>&nbsp;
+					            <strong style="color:#F07575">
+						        ${(member.nickName)!}
+						    	</strong>
+							    <span class="caret" style="color:#F07575"></span>
+							</a>
+						    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+						        <li>
+								    <a href="member.do?toEditMember"> <i class="fa fa-edit fa-fw"></i>
+								          修改信息
+								    </a>
+								</li>
+								<li>
+								    <a href="show.do?skip&url=postArticle"> <i class="fa fa-image fa-fw"></i>
+								          发表帖子     
+								    </a>
+								</li>
+								<li>
+								    <a href="article.do?myArticles"> <i class="fa fa-image fa-fw"></i>
+								          我的帖子     
+								    </a>
+								</li>
+								<li>
+								    <a href="show.do?skip&url=myComments"> <i class="fa fa-comment-o fa-fw"></i>
+								         我的评论
+								    </a>
+								</li>
+								<li>
+								    <a href="member.do?logout"> <i class="fa fa-power-off fa-fw"></i>
+								         退出登录
+								    </a>
+								</li>
+						    </ul>
+						</li>
+<!-- 						<li> -->
+<!-- 						    <img class="cp user-avatar" src="show/images/avatar.png" onclick="location.href='/user/avatar/'"></img>					 -->
+<!-- 						</li> -->
+					<#else>
+						<li id="nav-3"><a href="show.do?skip&url=login"><i class="fa fa-fw fa-folder-o"></i>&nbsp;登录</a></li>
+						<li id="nav-4"><a href="show.do?skip&url=register"><i class="fa fa-fw fa-cutlery"></i>&nbsp;注册</a></li>
+					</#if>
+				
+<!-- 				<li id="nav-3"> -->
+<!-- 					<a href="show.do?skip&url=fxgh"> -->
+<!-- 						<i class="fa fa-fw fa-folder-o"></i>&nbsp;分享干货 -->
+<!-- 					</a> -->
+<!-- 				</li> -->
+<!-- 				<li id="nav-4"> -->
+<!-- 					<a href="show.do?skip&url=chmj"> -->
+<!-- 						<i class="fa fa-fw fa-cutlery"></i>&nbsp;吃货秘笈 -->
+<!-- 					</a> -->
+<!-- 				</li> -->
+<!-- 				<li id="nav-5" class="dropdown"> -->
+<!-- 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> -->
+<!-- 						<i class="fa fa-fw fa-coffee"></i>&nbsp;YCKIT专栏 <span class="caret"></span> -->
+<!-- 					</a> -->
+<!-- 					<ul class="dropdown-menu" role="menu"> -->
+<!-- 						<li><a href="/category/6/"><i class="fa fa-fw fa-file"></i>&nbsp;功能使用</a></li> -->
+<!-- 						<li><a href="/category/7/"><i class="fa fa-fw fa-desktop"></i>&nbsp;模板主题</a></li> -->
+<!-- 						<li><a href="/category/8/"><i class="fa fa-fw fa-laptop"></i>&nbsp;二次开发</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</li> -->
+<!-- 				<li id="nav-more"><a class="dropdown-toggle" -->
+<!-- 					data-toggle="dropdown" href="#">更多 <span class="caret"></span></a> -->
+<!-- 					<ul class="dropdown-menu" role="menu"> -->
+<!-- 						<li><a href="/music/"><i class="fa fa-fw fa-music"></i>&nbsp;心情电台</a></li> -->
+<!-- 						<li><a href="/say/"><i class="fa fa-fw fa-volume-up"></i>&nbsp;在线留言</a></li> -->
+<!-- 						<li><a href="/readers/"><i class="fa fa-fw fa-book"></i>&nbsp;读者排行</a></li> -->
+<!-- 						<li><a href="/like/"><i class="fa fa-fw fa-thumbs-o-up"></i>&nbsp;点赞排行</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</li> -->
+			</ul>
+
+<!-- 			<div class="navbar-right" id="user"> -->
+<!-- 				<ul class="nav navbar-nav"> -->
+<!-- 					<#if member??> -->
+<!-- 						<li class="dropdown"> -->
+<!-- 						    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> -->
+<!-- 						            <strong style="color:#F07575"> -->
+<!-- 							        ${(member.nickName)!} -->
+<!-- 							    </strong> -->
+<!-- 							    <span class="caret" style="color:#F07575"></span> -->
+<!-- 							</a> -->
+<!-- 						    <ul class="dropdown-menu dropdown-menu-right" role="menu"> -->
+<!-- 						        <li> -->
+<!-- 								    <a href="member.do?toEditMember"> <i class="fa fa-edit fa-fw"></i> -->
+<!-- 								          修改信息 -->
+<!-- 								    </a> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								    <a href="show.do?skip&url=postArticle"> <i class="fa fa-image fa-fw"></i> -->
+<!-- 								          发表帖子      -->
+<!-- 								    </a> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								    <a href="article.do?myArticles"> <i class="fa fa-image fa-fw"></i> -->
+<!-- 								          我的帖子      -->
+<!-- 								    </a> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								    <a href="show.do?skip&url=myComments"> <i class="fa fa-comment-o fa-fw"></i> -->
+<!-- 								         我的评论 -->
+<!-- 								    </a> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								    <a href="member.do?logout"> <i class="fa fa-power-off fa-fw"></i> -->
+<!-- 								         退出登录 -->
+<!-- 								    </a> -->
+<!-- 								</li> -->
+<!-- 						    </ul> -->
+<!-- 						</li> -->
+<!-- 						<li> -->
+<!-- 						    <img class="cp user-avatar" src="show/images/avatar.png" onclick="location.href='/user/avatar/'"></img>					 -->
+<!-- 						</li> -->
+<!-- 					<#else> -->
+<!-- 						<li><a href="show.do?skip&url=login">登录</a></li> -->
+<!-- 						<li><a href="show.do?skip&url=register">注册</a></li> -->
+<!-- 					</#if> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
+		</div>
+	</div>
+</nav>

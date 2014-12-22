@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>注册</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+        var ffid=33333;
+        $(document).ready(function() {
+            $(".quote_outer input[type=file]").change(function(event) {
+                event.preventDefault();
+                $(this).after('<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');});
+        });
+
+        $(function() {
+            $( ".selector" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#datepicker" ).datepicker();
+            $( "#Deadline" ).datepicker();
+        });
+        
+        function register() {
+        	var data= $("#registerForm").serialize() 
+        	console.log(data);
+        	 $.post('member.do?join',data,function(result){
+        		 
+                 if (result.success){
+                	 location.href = "show.do?indexShop";
+                 }else {
+                	 alert(result.msg);
+                 }
+                 
+             },'json');
+        }
+    </script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+            $('#slider2').nivoSlider();
+
+            $('#carousel').carouFredSel({
+                circular: true,         // Determines whether the carousel should be circular.
+                infinite: true,         // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+                responsive: true,      // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+                direction: "left",      // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+                width: null,            // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+                height: null,           // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+                align: "center",
+                scroll : {
+                    items           : 1
+                },
+                wraper : {
+                    element     : "div",
+                    classname   : "col-sm-8"
+                }
+            });
+        });
+
+
+    </script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+		
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+		
+		<div style="clear: both;"></div>
+
+		<!-- about页面里中间内容 -->
+		<div class="top_container">
+			<div id="wrapper">
+
+				<div class="theme-default">
+						<div class="container">
+								<div class="col-sm-5 heropatches-about">
+										<div class="blueform2" style="height: 380px;">
+
+											<div class="col-sm-12">
+												<div class="get-free-quote">注册信息</div>
+											</div>
+											<form role="form" method="POST" id="registerForm"
+												class="new-improved-form" enctype="multipart/form-data">
+
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">邮箱: *</label><input
+															type="text" id="Email" name="email"
+															placeholder="Email" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">昵称:</label><input type="text"
+															id="m-Name" name="nickName" placeholder="Name"
+															class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">密码: *</label><input type="password"
+															id="Phone" name="password" placeholder="Password:"
+															class="form-text form-control" />
+													</div>
+												</div>
+							
+												<div class="clearfix" style="height: 10px;"></div>
+
+												<div class="col-md-12">
+
+													<div class="clearfix"></div>
+
+													<div class="center-submit">
+
+														<input name="button"
+															class="btn btn-warning submit-blue-form btn-lg btn-block"
+															id="button" value="注册"
+															onclick="register()" type="button">
+													</div>
+
+												</div>
+
+											</form>
+
+										</div>
+
+									
+								</div>
+
+						</div>
+
+
+				</div>
+
+			</div>
+			
+		</div>
+
+		<!-- about页面里中间内容结束 -->
+
+		<!--引入底部-->
+		<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;">
+		</div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

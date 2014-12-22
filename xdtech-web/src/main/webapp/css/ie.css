@@ -1,0 +1,101 @@
+/* $Id$ */
+
+/**
+ * @file
+ * CSS targeted specifically for Internet Explorer for Windows.
+ *
+ * Any CSS in this file will apply to all versions of IE. You can target
+ * specific versions of IE by using conditional comments. See your sub-theme's
+ * .info file for an easy way to use them.
+ *
+ * While building your theme, you should be aware that IE limits Drupal to 31
+ * stylesheets total. The work-around for the bug is to enable CSS aggregation
+ * under: admin / settings / performance.
+ */
+
+
+/*
+ * Tabs
+ */
+
+ul.primary li a,
+ul.primary li a .tab,
+ul.secondary li a,
+ul.secondary li a .tab {
+    cursor: pointer;
+}
+
+/*
+ * Drupal nodes
+ */
+
+.node-unpublished .node-inner>* {
+    position: relative; /* Otherwise these elements will appear below the "Unpublished" text. */
+}
+
+/*
+ * Drupal admin tables
+ */
+tr.even th,
+tr.even td,
+tr.odd th,
+tr.odd td {
+    border-bottom: 1px solid #ccc; /* IE doesn't display borders on table rows */
+}
+
+/*
+ * Markup free clearing
+ */
+.clearfix {
+    zoom: 1;
+}
+.content-area .upper-cont .patch-signup .freequotes-form  .form-item input.form-file{
+    background: transparent url('../images/input-small-back.png') no-repeat;
+    width: 233px;
+    height: 28px;
+    border: none;
+    padding: 0;
+}
+#edit-field-fq-image-0-ahah-wrapper{
+    position:inherit;
+    top:580px;
+    left:1120px;
+}
+.content-area .upper-cont .patch-signup .freequotes-form .freequote-form.buttons {
+    background:url("../images/button.png") no-repeat scroll 0 0 transparent;
+    bottom:56px;
+    float:right;
+    height:40px;
+    margin-right:8px;
+    margin-top:50px;
+    width:137px;
+}
+#edit-field-fq-image-0-upload-wrapper{
+    position:relative;
+    margin-right:350px;
+    margin-top:0px;
+}
+
+#edit-field-fq-image-0-filefield-remove{
+    position:absolute;
+    top:170px;
+    left:100px;
+}
+#edit-field-fq-image-0-upload-wrapper{
+    position:absolute;
+    top:175px;
+    left:25px;
+}
+.menu .main_menu ul.menu a:hover {
+    color: #fff;
+    font-weight: bolder;
+    background: transparent url('../images/bg.png') repeat-x;
+    border: 2px solid #4FB8FF;
+}
+.menu .main_menu ul.menu .leaf.active-trail a.active{
+    color: #fff;
+    font-weight: bolder;
+    background: transparent url('../images/bg.png') repeat-x;
+    border: 2px solid #4FB8FF;
+}
+

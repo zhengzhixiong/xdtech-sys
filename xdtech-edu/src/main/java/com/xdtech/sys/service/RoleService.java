@@ -82,5 +82,22 @@ public interface RoleService extends IBaseService<Role>{
 	public void updateRolePermissions(Long roleId,List<RolePermission> rolePermissions);
 	
 	public boolean saveUserWithRoles(Long userId, List<RoleItem> roleItems);
+	/**
+	 * 
+	 * @author max.zheng
+	 * @create 2014-11-30下午5:55:52
+	 * @modified by
+	 * @param item
+	 * @return
+	 */
+	boolean saveOrUpdateRole(RoleItem item);
+	/**
+	 * 
+	 * @author max.zheng
+	 * @create 2014-11-30下午6:05:54
+	 * @modified by
+	 * @param roleIds
+	 */
+	boolean deleteRoleInfo(List<Long> roleIds);
 
 }

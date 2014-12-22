@@ -84,19 +84,19 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<tx:annotation-driven transaction-manager="transactionManager" />
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
 	
-<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager"> -->
-<!--         <tx:attributes> -->
-<!--             <tx:method name="*" propagation="REQUIRED"/> -->
-<!--         </tx:attributes> -->
-<!--     </tx:advice> -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
 
-<!--     <aop:config expose-proxy="true" proxy-target-class="true"> -->
+    <aop:config expose-proxy="true" proxy-target-class="true">
 <!--         只对业务逻辑层实施事务 -->
-<!--         <aop:pointcut id="txPointcut" expression="execution(* com.xdtech..service..*+.*(..))"/> -->
-<!--         <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/> -->
-<!--     </aop:config> -->
+        <aop:pointcut id="txPointcut" expression="execution(* com.xdtech..service..*+.*(..))"/>
+        <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
 	
 	<!-- ApplicationContext配置spring上下文 -->
 	<bean class="com.xdtech.common.utils.ApplicationContextUtil"></bean>
@@ -118,7 +118,7 @@
 	</bean>
 
 	<import resource="applicationContext-shiro.xml" />
-	
+	<import resource="applicationContext-mail.xml" />
 	
   
 </beans>

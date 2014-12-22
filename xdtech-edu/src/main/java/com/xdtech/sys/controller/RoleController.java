@@ -38,7 +38,7 @@ public class RoleController {
 	@RequestMapping(params = "role")
 	public ModelAndView role(HttpServletRequest request) {
 		request.setAttribute("tableId", "role_table");
-		return new ModelAndView("sys/role/role");
+		return new ModelAndView("sys/role/role_ftl");
 	}
 	
 	@RequestMapping(params = "addRole")
@@ -53,11 +53,39 @@ public class RoleController {
 		request.setAttribute("role", role);
 		return new ModelAndView("sys/role/addRole");
 	}
+	@RequestMapping(params = "saveRole")
+	@ResponseBody
+	public ResultMessage saveRole(RoleItem item) {
+		ResultMessage r = new ResultMessage();
+		if (roleService.saveOrUpdateRole(item)) {
+			r.setSuccess(true);
+		}else {
+			r.setSuccess(false);
+		}
+		return r;
+	}
 	
+	@RequestMapping(params = "deleteRoleItems")
+	@ResponseBody
+	public ResultMessage deleteRoleItems(String ids) {
+		ResultMessage r = new ResultMessage();
+		if (StringUtils.isNotEmpty(ids)) {
+			String[] tempIds = ids.split(",");
+			List<Long> roleIds = new ArrayList<Long>();
+			for (String id : tempIds) {
+				roleIds.add(Long.valueOf(id));
+			}
+			roleService.deleteRoleInfo(roleIds);
+			r.setSuccess(true);
+		}else {
+			r.setSuccess(false);
+		}
+		return r;
+	}
 	@RequestMapping(params = "roleAuth")
 	public ModelAndView roleAuth(HttpServletRequest request,Long roleId) {
 		request.setAttribute("roleId", roleId);
-		return new ModelAndView("sys/role/roleAuth");
+		return new ModelAndView("sys/role/roleAuth_ftl");
 	}
 	
 	@RequestMapping(params = "updateRole")
@@ -202,6 +230,14 @@ public class RoleController {
 	public List<RoleItem> loadAllRoles() {
 		List<RoleItem> roles  = roleService.loadAllRoles();
 		return roles;
+	}
+	
+	@RequestMapping(params = "editRole")
+	public ModelAndView editRole(HttpServletRequest request,Long id) {
+		if (id!=null) {
+			request.setAttribute("roleItem", roleService.getRoleItemById(id));
+		}
+		return new ModelAndView("sys/role/editRole_ftl");
 	}
 	
 	@RequestMapping(params = "roleOperation")

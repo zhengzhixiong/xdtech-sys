@@ -1,18 +1,21 @@
 package com.xdtech.sys.vo;
 
+import com.xdtech.web.freemark.item.GridColumn;
+
 
 public class OperationItem {
 	
 	private Long id;
 	
 	private String iconUrl;			    //功能按钮的图片路径
-
+	
 	private String iconName;			    //功能图标名称
-
-	private String labelName;           //显示名称
-
+	
+	@GridColumn(title="编码",width=150)
 	private String operationCode;       //按钮编码
-
+	@GridColumn(title="名称")
+	private String labelName;           //显示名称
+	@GridColumn(title="描述",width=250)
 	private String description;			//按钮描述
 
 	private int type;				   //1按钮

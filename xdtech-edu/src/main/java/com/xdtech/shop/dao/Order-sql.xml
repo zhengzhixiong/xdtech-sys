@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-statement>
+	<sql type="HQL" name="shop.order.getByCondition">
+		<![CDATA[
+			FROM
+		 	 Order o WHERE 1=1
+			  <#if orderNo??>
+					and o.orderNo='${orderNo}'
+			  </#if>
+			  <#if status??>
+					and o.status='${status}'
+			  </#if>
+			  <#if name??>
+					and o.name='${name}'
+			  </#if>
+			  <#if phone??>
+					and o.phone='${phone}'
+			  </#if>
+			  <#if email??>
+					and o.email='${email}'
+			  </#if>
+			  order by createTime desc
+		 ]]>
+	</sql>
+</dynamic-statement>

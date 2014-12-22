@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fastclick.min.js" type="text/javascript"></script>
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1 id="title"></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">
+					&nbsp;
+				</span>
+			</div>
+			<div class="main indexBg" style="margin-bottom:35px;">
+				<div class="contact system">
+                    <ul>
+                    <li class="infoTitle"><!--<h4>独家优秀资源超级大放送</h4><p>2014/04/24  18:44</p>--></li>
+                    <li><br/></li>
+                    </ul>
+                    <div class="systemP">
+                      <!--<p>
+                    	购物打趴预热篇手机6181元秒配件购物打趴预热篇手机6181
+元秒配件购物打趴预热篇手机6181元秒元秒配件购物打趴预热篇手
+机6181元秒购物打趴预热篇手机6181元秒元秒配件。
+
+                      </p>
+                    <img src="pic/adSmall04.jpg">-->
+                    </div>
+				</div>
+			</div>
+			
+		</div>
+	<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);//加快响应点击事件
+			var nationJson = [{"id":"#title","name":"system_details_title"},{"id":"title","name":"string_edaw"}];
+				nation(nationJson);
+		});	
+		function addInfo(d){
+			plus.ui.enumWindow()[0].evalJS("closewait()");	//关闭等待框
+			var data = d.Data.Message;
+			$(".infoTitle").html('<h4>'+data.Title+'</h4>');
+			$(".systemP").html("<p>"+data.Content+"</p><p>"+data.CreateDate+"</p>");
+		}
+		
+		//获取url传送过来的值
+		var urlinfo = window.location.href;
+		var info = urlinfo.split("?");
+		var id = decodeURI(info[1].split("=")[1]);	//取通知id
+		
+		
+		document.addEventListener("plusready", function() {
+			//连接消息数据详细
+			RequestData('APP_MessageDetail',id,0,0,function(data){
+				addInfo(data);
+			},function(data){
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert(e.Message, function() {}, "请求失败", "确定");;
+			},function(){
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+			});
+			//标识此消息为已读
+			var d = '{"ID": "'+id+'"}';
+			RequestData('APP_ReadMessage',d,0,0,function(data){
+			},function(data){
+				plus.ui.alert(e.Message, function() {}, "请求失败", "确定");;
+			},function(){
+//				plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+			});
+		},false);
+		</script>
+	</body>
+</html>

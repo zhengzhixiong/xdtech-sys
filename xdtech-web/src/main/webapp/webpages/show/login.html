@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<#include "headImport.html">
+<title>会员登录 - Max</title>
+</head>
+<body style="background: #fbfbfb !important">
+	<#include "navigation.html">
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="container" style="width: 300px; margin: auto;">
+		<form class="user-form" role="form">
+			<div class="form-group">
+				<label for="userLogin" style="color: #777">请输入帐号</label> <input
+					type="email" class="form-control" id="userLogin" name="userLogin"
+					value="1234567@qq.com" autofocus="true" x-webkit-speech tabindex="1"
+					placeholder="请输入Email/昵称">
+			</div>
+			<div class="form-group">
+				<label for="userKey" style="color: #777">请输入密码</label> <input
+					type="password" class="form-control" id="userKey" name="userKey" value="222222"
+					tabindex="2" x-webkit-speech placeholder="请输入密码">
+			</div>
+
+			<div class="checkbox">
+				<label> 
+					<input type="checkbox" value="1" checked="checked" name="remember"> 记住我 
+					<a href="/reset/" class="floatright">忘记密码？</a>
+				</label>
+			</div>
+
+			<div class="form-group">
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary">
+						<i class="fa fa-check-circle fa-fw"></i>&nbsp;立即登录
+					</button>
+					<button type="button" class="btn btn-success"
+						onclick="">
+						<i class="fa fa-qq fa-fw"></i>&nbsp;Q&nbsp;Q&nbsp;登录
+					</button>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+
+<script src="show/js/jquery.js"></script>
+<script src="show/js/jquery.cookie.js"></script>
+<script src="show/js/bootstrap.js"></script>
+<script src="show/js/main.js"></script>
+<script src="show/js/jquery.validate.js"></script>
+<script>
+	$(function() {
+		$(".user-form").validate({
+			rules : {
+				userLogin : {
+					required : true
+				},
+				userKey : {
+					required : true
+				}
+			},
+			messages : {
+				userLogin : {
+					required : "请输入邮箱地址",
+					email : "请输入有效的邮箱地址，如：129@qq.com"
+				},
+				userKey : {
+					required : "请输入密码"
+				}
+			},
+			errorPlacement : function(label, element) {
+				if (element.attr("type") == "checkbox") {
+					label.insertAfter($(element).parent().parent());
+				} else {
+					label.insertAfter(element);
+				}
+			},
+			submitHandler : function() {
+				$.post("member.do?login", $('form').serialize(), function(json) {
+					var d = $.parseJSON(json);
+// 					show_tip(json.msg,3,300);
+					if (d.success) {
+						location.href = "show.do?index";
+					}
+				});
+			}
+		});
+	});
+</script>
+</body>
+</html>

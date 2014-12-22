@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<style>
+			#logId {
+				margin-top: 0.8em;
+			}
+		</style>
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1 id="title"></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="clicked('service.html','fade-in');"> </span>
+			</div>
+			<div class="main indexBg" style="margin-bottom:50px;">
+				<div class="contact noHover logDiv">
+					<h2></h2>
+					<ul>
+						<li class="selectLabel">
+							<span>
+								<select name="serviceType"></select>
+							</span>
+						</li>
+							<li class="searchLog"><label for="logId">
+								<span>
+									<input id="logId" type="text"  placeholder="" onkeydown="keyDown()"/>
+								</span></label>
+							</li>
+					</ul>
+				</div>
+			</div>
+			<div class="controlBtu footerCon">
+				<button class="sure"  onClick="checkLogistic();">
+				</button>
+			</div>
+		</div>
+		<div class="cartTips" id="popTips">
+			<h2></h2><h3></h3>
+			<button class="oneBtu" onClick="closeDi();">
+				
+			</button>
+		</div>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script type="text/javascript" src="js/ed.js"></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/hideBottom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fastclick.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);	//加快点击事件
+				//国际化
+				var nationJson = [{"id":"title","name":"string_edaw"},{"id":"#title","name":"service_logistic"},
+							{"id":".sure","name":"string_select"},{"id":".oneBtu","name":"string_ok"},
+							{"id":".contact h2","name":"string_logisticCompany"}
+				];
+				var inputJson = [{"id":"#logId","name":"string_input_inputLogisticId"}];
+				nation(nationJson,inputJson);
+				//$('').html($.i18n.prop(""));
+			});
+			var json = [ {"enname" : "shunfeng","zhname" : "顺丰"}, {"enname" : "zhongtong","zhname" : "中通"}, {"enname" : "shentong","zhname" : "申通"}, 
+						{"enname" : "ems","zhname" : "EMS"},
+						{"enname" : "zhaijisong","zhname" : "宅急送"}, {"enname" : "yuantong","zhname" : "圆通速递"}
+			];
+			$.each(json, function(i, e) {//循环写入select的选项数据
+				$('select').append('<option value="' + e.enname + '">' + e.zhname + '</option>');
+			});
+			function getName() {
+				plus.ui.alert($(this).val(), function() {}, "请求失败", "确定");
+			}
+			//关闭蒙版,恢复滚动
+			function closeDi() {
+				$.skygqbox.hide();
+				remliste();
+			}
+
+			document.addEventListener("plusready", function() {
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				if ("iOS" == plus.os.name) {//如果是IOS
+					//输入框获得焦点把顶部定位改为ansolute。因为在ios里打开输入框时，fixed失效
+					$("input,select").focusin(function() {
+						$("#title").css("position", "absolute");
+						$(".topInfo").css("position", "absolute");
+						$(".conBtu").css("position", "absolute");
+						$(".controlBtu").hide();
+					});
+					//输入没有焦点时，再修改为以前的。
+					$("input,select").focusout(function() {
+						$("#title").css("position", "fixed");
+						$(".topInfo").css("position", "fixed");
+						$(".conBtu").css("position", "fixed");
+						$(".controlBtu").show();
+					});
+				}
+
+				if ("Android" == plus.os.name) {//是安卓
+					setTimeout(function() {
+						var height = $(window).height();
+						$(window).resize(function() {
+							//页面高度变小的时候隐藏按键
+							if ($(window).height() < height) {
+								$(".controlBtu").hide();
+							//页面高度恢复的时候显示按键
+							} else if ($(window).height() == height) {
+								$(".controlBtu").show();
+							}
+						});
+					}, 900);
+				}
+
+			}, false);
+			function checkLogistic() {
+				if ($('#logId').val() != null && $('#logId').val() != "") {//非空
+					plus.ui.enumWindow()[0].evalJS("openwait()");
+					var logData = '{"ExpressCompany":"' + $('select').val() + '","ExpressNum":"' + $('#logId').val() + '"}';
+					RequestData('APP_ExpressQuery', logData, 0, 0, function(data) {
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+						//将返回的数据存到数据库
+						if (navigator.userAgent.indexOf("Html5Plus") > 0) {
+							plus.storage.setItem("logisticJSON", data.Data.Value);
+						}
+						var json = JSON.parse("[" + data.Data.Value + "]");
+						$.each(json, function(i, e) {
+							if (e.status == 200) {
+								clicked('logistic_details.html');//成功跳转页面
+							} else {
+								$('#popTips h2').html($.i18n.prop("string_logisticNonExist"));
+								$('#popTips h3').html($.i18n.prop("string_idOfLogisticNonExist"));
+								$('#popTips').skygqbox();//弹出蒙版
+								addliste();//禁止滚动
+							}
+						});
+					}, function() {
+						$('#popTips h2').html($.i18n.prop("string_selectFailed"));
+						$('#popTips h3').html($.i18n.prop("string_checkNetwordIsWork"));
+						$('#popTips').skygqbox();
+						addliste();
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+					},function(){
+						plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+						plus.ui.enumWindow()[0].evalJS("closewait()");
+					});
+				} else
+					plus.ui.alert($.i18n.prop("string_logisticNotNull"), function() {}, "请求失败", "确定");
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+			}
+
+			function keyDown() {
+				if (event.keyCode == 13) {
+					checkLogistic();
+				}
+			}
+		</script>
+	</body>
+</html>

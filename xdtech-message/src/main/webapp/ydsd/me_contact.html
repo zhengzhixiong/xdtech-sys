@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta name="format-detection" content="telephone=no" />
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<script>
+			$(function() {
+				FastClick.attach(document.body);	//加快响应点击事件
+				//国际化
+				var nationJson = [{"id":"title","name":"string_edaw"},{"id":"form ul li:eq(0) h4","name":"reg_contacts"},
+					{"id":"form ul li:eq(1) h4","name":"reg_phone"},{"id":"form ul li:eq(2) h4","name":"reg_province"},
+					{"id":"form ul li:eq(3) h4","name":"reg_city"},{"id":"form ul li:eq(4) h4","name":"reg_address"},
+					{"id":"form ul li:eq(5) h4","name":"reg_emailAdd"},{"id":"form ul li:eq(6) h4","name":"reg_tencent"},
+					{"id":".edBody h1","name":"string_myContacts"},{"id":".sure","name":"string_update"}
+				];
+				nation(nationJson);
+//				$('form ul li:eq(0) h4').prepend($.i18n.prop("reg_contacts"));
+				//$('.contact').click(function(){
+				$('form ul>li').not(':eq(4)').click(function(){//跳转到修改页面
+					clicked('me_contact_modify.html');
+				});
+			});
+			document.addEventListener("plusready", function() {
+				RequestData('APP_UserDetail', '', 0, 0, function(e) {
+					//加入数据
+					$('form ul li:eq(0) span').html(e.Data.Contract);//联系人
+					$('form ul li:eq(2) span').html(e.Data.Province);//省
+					$('form ul li:eq(3) span').html(e.Data.City);//市
+					$('form ul li:eq(4) span').html(e.Data.Address);//地址
+					$('form ul li:eq(1) span').html(e.Data.Phone);//电话
+					$('form ul li:eq(5) span').html(e.Data.Email);//邮箱
+					$('form ul li:eq(6) span').html(e.Data.QQ);//QQ
+					plus.ui.enumWindow()[0].evalJS("closewait()");//关闭等待框
+				}, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert(e.Message, function() {}, "请求失败", "确定");;
+				},function(){
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+				});
+			}, false);
+		</script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">&nbsp;</span>
+			</div>
+			<div class="main indexBg" style="margin-bottom:40px;">
+				<div class="contact">
+					<form>
+						<ul>
+							<li><h4></h4><span></span></li>
+							<li><h4></h4><span></span></li>
+							<li><h4></h4><span></span></li>
+							<li><h4></h4><span></span></li>
+							<li><h4></h4><span></span></li>
+							<li><h4></h4><span></span></li>
+							<li><h4></h4><span></span></li>
+						</ul>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="controlBtu footerCon">
+						<button class="sure" onClick="clicked('me_contact_modify.html');">
+						</button>
+					</div>
+	</body>
+</html>

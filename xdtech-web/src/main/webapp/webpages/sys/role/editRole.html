@@ -1,0 +1,39 @@
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(roleItem.id)!}" />
+	<tr>
+		<td>角色编码</td>
+		<td><input name="code" type="text" placeholder="请输入角色编号" class="easyui-validatebox span2" data-options="required:true" value="${(roleItem.code)! }"></td>
+
+	</tr>
+	<tr>
+		<td>角色名称</td>
+		<td><input name="name" type="text" placeholder="请输入角色名称" class="easyui-validatebox span2" data-options="required:true" value="${(roleItem.name)! }"></td>
+
+	</tr>
+	<tr>
+					<td>是否超级管理员</td>
+					<td>
+						<#if (roleItem.superuser)??&&roleItem.superuser==true>
+							<input type="checkbox" class="span2" name="superuser" checked="checked"/>
+						<#else>
+							<input type="checkbox" class="span2" name="superuser"/>
+						</#if>
+					</td>
+				</tr>
+				<tr>
+					<td>是否启用</td>
+					<td>
+						<#if (roleItem.enable)??&&roleItem.enable==true>
+								<input type="checkbox" class="span2" name="enable" checked="checked"/>
+						<#else>
+								<input type="checkbox" class="span2" name="enable"/>
+						</#if>
+					</td>
+				</tr>
+	<tr>
+		<td>描述</td>
+		<td>
+			<textarea rows="5" cols="30" name="description"> ${(roleItem.description)!}</textarea>
+		</td>
+	</tr>
+</table>

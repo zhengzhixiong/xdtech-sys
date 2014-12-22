@@ -6,12 +6,12 @@ import com.xdtech.web.freemark.item.GridColumn;
 
 public class LogItem {
 	private Long id;
-	@GridColumn(title="创建时间")
+	@GridColumn(title="创建时间",width=150)
 	private Date createTime;
 	@GridColumn(title="操作人")
 	private String operator; // 操作人
 	private String onlyKey; // 唯一键标记 如是用户就是用户ID，如是ip那就是ip地址
-	@GridColumn(title="IP地址")
+	@GridColumn(title="IP地址",width=150)
 	private String ip; // 唯一键标记 如是用户就是用户ID，如是ip那就是ip地址
 	@GridColumn(title="操作动作")
 	private String operateAction; // 操作动作
@@ -19,9 +19,9 @@ public class LogItem {
 	private String operateComment; // 操作说明
 	
 	private String remarks; // 备注
-	@GridColumn(title="操作时间")
+	@GridColumn(title="操作时间",width=150)
 	private Date operateTime; // 操作时间
-	@GridColumn(title="执行方法")
+	@GridColumn(title="执行方法",width=400)
 	private String method; // 具体代码执行位置
 	public Long getId() {
 		return id;

@@ -1,0 +1,21 @@
+<script type="text/javascript">
+	$(function() {
+		$('#2b90800b-7b74-453d-8022-0d0f4adb47ba').combotree(
+				{
+					url : 'category.do?categoryTree',
+					onChange : function(a, b) {
+						$('#2b90800b-7b74-453d-8022-0d0f4adb47bahidden').val(
+								$('#2b90800b-7b74-453d-8022-0d0f4adb47ba')
+										.combotree('getValues'));
+					},
+					required : 'false',
+					multiple : 'false',
+				});
+	});
+</script>
+<input id="2b90800b-7b74-453d-8022-0d0f4adb47ba" style="width: 159px" />
+<input id="2b90800b-7b74-453d-8022-0d0f4adb47bahidden"
+	name="categoryIds" type="hidden" />
+	
+	
+	select distinct c from Student s,Course c where c.id in elements (s.courses) and s.name like '%micmiu.com%' and c.name ='math'"

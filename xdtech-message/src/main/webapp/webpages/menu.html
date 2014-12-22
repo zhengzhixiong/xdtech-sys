@@ -1,12 +1,19 @@
-<#if activeMenu?exists>
-	console.log('ddd');
-<#else>
-	<#assign activeMenu = "home-menu">
-</#if>
+<script type="text/javascript">
+function changeMenu(url) {
+// 	alert($('#mainContent'));
+// 	alert(url);
+	$('#mainContent').load(url);
+// 	$.get(url, function(result)
+// 			{
+// 				$("#mainContent").html(result);
+// 			}, "html");
+}
+</script>
+
 <div class="sidebar" id="sidebar">
 	<script type="text/javascript">
-						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-					</script>
+		try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+	</script>
 
 	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 		<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
@@ -35,81 +42,73 @@
 	</div>
 	<!-- #sidebar-shortcuts -->
 
-	<ul class="nav nav-list">
-		<li id="home-menu"><a href="skip.do?main"> <i class="icon-home"></i> <span
-				class="menu-text">首页</span>
-		</a></li>
+	<ul class="nav nav-list" id="menuchange">
+		<li id="home-menu">
+			<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=main-content')"> 
+				<i class="icon-home"></i> 
+				<span class="menu-text">首页</span>
+			</a>
+		</li>
 
-
-		<li class="active open">
-			<a href="#" class="dropdown-toggle" > 
-				<i class="icon-edit"></i>
-					<span class="menu-text">系统管理</span> <b class="arrow icon-angle-down"></b>
+		<li id="system-menu">
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-edit"></i> 
+				<span class="menu-text">系统管理</span> 
+				<b class="arrow icon-angle-down"></b>
 			</a>
 
 			<ul class="submenu">
-				<li id="user-manager" class="active">
-					<a href="skip.do?skip&url=user2">  
-						<i class="icon-double-angle-right">
-						</i> 用户管理
+				<li id="user-manager" >
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=user-content')"> <i
+						class="icon-double-angle-right"> </i> 用户管理
 					</a>
 				</li>
 
-				<li id="home-menu"><a href="form-wizard.html"> <i
-						class="icon-double-angle-right"></i> 角色管理
-				</a></li>
+				<li id="role-manager">
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=role-content')"> 
+						<i class="icon-double-angle-right"></i>角色管理
+					</a>
+				</li>
 
-				<li><a href="wysiwyg.html"> <i
-						class="icon-double-angle-right"></i> 用户组管理
-				</a></li>
-			</ul></li>
+				<li id="usergroup-manager">
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=usergroup-content')"> 
+						<i class="icon-double-angle-right"></i>用户组管理
+					</a>
+				</li>
+			</ul>
+		</li>
 
-		<li>
-		<li><a href="#" class="dropdown-toggle"> <i class="icon-tag"></i>
-				<span class="menu-text">信息管理</span> <b class="arrow icon-angle-down"></b>
-		</a>
+		
+		<li id="new-menu">
+			<a href="#" class="dropdown-toggle"> 
+				<i class="icon-tag"></i>
+				<span class="menu-text">信息管理</span> 
+				<b class="arrow icon-angle-down"></b>
+			</a>
 
 			<ul class="submenu">
-				<li><a href="profile.html"> <i
-						class="icon-double-angle-right"></i> 用户信息
-				</a></li>
-
-				<li><a href="inbox.html"> <i
-						class="icon-double-angle-right"></i> 收件箱
-				</a></li>
-			</ul></li>
-			
-		<li>
-							<a href="#" class="dropdown-toggle">
-								<i class="icon-list"></i>
-								<span class="menu-text"> 表格 </span>
-
-								<b class="arrow icon-angle-down"></b>
-							</a>
-
-							<ul class="submenu">
-								<li>
-									<a href="tables.html">
-										<i class="icon-double-angle-right"></i>
-										简单 &amp; 动态
-									</a>
-								</li>
-
-								<li>
-									<a href="jqgrid.html">
-										<i class="icon-double-angle-right"></i>
-										jqGrid plugin
-									</a>
-								</li>
-								<li>
-									<a href="webpages/user2.html">
-										<i class="icon-double-angle-right"></i>
-										user2
-									</a>
-								</li>
-							</ul>
-						</li>
-
+				<li id="new-list">
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=newList-content')"> 
+						<i class="icon-double-angle-right"></i>消息列表
+					</a>
+				</li>
+				<li id="new-draft">
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=newDraft-content')"> 
+						<i class="icon-double-angle-right"></i>消息草稿
+					</a>
+				</li>
+				<li id="new-send">
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=newSend-content')"> 
+						<i class="icon-double-angle-right"></i>已发送消息
+					</a>
+				</li>
+				<li id="new-delete">
+					<a href="javascript:void(0)" onclick="changeMenu('skip.do?skip&url=newDelete-content')"> 
+						<i class="icon-double-angle-right"></i>已删除消息
+					</a>
+				</li>
+			</ul>
+		</li>
 	</ul>
 	<!-- /.nav-list -->
 
@@ -119,19 +118,6 @@
 	</div>
 
 	<script type="text/javascript">
-						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-					</script>
+		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+	</script>
 </div>
-<script>
-
-	function addClass(elements, cName) {
-// 		if (!hasClass(elements, cName)) {
-			elements.className += " " + cName;
-// 		};
-	};
-	console.log('${activeMenu}');
-	var menu = document.getElementById('user-manager');
-// 	menu.setAttribute("class", "active,open");
-// 	addClass(menu,"active");
-// 	addClass(menu,"open" )
-</script>

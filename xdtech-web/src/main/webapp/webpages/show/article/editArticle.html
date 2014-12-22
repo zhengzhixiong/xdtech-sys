@@ -1,0 +1,15 @@
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(articleItem.id)!}" />
+	<tr>
+		<td>标题:</td>
+		<td>
+			<input name="title"  class="easyui-validatebox" data-options="required: true" value="${(articleItem.title)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>内容:</td>
+		<td>
+			<input name="content"  class="easyui-validatebox" data-options="required: true" value="${(articleItem.content)!}"/>
+		</td>
+	</tr>
+</table>

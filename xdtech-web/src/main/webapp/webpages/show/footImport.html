@@ -1,0 +1,73 @@
+<script src="show/js/jquery.js"></script>
+<script src="show/js/jquery.cookie.js"></script>
+<script src="show/js/bootstrap.js"></script>
+<script src="show/js/main.js"></script>
+<script>
+	//自动加载
+	if ($("body").data("autopager") == true) {
+		var type = $("body").data("autopager-type");
+		var page = 1, totalheight = 0, isDone = false, isRequest = false, loadData = function() {
+			++page;
+			isRequest = true;
+			var url = "article.do?loadList&page="+page;
+			$.getJSON(url, function(data) {
+				console.log(data);
+				if (data.rows.length>0) {
+					page_count = data.total;
+					var push = '';
+					for ( var i in data.rows) {
+						push += template(data.rows[i]);
+					}
+					$("#post-append").append(push);
+// 					if (data.result.end == true) {
+// 						$("#more").hide();
+// 						isDone = true;
+// 					}
+				} else {
+					console.log('加载完了');
+					$("#more").hide();
+					isDone = true;
+				}
+				isRequest = false;
+			});
+		}, template = function(json) {
+
+			var html = '<div class="media media-yckit">';
+// 			if (json.image != undefined) {
+// 				html += '<a class="media-left pull-left pr" href="' + PATH + 'post/' + json.id + '.html">';
+// 				html += '<img src="' + json.image + '" alt="' + json.title + '" width="180">';
+// 				html += '<span class="pa">' + json.category_name + '</span>';
+// 				html += '</a>';
+// 			}
+			html += '<div class="media-body">';
+			html += '<h4 class="media-heading"><a href="'+PATH+'post/'+json.id+'.html">'
+					+ json.title + '</a></h4>';
+			html += '<div class="media-content">' + json.content + '</div>';
+			html += '</div>';
+			html += '<div class="clearfix"></div>';
+			html += '</div>';
+			return html;
+		}, page_count = 1;
+		// 滚轮翻页（仅前3页）
+		$(window).scroll(
+				function() {
+					if (isDone)
+						return false;
+					if (isRequest)
+						return false;
+					if (page > 3)
+						return false;
+					totalheight = parseFloat($(this).height())
+							+ parseFloat($(this).scrollTop());
+					if ($(document).height() - totalheight <= 100) {
+						loadData();
+						if (page == 3)
+							$("#more").show();
+					}
+				});
+		$("#more").on("click", function(e) {
+			e.preventDefault();
+			loadData();
+		});
+	}
+</script>

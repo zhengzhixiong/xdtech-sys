@@ -51,8 +51,11 @@
 <!-- 		p:prefix="/webpages/" p:suffix=".jsp" /> -->
 
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
-		p:defaultEncoding="utf-8" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"/>  
+        <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->  
+        <property name="maxUploadSize" value="1000000"/>  
+	</bean>
 	
 	 <!-- 异常处理类 -->
      <bean id="exceptionHandler" class="com.xdtech.web.handler.MyExceptionHandler" />
@@ -151,7 +154,7 @@
 						<property name="exposeSessionAttributes" value="true" />
 						<property name="exposeSpringMacroHelpers" value="true" />    
                     </bean>  
-                </entry>  
+                </entry>
 <!--                 <entry key="vm">   -->
 <!--                     <bean   -->
 <!--                      class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">   -->

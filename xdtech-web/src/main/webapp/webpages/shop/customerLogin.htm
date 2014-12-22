@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <title>Hero Patches CRM Login</title>
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icon57.png" sizes="57x57">
+    <link rel="apple-touch-icon" href="images/icon72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="images/icon76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="images/icon114.png" sizes="114x114">
+    <link rel="apple-touch-icon" href="images/icon120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="images/icon144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="images/icon152.png" sizes="152x152">
+    <!-- END Icons -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="css/plugins.css">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/thestudio-backend.css">
+
+
+    <link rel="stylesheet" href="css/themes.css">
+    <!-- END Stylesheets -->
+
+        
+        </head>
+
+<body class="login-body">
+
+    <!-- Login Background -->
+    <div id="login-background">
+        <!-- For best results use an image with a resolution of 2560x400 pixels (prefer a blurred image for smaller file size) -->
+        <img src="images/Hero-login-page-image.jpg" alt="Login Background" class="">
+    </div>
+    <!-- END Login Background -->
+
+    <!-- Login Container -->
+    <div id="login-container" class="animation-fadeIn">
+        <!-- Login Title -->
+        <div class="login-title text-center">
+            <h1><img src="images/hero_login_logo.png" alt="photo" class="logo"><br><small class="hero-invoice-second">Please</small> <small class="hero-invoice-second">Login</small></h1>
+        </div>
+        <!-- END Login Title -->
+
+        <!-- Login Block -->
+        <div class="block remove-margin">
+            <!-- Login Form -->
+            <form action="/customer/customer_login_check" method="post" id="form-login" class="form-horizontal form-bordered form-control-borderless">
+                                                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                            <input type="text" id="login-email" name="_username" class="form-control input-lg" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                            <input type="password" id="login-password" name="_password" class="form-control input-lg" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-actions relative-login-container">
+                    <img class="img-responsive login-absolute-stars-right" src="images/login-three-stars.png">
+                    <img class="img-responsive login-absolute-stars-left" src="images/login-three-stars.png">
+                    <div class="col-xs-4">
+                        <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
+                            <input type="checkbox" id="login-remember-me"  name="_remember_me" value="on" checked>
+                            <span></span>
+                        </label>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="eMgQkl0gLMFfOUM3a1ju40l7wH5VNM0YInecMTRDPRU" />
+                    <div class="col-xs-8 text-right">
+                        <button type="submit" class="btn btn-sm btn-primary" id="_submit" name="_submit" value="security.login.submit"><i class="fa fa-angle-right"></i> Login to Dashboard</button>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <p class="text-center remove-margin">
+                            <small>Do you want to</small> <a href="/customer/request/password-reset" id="link-login"><small>Reset your Password?</small></a>
+
+                        </p>
+                    </div>
+                </div>
+            </form>
+            <!-- END Login Form -->
+        </div>
+        <!-- END Login Block -->
+    </div>
+    <!-- END Login Container -->
+
+
+
+
+
+
+<!-- Modernizr (browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
+<script src="js/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+<!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
+<script src="js/jquery.min.js"></script>
+
+<!-- Bootstrap.js, Jquery plugins and Custom JS code -->
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="js/login.js"></script>
+
+</body>
+</html>

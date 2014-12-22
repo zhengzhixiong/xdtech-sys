@@ -7,7 +7,6 @@
 		<project>xdtech-mobile</project>
 		<project>xdtech-protal</project>
 		<project>xdtech-edu</project>
-		<project>xdtech-message</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

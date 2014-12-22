@@ -1,0 +1,107 @@
+<script type="text/javascript">
+	var menuNodeId;
+   function roleOperationSave(roleId) {
+	   printLog('保存角色权限菜单'+roleId);
+	   var nodes = $('#menuFunctionTree').tree('getChecked');
+	   printLog(nodes);
+	   var selects = [];
+	   for (var i = 0; i < nodes.length; i++) {
+			var item = nodes[i];
+			var pItem = item.attributes;
+			if(pItem) {
+				selects.push({id:item.id,pid:pItem.id});
+			}else {
+				selects.push({id:item.id,pid:-1});
+			}
+			
+	   }
+  	   printLog(nodes);
+  	   printLog(JSON.stringify(selects));
+	   $.post("role.do?updateRoleOperations&roleId="+roleId, {data:JSON.stringify(selects)}, function(result) {
+	         if(result.success){
+	        	$('#roleOperationTree'+roleId).tree('reload'); 
+	      	    showMsg('保存成功.');
+	         }else {
+	      	   showMsg('保存失败.');
+	         }
+		 }, "JSON");
+   }
+   //保存角色按钮集合
+   function buttonlist_role_save(roleId) {
+	   var item = $('#buttonOperationsList'+roleId).datagrid("getSelections");
+	   printLog(JSON.stringify(item));
+	   $.post('operation.do?saveRoleButtons&roleId='+roleId+"&menuId="+menuNodeId,{data:JSON.stringify(item)},function(result){
+       	console.log(result);
+           if (result.success){
+            	showMsg('操作成功.');
+           } else {
+        	   showMsg('操作失败.');
+           }
+       },'json');
+   }
+   //加载菜单下按钮
+   function loadMenuButtonList(node) {
+	   var isLeaf = $('#menuFunctionTree').tree('isLeaf',node.target);
+	   if(isLeaf) {
+		   menuNodeId = node.id;
+		   //判读是否是叶子结点
+		   var params = $('#buttonOperationsList').datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+		   printLog(params);
+		   if (node) {
+			 params['menuId'] = node.id;
+			 params['roleId'] = ${roleId };
+		   }
+		   printLog(params);
+		   $('#buttonOperationsList').datagrid('reload'); 
+	   }
+   }
+   //格式化树显示
+   function formatterMenuTree(node) {
+		var s = node.text;
+		if (node.children.length > 0) {
+			s += '&nbsp;<span style=\'color:blue;\'>' + node.children.length
+					+ '</span>';
+		}
+		return s;
+	}
+   
+   function reloadRoleOperations() {
+	   printLog('do nothing');
+   }
+   
+   //保存操作按钮
+   function saveRoleOperations() {
+	   var item = $('#buttonOperationsList').datagrid("getChecked");
+	   printLog(JSON.stringify(item));
+	   $.post("operation.do?saveRoleButtons&roleId=${roleId }&menuId="+menuNodeId,{data:JSON.stringify(item)},function(result){
+       	   console.log(result);
+           if (result.success){
+            	showMsg('操作成功.');
+           } else {
+        	   showMsg('操作失败.');
+           }
+       },'json');
+   }
+   
+</script>
+<div class="easyui-layout" data-options="fit:true">
+	 <div data-options="region:'west',split:true,title:'功能菜单',collapsible:false,border:false,tools:[
+				{
+					iconCls:'icon-save',
+					handler:function(){roleOperationSave(${roleId })}
+				}]" style="width:200px;">
+		<@eu.tree id="menuFunctionTree" method="post" checkbox="true" animate="true" lines="true"
+			url="role.do?menuTree&roleId=${roleId }"
+			formatter="return formatterMenuTree(node)" 
+			onClick="loadMenuButtonList(node)"/>
+	 </div>
+	 <div data-options="region:'center',border:false">
+       	<@eu.datagrid id="buttonOperationsList" idField="id"
+		toolbar="#role_btnOperation_toolbar"  pagination="false"
+		url="operation.do?loadByMenuIdAndRoleId" item="com.xdtech.sys.vo.OperationItem" />
+		<div id="role_btnOperation_toolbar" style="height: auto">
+			<@eu.linkbutton showName="保存" iconCls="icon-save" onclick="saveRoleOperations()"/>		
+			<@eu.linkbutton showName="刷新"  iconCls="icon-reload" onclick="reloadRoleOperations()"/>
+		</div>
+     </div>
+</div>

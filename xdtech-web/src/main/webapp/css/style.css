@@ -1,0 +1,58 @@
+/*Theme Name: HERO Patches Custom Wordpress ThemeTheme URI:Description: Custom WP Theme for The Studio WordpressAuthor: WMD Solution RomaniaAuthor URI: http://wmds.ro/Version: 1.0*/.logo img {
+	    cursor: pointer;
+	    max-width: 280px;
+}
+
+.custom-css-1 {
+	    background-image: url('images/nav_black_bg.jpg');
+	    repeat-y: scroll center 0 #ACA9A9;
+	    width: 100%;
+	    border-top: 1px solid rgb(14, 11, 11);
+	    border-bottom: 1px solid rgb(14, 11, 11);
+	    top: 410px;
+	 height: 35px;
+}
+
+.div-height-zero {
+	    width: 1px;
+	    height: 1px;
+	    /*display: inline;
+	*/    display: none;
+}
+
+.jcarousel-item {
+	    float: left;
+	    list-style: none outside none;
+}
+
+.howitwork_block .quality_control_production {
+	    margin-top: 0.6em;
+	    margin-right: 0px;
+	    margin-bottom: 1.2em;
+	    margin-left: 0px;
+	    padding-top: 0px;
+	    padding-right: 0px;
+	    padding-bottom: 0px;
+	    padding-left: 0px;
+	    color: rgb(73, 73, 73);
+	    font-family: Verdana, sans-serif;
+	    font-size: 12px;
+	    line-height: 20px;
+}
+
+.img_width_height {
+	    width: 218px;
+	    height: 159px;
+}
+
+.hideScroll {
+	    visibility:hidden;
+}
+
+.gallery_patches img{
+		max-width:150px;
+}
+
+ .slider-wrapper {
+	 overflow: hidden;
+ }

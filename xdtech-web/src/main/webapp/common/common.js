@@ -110,6 +110,8 @@ function createFromWindow(title,href,submitUrl,callback,enableSaveButton) {
         title: title,
         maximizable: true,
         autoRestore: true,
+        width : 800,
+		height : 500,
         topMost: false,
 		enableApplyButton:false,
 		enableSaveButton:enableSaveButton,
@@ -132,7 +134,22 @@ function createFromWindow(title,href,submitUrl,callback,enableSaveButton) {
         },
     });
 }
-
+function createFromWindowOptions(options) {
+	return $.easyui.showDialog({
+        title: options.title,
+        maximizable: options.maximizable,
+        autoRestore: true,
+        width : 800,
+		height : 500,
+        topMost: false,
+		enableApplyButton:false,
+		enableSaveButton:options.enableSaveButton,
+        href: options.href,
+        onSave: function (d) {
+        	return options.callback(d);
+        },
+    });
+}
 
 
 
@@ -149,24 +166,26 @@ function createFromWindow(title,href,submitUrl,callback,enableSaveButton) {
  */
 $.modalDialog = function(options) {
 	if ($.modalDialog.handler == undefined) {// 避免重复弹出
-		var opts = $.extend({
-			title : '',
-			width : 840,
-			height : 680,
-			modal : true,
-			onClose : function() {
-				$.modalDialog.handler = undefined;
-				$(this).dialog('destroy');
-			},
-			onOpen : function() {
+	var opts = $.extend({
+		title : '',
+		maximizable: true,
+	    autoRestore: true,
+		width : 840,
+		height : 680,
+		modal : true,
+		onClose : function() {
+			$.modalDialog.handler = undefined;
+			$(this).dialog('destroy');
+		},
+		onOpen : function() {
 //				parent.$.messager.progress({
 //					text : '数据加载中，请稍后....'
 //				});
 //				onloading();
-			}
-		}, options);
-		opts.modal = true;// 强制此dialog为模式化，无视传递过来的modal参数
-		return $.modalDialog.handler = $('<div/>').dialog(opts);
+		}
+	}, options);
+	opts.modal = true;// 强制此dialog为模式化，无视传递过来的modal参数
+	return $.modalDialog.handler = $('<div/>').dialog(opts);
 	}
 };
 

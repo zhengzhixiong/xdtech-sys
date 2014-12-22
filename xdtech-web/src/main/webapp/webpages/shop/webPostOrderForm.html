@@ -1,0 +1,136 @@
+<form role="form" method="POST" id="freeSubmitForm"
+	action="order.do?submitFreeOrderInfo" class="new-improved-form"
+	enctype="multipart/form-data">
+
+	<div class="col-sm-12">
+		<div class="form-group">
+			<label for="edit-title-1">姓名: *</label>
+			<input type="text" id="Name" name="name" placeholder="Name" class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">电话:</label><input type="text" id="Phone"
+				name="phone" placeholder="Phone" class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">邮箱: *</label><input type="text"
+				id="Email" name="email" placeholder="Email"
+				class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="Size">大小:</label><select id="Size" name="size"
+				class="form-text form-control"><option value="1">2
+					inches</option>
+				<option value="2">2.5 inches</option>
+				<option value="3">3 inches</option>
+				<option value="4">3.5 inches</option>
+				<option value="5">4 inches</option>
+				<option value="6">4.5 inches</option>
+				<option value="7">5 inches</option>
+				<option value="8">5.5 inches</option>
+				<option value="9">6 inches</option>
+				<option value="10">6.5 inches</option>
+				<option value="11">7 inches</option>
+				<option value="12">7.5 inches</option>
+				<option value="13">8 inches</option>
+				<option value="14">8.5 inches</option>
+				<option value="15">9 inches</option>
+				<option value="16">9.5 inches</option>
+				<option value="17">10 inches</option>
+				<option value="18">10.5 inches</option>
+				<option value="19">11 inches</option>
+				<option value="20">11.5 inches</option>
+				<option value="21">12 inches</option></select>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="PercentageofEmbroidery">% 刺绣:</label><select
+				id="PercentageofEmbroidery" name="embroidery"
+				class="form-text form-control"><option value="27">50%</option>
+				<option value="28">75%</option>
+				<option value="29">100%</option></select>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="Quantity">数量:</label><select id="Quantity"
+				name="quantity" class="form-text form-control"><option
+					value="30">10</option>
+				<option value="31">20</option>
+				<option value="32">50</option>
+				<option value="33">100</option>
+				<option value="34">200</option>
+				<option value="35">300</option>
+				<option value="36">500</option>
+				<option value="37">1000</option>
+				<option value="38">2000</option>
+				<option value="39">3000</option>
+				<option value="40">4000</option>
+				<option value="41">5000</option>
+				<option value="42">7500</option>
+				<option value="43">10000</option></select>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">预定日期: </label><input type="text"
+				id="Deadline" name="Deadline" placeholder="Deadline"
+				class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<div id="edit-field-fq-image-0-1-ahah-wrapper">
+				<div class="form-item" id="edit-field-fq-image-0-1-upload-wrapper">
+					<label for="File">图片上传:</label>
+					<div class="filefield-upload clear-block">
+						<input style="width: 68%" type="file"
+							class="form-file wmds-form-file" id="imageFile" name="imageFile" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">AlternativeEmail</label><input type="text"
+				id="AlternativeEmail" name="form[AlternativeEmail]"
+				placeholder="AlternativeEmail" class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="Notes">留言: </label>
+			<textarea cols="60" rows="1" id="Notes" name="notes"
+				placeholder="Notes" class="form-textarea  resizable form-control"></textarea>
+		</div>
+	</div>
+	<script type="text/javascript">
+													$('#AlternativeEmail')
+															.parent().parent()
+															.addClass('TopTd');
+												</script>
+
+	<div class="clearfix"></div>
+
+	<div class="col-md-12">
+
+		<div class="clearfix"></div>
+
+		<div class="center-submit">
+
+			<input name="button"
+				class="btn btn-warning submit-blue-form btn-lg btn-block"
+				id="button" value="Give me your best price" type="submit">
+
+		</div>
+
+	</div>
+
+</form>

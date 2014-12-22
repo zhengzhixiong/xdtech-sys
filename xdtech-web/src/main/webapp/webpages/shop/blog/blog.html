@@ -1,0 +1,260 @@
+<script type="text/javascript">
+	function doSearchBlog(value) {
+		
+	}
+	
+	//表格查询  
+	function reloadBlog() {
+		var params = blog_list.datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+		printLog(params);
+		blog_list.datagrid('reload'); //设置好查询参数 reload 一下就可以了  
+		blog_list.datagrid('unselectAll');
+		blog_list.datagrid('uncheckAll');
+	}
+
+
+	function addBlog() {
+// 		createFromWindow("新增信息", "blog.do?editBlog", "blog.do?saveBlog",
+// 				function(data) {
+// 					reloadBlog();
+// 				});
+		createFromWindowOptions({
+			title:"新增信息",
+			maximizable:true,
+			href:'blog.do?editBlog',
+			callback:function(d) {
+				var f  = d.find('#editBlogForm');
+				var validate = f.form("validate");
+				if (validate) {
+					f.submit();
+	            } else {
+	                return false;
+	            }
+			},
+			enableSaveButton:true
+		});
+	}
+	
+	function deleteBlog() {
+		var rows = blog_list.datagrid('getChecked');
+	    if (rows&&rows.length>0){
+	        $.messager.confirm('询问','你确认要删除吗?',function(r){
+	            if (r){
+	            	var ids = "";
+	            	for(var i=0; i<rows.length; i++){
+	            		ids += rows[i].id+",";
+	            	}
+	                $.post('blog.do?deleteBlogItems',{ids:ids},function(result){
+	                    if (result.success){
+	                    	reloadBlog();    
+	                    }
+	                    showMsg(result.msg);
+	                },'json');
+	            }
+	        });
+	    }else {
+	    	showMsg("请选择操作记录.");
+	    }
+	}
+
+	function editBlog() {
+		var rows = blog_list.datagrid('getChecked');
+		printLog(rows);
+		if (rows&&rows.length>0) {
+			if(rows.length>1) {
+				showMsg('请选择一条操作记录.');
+				return;
+			}
+			createFromWindowOptions({
+				title:"编辑信息",
+				maximizable:true,
+				href:"blog.do?editBlog&blogId=" + rows[0].id,
+				callback:function(d) {
+					var f  = d.find('#editBlogForm');
+					var validate = f.form("validate");
+					if (validate) {
+						f.submit();
+		            } else {
+		                return false;
+		            }
+				},
+				enableSaveButton:true
+			});
+		} else {
+			showMsg('请选择操作记录.');
+		}
+
+	}
+	//查看博客信息
+	function lookBlog() {
+		var rows = blog_list.datagrid('getChecked');
+		if (rows&&rows.length>0) {
+			if(rows.length>1) {
+				showMsg('请选择一条操作记录.');
+				return;
+			}
+			createFromWindow("查看信息", "blog.do?editBlog&blogId=" + rows[0].id,
+					null, null,false);
+		} else {
+			showMsg('请选择操作记录.');
+		}
+	}
+	
+	//审核通过订单
+	function passBlog() {
+		var rows = blog_list.datagrid('getChecked');
+		printLog(rows);
+	    if (rows&&rows.length>0){
+           	var ids = "";
+           	for(var i=0; i<rows.length; i++){
+           		ids += rows[i].id+",";
+           	}
+            $.post('blog.do?passBlogs',{ids:ids},function(result){
+                if (result.success){
+                	reloadBlog();    
+                }
+                showMsg(result.msg);
+            },'json');
+	    }else {
+	    	showMsg("请选择操作记录.");
+	    }
+	}
+	
+	//设置博客审核失败
+	function voidBlog() {
+		var rows = blog_list.datagrid('getChecked');
+	    if (rows&&rows.length>0){
+	        $.messager.confirm('询问','你确认审核失败吗?',function(r){
+	            if (r){
+	            	var ids = "";
+	            	for(var i=0; i<rows.length; i++){
+	            		ids += rows[i].id+",";
+	            	}
+	                $.post('blog.do?voidBlogs',{ids:ids},function(result){
+	                    if (result.success){
+	                    	reloadBlog();    
+	                    }
+	                    showMsg(result.msg);
+	                },'json');
+	            }
+	        });
+	    }else {
+	    	showMsg("请选择操作记录.");
+	    }
+	}
+	
+	//表单查询相关
+	//商品查询
+	function blogSearch() {
+		setBlogSearchParams(false);
+	    reloadBlog(); 
+	}
+	//清空查询条件
+	function clearBlogSearch() {
+		$('#blogSearchForm').form('clear');
+		setBlogSearchParams(true);
+		reloadBlog(); 
+	}
+	//设置查询参数或清空查询参数
+	function setBlogSearchParams(isClear) {
+		var fields =$('#blogSearchForm').serializeArray(); //自动序列化表单元素为JSON对象  
+		var params = $('#blog_list').datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+	    $.each(fields, function(i, field){ 
+	    	if(isClear) {
+	    		delete params[field.name];
+	    	}else {
+	    		params[field.name] = field.value; //设置查询参数
+	    	}
+	    });
+	    printLog(params);
+	}
+	
+	//操作按钮触发
+	function operationsLookBlog(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = blog_list.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			createFromWindow("查看信息", "blog.do?editBlog&id=" + id,
+					null, null,false);
+		} else {
+			showMsg('请选择查看记录.');
+		}
+	}
+	
+	function operationsEditBlog(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = blog_list.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			createFromWindow("编辑消息信息", "blog.do?editBlog&id=" + id,
+					"blog.do?saveBlog", function(data) {
+						reloadBlog();
+					},true);
+		} else {
+			showMsg('请选择编辑记录.');
+		}
+	}
+	
+	function operationsDeleteBlog(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = new_list.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			$.messager.confirm('询问', '你确认要删除吗?', function(r) {
+				if (r) {
+					$.post('blog.do?deleteBlog', {
+						id : id
+					}, function(result) {
+						if (result.success) {
+							reloadBlog(); 
+						}
+						showMsg(result.msg);
+					}, 'json');
+				}
+			});
+		} else {
+			showMsg("请选择操作记录.");
+		}
+	}
+</script>
+
+
+
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center',border:false">
+		
+		<@eu.datagrid id="blog_list" toolbar="#bloglist_search" idField="id" 
+			 url="blog.do?loadList" rownumbers="true"
+			 item="com.xdtech.shop.vo.BlogItem"/>
+		
+		<div id="bloglist_search">
+			<div style="margin-bottom:5px;padding-left:5px;margin-top: 5px;">
+				<form id="blogSearchForm">
+					标题：<input type="text" name="title" style="width: 150px" />
+					状态：<select class="easyui-combobox" name="status" style="width:150px;">  
+								<option value="">------</option> 
+							    <option value="0">待审核</option>  
+							    <option value="1">审核通过</option>
+							    <option value="-1">审核失败</option>
+							</select> 
+					 <@eu.linkbutton showName="查询" iconCls="icon-search" onclick="blogSearch()"/>
+ 					 <@eu.linkbutton showName="清空" iconCls="icon-clear" onclick="clearBlogSearch()"/>
+				</form>
+			</div>
+			<div id="blog_toolbar" style="height: auto">
+				<@eu.linkbutton showName="新增" shiro="shop:blog:add" iconCls="icon-add" onclick="addBlog()"/>
+				<@eu.linkbutton showName="删除" shiro="shop:blog:delete" iconCls="icon-remove" onclick="deleteBlog()"/>
+				<@eu.linkbutton showName="编辑" shiro="shop:blog:edit" iconCls="icon-edit" onclick="editBlog()"/>
+				<@eu.linkbutton showName="查看" shiro="shop:blog:look" iconCls="icon-edit" onclick="lookBlog()"/>
+				<@eu.linkbutton showName="审核通过" shiro="shop:order:delete" iconCls="icon-remove" onclick="passBlog()"/>
+				<@eu.linkbutton showName="审核失败" shiro="shop:order:void" iconCls="icon-remove" onclick="voidBlog()"/>
+				<@eu.linkbutton showName="刷新" shiro="shop:blog:refresh" iconCls="icon-reload" onclick="reloadBlog()"/>
+				
+			</div>
+		</div>
+	</div>
+</div>

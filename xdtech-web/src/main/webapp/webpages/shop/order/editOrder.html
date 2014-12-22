@@ -1,0 +1,69 @@
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(orderItem.id)!}" />
+	<tr>
+		<td>订单编号:</td>
+		<td>
+			<input name="orderNo"  value="${(orderItem.orderNo)!}" readonly="readonly"/>
+		</td>
+	</tr>
+	<tr>
+		<td>姓名:</td>
+		<td>
+			<input name="name"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.name)!}" />
+		</td>
+		<td>电话:</td>
+		<td>
+			<input name="phone"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.phone)!}" />
+		</td>
+	</tr>
+	<tr>
+		<td>邮箱:</td>
+		<td>
+			<input name="email"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.email)!}" />
+		</td>
+		<td>数量:</td>
+		<td>
+			<input name="quantity"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.quantity)!}" />
+		</td>
+	</tr>
+	<tr>
+		<td>大小:</td>
+		<td>
+			<input name="size"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.size)!}" />
+		</td>
+		<td>刺绣占比:</td>
+		<td>
+			<input name="embroidery"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.embroidery)!}" />
+		</td>
+	</tr>
+	<tr>
+		<td>预定日期:</td>
+		<td>
+			<input name="dateNeeded"  class="easyui-validatebox" data-options="required: true" value='${(orderItem.dateNeeded)?string("yyyy-MM-dd HH:mm:ss")}' />
+		</td>
+		<td>刺绣占比:</td>
+		<td>
+			<input name="embroidery"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.embroidery)!}" />
+		</td>
+	</tr>
+	<tr>
+		<td>留言:</td>
+		<td>
+			<input name="notes"  class="easyui-validatebox" data-options="required: true" value="${(orderItem.notes)!}"/>
+		</td>
+		<td>备注:</td>
+		<td>
+			<input name="remark"  class="easyui-validatebox"  value="${(orderItem.remark)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>图片:</td>
+		<td colspan="3">
+			<#if (orderItem.image)?exists>
+				<img  src="${(orderItem.image)!}" width="100px" onerror="this.src=''">
+			<#else>
+				无
+			</#if>
+		</td>
+	</tr>
+</table>

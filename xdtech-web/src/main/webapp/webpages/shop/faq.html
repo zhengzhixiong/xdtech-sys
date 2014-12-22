@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>困惑解答</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+		var ffid = 33333;
+		$(document)
+				.ready(
+						function() {
+							$(".quote_outer input[type=file]")
+									.change(
+											function(event) {
+												event.preventDefault();
+												$(this)
+														.after(
+																'<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');
+											});
+						});
+
+		$(function() {
+			$(".selector").datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+			$("#datepicker").datepicker();
+			$("#Deadline").datepicker();
+		});
+	</script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$('#slider').nivoSlider();
+			$('#slider2').nivoSlider();
+
+			$('#carousel').carouFredSel({
+				circular : true, // Determines whether the carousel should be circular.
+				infinite : true, // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+				responsive : true, // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+				direction : "left", // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+				width : null, // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+				height : null, // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+				align : "center",
+				scroll : {
+					items : 1
+				},
+				wraper : {
+					element : "div",
+					classname : "col-sm-8"
+				}
+			});
+		});
+	</script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+
+		<div style="clear: both;"></div>
+
+		<!-- 页面里中间内容 -->
+		<div class="top_container">
+			<div class="mobile-600 hidden-lg hidden-md hidden-sm visible-xs">
+
+				<div class="container">
+
+					<div class="col-sm-12">
+						<div class="col-sm-12 blueform-mobile-small">
+
+							<div class="height-15"></div>
+
+							<div class="get-free-quote">GET A FREE QUOTE NOW!</div>
+
+							<!-- 引入手机端提交界面表单 -->
+							<#include "mobilePostOrderForm.html">
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="container container-mobile">
+					<div class="content">
+						<div class="faq-category-group">
+
+							<div class="faq-qa-header">
+
+								<h5 class="faq-header"></h5>
+
+							</div>
+
+							<div class="faq-qa">
+
+								<div class="faq-dl-hide-answer">
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What is
+												an Embroidered Patch</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>
+												An Embroidered Patch is a piece of artwork created thru an
+												embroidery machine using materials such as cotton twill and
+												different colour threads. It conveys a theme, event or logo
+												that commemorates the users’ message.<br /> Embroidered
+												emblems and patches are a great way to put your design or
+												insignia on a garment without applying the decoration
+												directly to the garment. These emblems &#038; patches are
+												generally produced on a heavy twill fabric with a smooth
+												texture.
+											</p>
+											<p>In most cases a portion of the underlying twill
+												becomes the background for the design, and a variety of
+												thread colors make up the details of the design. There is a
+												decorative stitch that overlays the edge of the twill fabric
+												to make your custom embroidered emblem.</p>
+											<p>Embroidered emblems and custom patches are commonly
+												produced for outerwear, clothing and accessories. They work
+												great for uniforms, caps, jackets and golf shirts when you
+												want maximum recognition and exposure. We use the highest
+												quality fabrics and threads to make your embroidered emblems
+												and patches.</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What are
+												the Benefits of Custom Embroidered Patches ?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Embroidered patches can benefit you in many ways.</p>
+											<p>
+												* Option to be heat sealed or sewn on garments.<br /> *
+												Designed for industrial laundering.<br /> * Gives
+												opportunity to remove design at anytime without ruining the
+												garment.<br /> * Removable, allowing for reuse of garments.<br />
+												* Multiple shapes and sizes.<br /> * Can save as much as
+												30% over the cost of direct embroidery.<br /> * Allows you
+												the opportunity to have your design sewn without purchasing
+												a garment.<br /> * Durable in active environments such as
+												industrial, healthcare and hospitality.
+											</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: How are
+												your Patches produced?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Once a digital mock-up is done our digitizers will
+												create a DST file. DST is a file format which embroidery
+												machines use to translate a design into an actual
+												embroidered patch.</p>
+											<p>Digitizing is the indispensable foundation of any
+												embroidered design. In essence, digitizing is the
+												sophisticated process of converting text or a printed design
+												into an embroidery format. The output of this conversion is
+												a set of instructions that directs the embroidery machine to
+												know what thread color to sew and where to place each
+												stitch, culminating in a thread based mirror image of the
+												original.</p>
+											<p>The factory will use the mockup as a guide for colors,
+												special options and other instructions. They will feed the
+												dst file to the embroidery machine and start with
+												production.</p>
+											<p>Digitizing Considerations: Small elements such as tiny
+												graphics or very small lettering may retain their detail in
+												printing, however they do not always embroider well and may
+												need to be either enlarged or removed completely from the
+												design. For best embroidery results, avoid miniature
+												graphics and text smaller than .25 inch. Refer to Patch
+												Design Guideline Document for more technical information
+												about designing for patches.</p>
+											<p>Fact: A sew-out is a replica of the finished design
+												and is provided to customer for approval before proceeding
+												with the actual embroidery.</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: Where do
+												customers start if they want an embroidered Patch?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Customers start with an idea of how they want their
+												patches to look. Customers provide us different resources to
+												create a digital representation of their patch order.</p>
+											<div></div>
+											<div>Some customers provide:</div>
+											<div>• An idea only; notes and descriptions about their
+												patch.</div>
+											<div>• A sketch or rough image of their patch.</div>
+											<div>• A set of pictures for references</div>
+											<div>• An actual picture of their existing patch</div>
+											<div>• An actual sample they send to our office to
+												create 100% match</div>
+											<div></div>
+											<div>Whatever they provide, our Graphic Designers will
+												create a digital mockup which will be sent to the customer
+												for approval.  This same mock-up will be used by our
+												Digitizers, to create a DST file, and by the factory to
+												produce the actual patch.</div>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What are
+												Hero Patch Features?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<div>
+												<p>We offer up to 12 thread colors on each design. More
+													colors are available for addional cost.</p>
+												<p>We use thick cotton twill as the base for embroidery
+													(this material is similar to material used in caps/
+													baseball caps)</p>
+												<p>We offer special options for threads</p>
+												<p>We offer other materials for base</p>
+											</div>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: Who are
+												your Customers?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Patches serve as a quick, easy way to visually
+												identify our customers with any group, organization or
+												event. By wearing a team logo, customers can feel being a
+												part of the group no matter where they are. People will
+												recognize them and connect them with something larger.</p>
+											<p>In General, Butler Patches caters to any customer who
+												would like to have a visual identity of their group thru
+												embroidered patches. Our regular customers include:</p>
+											<ul>
+												<li>Military</li>
+											</ul>
+											<ul>
+												<li>Airsoft teams</li>
+											</ul>
+											<ul>
+												<li>Paintball Teams</li>
+											</ul>
+											<ul>
+												<li>Martial Arts Clubs</li>
+											</ul>
+											<ul>
+												<li>Companies and Organizations</li>
+											</ul>
+											<ul>
+												<li>Schools, High Schools, College and Universities</li>
+											</ul>
+											<ul>
+												<li>Event Organizers</li>
+											</ul>
+											<ul>
+												<li>Fire Department and EMS</li>
+											</ul>
+											<ul>
+												<li>Police Departments</li>
+											</ul>
+											<ul>
+												<li>Security Organizations</li>
+											</ul>
+											<ul>
+												<li>Boy Scouts and Girl Scouts</li>
+											</ul>
+											<ul>
+												<li>Soccer Teams, Foot ball teams and other sports
+													teams</li>
+											</ul>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What is
+												Percentage of Embroidery?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Our Patches are available in various Embroidery
+												Percentages. We offer customers 3 choices:</p>
+											<p>1. 50% Embroidery – This means 50% or less of the
+												patch surface area will be covered in embroidery. This
+												method is ideal for Name patches (patches that display name
+												or position of the user. E.g. “Trevor” or “President”). This
+												is usually used for much simpler patches that displays words
+												or numbers only.</p>
+											<p>2. 75% Embroidery – This means 75% or less of the
+												patch surface area will be covered in embroidery. This is
+												most widely used method for our patches. Unless specified by
+												the customer, our Brand Specialists usually note a standard
+												order with 75% Embroidery. 75% embroidered patches are
+												sometimes good for a lot of detail. If there is a lot of
+												detail and the size is not large embroidery on embroidery
+												(100%) can cause difficulty in the embroidery.</p>
+											<p>3. 100% Embroidery &#8211; This method will cover 100%
+												of the patch surface area. No cotton twill will be exposed
+												in the patch. Some customers prefer this because it makes
+												the patch look more beautiful and luxurious; however this
+												method is not suitable for all patch designs.</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What are
+												the Available Patch Shapes?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<div>
+												<p>We have two standard shapes:</p>
+												<div>• Circle or round</div>
+												<div>• Square</div>
+												<div>Non-traditional shapes are called “Cut to shape”.
+													 Any shape other than circle and square are labelled as
+													“cut to shape”</div>
+											</div>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q:
+												What&#8217;s the standard Patch Size?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Patch sizes can start from 1 inch to 12 inches
+												(sometimes even larger). The proper size for a custom patch
+												is determined by its intended use.</p>
+											<p>
+												For caps and hats, most people prefer patches from 1” to 3”<br />
+												Shoulder patches and front jacket patches are commonly 3.5”
+												to 5” inches tall<br /> Back patches range from 10” to 17”
+												sizes
+											</p>
+											<p>
+												To measure a patch you should add the height and the width
+												then divide the sum by 2<br /> (H+W)/2 = Patch size
+											</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What is
+												your minimum order requirement?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Hero Patches will entertain orders as small as 10 pcs.
+												We can also accomodate large quantity orders and will
+												deliver your product on time with the lowest price available
+												in the market today.</p>
+										</div>
+
+									</div>
+
+
+
+								</div>
+
+							</div>
+
+						</div>
+						<div class="faq-category-group">
+
+							<div class="faq-qa-header">
+
+								<h5 class="faq-header"></h5>
+
+							</div>
+
+							<div class="faq-qa">
+
+								<div class="faq-dl-hide-answer">
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What is
+												an Embroidered Patch</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>
+												An Embroidered Patch is a piece of artwork created thru an
+												embroidery machine using materials such as cotton twill and
+												different colour threads. It conveys a theme, event or logo
+												that commemorates the users’ message.<br /> Embroidered
+												emblems and patches are a great way to put your design or
+												insignia on a garment without applying the decoration
+												directly to the garment. These emblems &#038; patches are
+												generally produced on a heavy twill fabric with a smooth
+												texture.
+											</p>
+											<p>In most cases a portion of the underlying twill
+												becomes the background for the design, and a variety of
+												thread colors make up the details of the design. There is a
+												decorative stitch that overlays the edge of the twill fabric
+												to make your custom embroidered emblem.</p>
+											<p>Embroidered emblems and custom patches are commonly
+												produced for outerwear, clothing and accessories. They work
+												great for uniforms, caps, jackets and golf shirts when you
+												want maximum recognition and exposure. We use the highest
+												quality fabrics and threads to make your embroidered emblems
+												and patches.</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What are
+												the Benefits of Custom Embroidered Patches ?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Embroidered patches can benefit you in many ways.</p>
+											<p>
+												* Option to be heat sealed or sewn on garments.<br /> *
+												Designed for industrial laundering.<br /> * Gives
+												opportunity to remove design at anytime without ruining the
+												garment.<br /> * Removable, allowing for reuse of garments.<br />
+												* Multiple shapes and sizes.<br /> * Can save as much as
+												30% over the cost of direct embroidery.<br /> * Allows you
+												the opportunity to have your design sewn without purchasing
+												a garment.<br /> * Durable in active environments such as
+												industrial, healthcare and hospitality.
+											</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: How are
+												your Patches produced?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Once a digital mock-up is done our digitizers will
+												create a DST file. DST is a file format which embroidery
+												machines use to translate a design into an actual
+												embroidered patch.</p>
+											<p>Digitizing is the indispensable foundation of any
+												embroidered design. In essence, digitizing is the
+												sophisticated process of converting text or a printed design
+												into an embroidery format. The output of this conversion is
+												a set of instructions that directs the embroidery machine to
+												know what thread color to sew and where to place each
+												stitch, culminating in a thread based mirror image of the
+												original.</p>
+											<p>The factory will use the mockup as a guide for colors,
+												special options and other instructions. They will feed the
+												dst file to the embroidery machine and start with
+												production.</p>
+											<p>Digitizing Considerations: Small elements such as tiny
+												graphics or very small lettering may retain their detail in
+												printing, however they do not always embroider well and may
+												need to be either enlarged or removed completely from the
+												design. For best embroidery results, avoid miniature
+												graphics and text smaller than .25 inch. Refer to Patch
+												Design Guideline Document for more technical information
+												about designing for patches.</p>
+											<p>Fact: A sew-out is a replica of the finished design
+												and is provided to customer for approval before proceeding
+												with the actual embroidery.</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: Where do
+												customers start if they want an embroidered Patch?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Customers start with an idea of how they want their
+												patches to look. Customers provide us different resources to
+												create a digital representation of their patch order.</p>
+											<div></div>
+											<div>Some customers provide:</div>
+											<div>• An idea only; notes and descriptions about their
+												patch.</div>
+											<div>• A sketch or rough image of their patch.</div>
+											<div>• A set of pictures for references</div>
+											<div>• An actual picture of their existing patch</div>
+											<div>• An actual sample they send to our office to
+												create 100% match</div>
+											<div></div>
+											<div>Whatever they provide, our Graphic Designers will
+												create a digital mockup which will be sent to the customer
+												for approval.  This same mock-up will be used by our
+												Digitizers, to create a DST file, and by the factory to
+												produce the actual patch.</div>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What are
+												Hero Patch Features?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<div>
+												<p>We offer up to 12 thread colors on each design. More
+													colors are available for addional cost.</p>
+												<p>We use thick cotton twill as the base for embroidery
+													(this material is similar to material used in caps/
+													baseball caps)</p>
+												<p>We offer special options for threads</p>
+												<p>We offer other materials for base</p>
+											</div>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: Who are
+												your Customers?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Patches serve as a quick, easy way to visually
+												identify our customers with any group, organization or
+												event. By wearing a team logo, customers can feel being a
+												part of the group no matter where they are. People will
+												recognize them and connect them with something larger.</p>
+											<p>In General, Butler Patches caters to any customer who
+												would like to have a visual identity of their group thru
+												embroidered patches. Our regular customers include:</p>
+											<ul>
+												<li>Military</li>
+											</ul>
+											<ul>
+												<li>Airsoft teams</li>
+											</ul>
+											<ul>
+												<li>Paintball Teams</li>
+											</ul>
+											<ul>
+												<li>Martial Arts Clubs</li>
+											</ul>
+											<ul>
+												<li>Companies and Organizations</li>
+											</ul>
+											<ul>
+												<li>Schools, High Schools, College and Universities</li>
+											</ul>
+											<ul>
+												<li>Event Organizers</li>
+											</ul>
+											<ul>
+												<li>Fire Department and EMS</li>
+											</ul>
+											<ul>
+												<li>Police Departments</li>
+											</ul>
+											<ul>
+												<li>Security Organizations</li>
+											</ul>
+											<ul>
+												<li>Boy Scouts and Girl Scouts</li>
+											</ul>
+											<ul>
+												<li>Soccer Teams, Foot ball teams and other sports
+													teams</li>
+											</ul>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What is
+												Percentage of Embroidery?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Our Patches are available in various Embroidery
+												Percentages. We offer customers 3 choices:</p>
+											<p>1. 50% Embroidery – This means 50% or less of the
+												patch surface area will be covered in embroidery. This
+												method is ideal for Name patches (patches that display name
+												or position of the user. E.g. “Trevor” or “President”). This
+												is usually used for much simpler patches that displays words
+												or numbers only.</p>
+											<p>2. 75% Embroidery – This means 75% or less of the
+												patch surface area will be covered in embroidery. This is
+												most widely used method for our patches. Unless specified by
+												the customer, our Brand Specialists usually note a standard
+												order with 75% Embroidery. 75% embroidered patches are
+												sometimes good for a lot of detail. If there is a lot of
+												detail and the size is not large embroidery on embroidery
+												(100%) can cause difficulty in the embroidery.</p>
+											<p>3. 100% Embroidery &#8211; This method will cover 100%
+												of the patch surface area. No cotton twill will be exposed
+												in the patch. Some customers prefer this because it makes
+												the patch look more beautiful and luxurious; however this
+												method is not suitable for all patch designs.</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What are
+												the Available Patch Shapes?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<div>
+												<p>We have two standard shapes:</p>
+												<div>• Circle or round</div>
+												<div>• Square</div>
+												<div>Non-traditional shapes are called “Cut to shape”.
+													 Any shape other than circle and square are labelled as
+													“cut to shape”</div>
+											</div>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q:
+												What&#8217;s the standard Patch Size?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Patch sizes can start from 1 inch to 12 inches
+												(sometimes even larger). The proper size for a custom patch
+												is determined by its intended use.</p>
+											<p>
+												For caps and hats, most people prefer patches from 1” to 3”<br />
+												Shoulder patches and front jacket patches are commonly 3.5”
+												to 5” inches tall<br /> Back patches range from 10” to 17”
+												sizes
+											</p>
+											<p>
+												To measure a patch you should add the height and the width
+												then divide the sum by 2<br /> (H+W)/2 = Patch size
+											</p>
+										</div>
+
+									</div>
+
+
+
+
+
+									<div class="faq-question-answer">
+
+										<div class="faq-question faq-dt-hide-answer">
+
+											<a class="active" href="javascript: void(0);">Q: What is
+												your minimum order requirement?</a>
+
+										</div>
+
+										<div
+											class="faq-answer faq-dd-hide-answer collapsible collapsed"
+											style="display: none;">
+
+											<p>Hero Patches will entertain orders as small as 10 pcs.
+												We can also accomodate large quantity orders and will
+												deliver your product on time with the lowest price available
+												in the market today.</p>
+										</div>
+
+									</div>
+
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+			<div id="wrapper">
+
+				<div class="slider-wrapper theme-default">
+					<div class="visible-lg visible-md visible-sm hidden-xs">
+						<div class="container">
+
+							<div class="">
+
+								<div class="col-sm-7 heropatches-about">
+									<div class="content">
+										<div class="faq-category-group">
+
+											<div class="faq-qa-header">
+
+												<h5 class="faq-header"></h5>
+
+											</div>
+
+											<div class="faq-qa">
+
+												<div class="faq-dl-hide-answer">
+
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: What
+																is an Embroidered Patch</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>
+																An Embroidered Patch is a piece of artwork created thru
+																an embroidery machine using materials such as cotton
+																twill and different colour threads. It conveys a theme,
+																event or logo that commemorates the users’ message.<br />
+																Embroidered emblems and patches are a great way to put
+																your design or insignia on a garment without applying
+																the decoration directly to the garment. These emblems
+																&#038; patches are generally produced on a heavy twill
+																fabric with a smooth texture.
+															</p>
+															<p>In most cases a portion of the underlying twill
+																becomes the background for the design, and a variety of
+																thread colors make up the details of the design. There
+																is a decorative stitch that overlays the edge of the
+																twill fabric to make your custom embroidered emblem.</p>
+															<p>Embroidered emblems and custom patches are
+																commonly produced for outerwear, clothing and
+																accessories. They work great for uniforms, caps, jackets
+																and golf shirts when you want maximum recognition and
+																exposure. We use the highest quality fabrics and threads
+																to make your embroidered emblems and patches.</p>
+														</div>
+
+													</div>
+
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: What
+																are the Benefits of Custom Embroidered Patches ?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Embroidered patches can benefit you in many ways.</p>
+															<p>
+																* Option to be heat sealed or sewn on garments.<br /> *
+																Designed for industrial laundering.<br /> * Gives
+																opportunity to remove design at anytime without ruining
+																the garment.<br /> * Removable, allowing for reuse of
+																garments.<br /> * Multiple shapes and sizes.<br /> *
+																Can save as much as 30% over the cost of direct
+																embroidery.<br /> * Allows you the opportunity to have
+																your design sewn without purchasing a garment.<br /> *
+																Durable in active environments such as industrial,
+																healthcare and hospitality.
+															</p>
+														</div>
+
+													</div>
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: How
+																are your Patches produced?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Once a digital mock-up is done our digitizers will
+																create a DST file. DST is a file format which embroidery
+																machines use to translate a design into an actual
+																embroidered patch.</p>
+															<p>Digitizing is the indispensable foundation of any
+																embroidered design. In essence, digitizing is the
+																sophisticated process of converting text or a printed
+																design into an embroidery format. The output of this
+																conversion is a set of instructions that directs the
+																embroidery machine to know what thread color to sew and
+																where to place each stitch, culminating in a thread
+																based mirror image of the original.</p>
+															<p>The factory will use the mockup as a guide for
+																colors, special options and other instructions. They
+																will feed the dst file to the embroidery machine and
+																start with production.</p>
+															<p>Digitizing Considerations: Small elements such as
+																tiny graphics or very small lettering may retain their
+																detail in printing, however they do not always embroider
+																well and may need to be either enlarged or removed
+																completely from the design. For best embroidery results,
+																avoid miniature graphics and text smaller than .25 inch.
+																Refer to Patch Design Guideline Document for more
+																technical information about designing for patches.</p>
+															<p>Fact: A sew-out is a replica of the finished
+																design and is provided to customer for approval before
+																proceeding with the actual embroidery.</p>
+														</div>
+
+													</div>
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q:
+																Where do customers start if they want an embroidered
+																Patch?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Customers start with an idea of how they want
+																their patches to look. Customers provide us different
+																resources to create a digital representation of their
+																patch order.</p>
+															<div></div>
+															<div>Some customers provide:</div>
+															<div>• An idea only; notes and descriptions about
+																their patch.</div>
+															<div>• A sketch or rough image of their patch.</div>
+															<div>• A set of pictures for references</div>
+															<div>• An actual picture of their existing patch</div>
+															<div>• An actual sample they send to our office to
+																create 100% match</div>
+															<div></div>
+															<div>Whatever they provide, our Graphic Designers
+																will create a digital mockup which will be sent to the
+																customer for approval.  This same mock-up will be used
+																by our Digitizers, to create a DST file, and by the
+																factory to produce the actual patch.</div>
+														</div>
+
+													</div>
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: What
+																are Hero Patch Features?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<div>
+																<p>We offer up to 12 thread colors on each design.
+																	More colors are available for addional cost.</p>
+																<p>We use thick cotton twill as the base for
+																	embroidery (this material is similar to material used
+																	in caps/ baseball caps)</p>
+																<p>We offer special options for threads</p>
+																<p>We offer other materials for base</p>
+															</div>
+														</div>
+
+													</div>
+
+
+
+
+
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: Who
+																are your Customers?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Patches serve as a quick, easy way to visually
+																identify our customers with any group, organization or
+																event. By wearing a team logo, customers can feel being
+																a part of the group no matter where they are. People
+																will recognize them and connect them with something
+																larger.</p>
+															<p>In General, Butler Patches caters to any customer
+																who would like to have a visual identity of their group
+																thru embroidered patches. Our regular customers include:</p>
+															<ul>
+																<li>Military</li>
+															</ul>
+															<ul>
+																<li>Airsoft teams</li>
+															</ul>
+															<ul>
+																<li>Paintball Teams</li>
+															</ul>
+															<ul>
+																<li>Martial Arts Clubs</li>
+															</ul>
+															<ul>
+																<li>Companies and Organizations</li>
+															</ul>
+															<ul>
+																<li>Schools, High Schools, College and Universities</li>
+															</ul>
+															<ul>
+																<li>Event Organizers</li>
+															</ul>
+															<ul>
+																<li>Fire Department and EMS</li>
+															</ul>
+															<ul>
+																<li>Police Departments</li>
+															</ul>
+															<ul>
+																<li>Security Organizations</li>
+															</ul>
+															<ul>
+																<li>Boy Scouts and Girl Scouts</li>
+															</ul>
+															<ul>
+																<li>Soccer Teams, Foot ball teams and other sports
+																	teams</li>
+															</ul>
+														</div>
+
+													</div>
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: What
+																is Percentage of Embroidery?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Our Patches are available in various Embroidery
+																Percentages. We offer customers 3 choices:</p>
+															<p>1. 50% Embroidery – This means 50% or less of the
+																patch surface area will be covered in embroidery. This
+																method is ideal for Name patches (patches that display
+																name or position of the user. E.g. “Trevor” or
+																“President”). This is usually used for much simpler
+																patches that displays words or numbers only.</p>
+															<p>2. 75% Embroidery – This means 75% or less of the
+																patch surface area will be covered in embroidery. This
+																is most widely used method for our patches. Unless
+																specified by the customer, our Brand Specialists usually
+																note a standard order with 75% Embroidery. 75%
+																embroidered patches are sometimes good for a lot of
+																detail. If there is a lot of detail and the size is not
+																large embroidery on embroidery (100%) can cause
+																difficulty in the embroidery.</p>
+															<p>3. 100% Embroidery &#8211; This method will cover
+																100% of the patch surface area. No cotton twill will be
+																exposed in the patch. Some customers prefer this because
+																it makes the patch look more beautiful and luxurious;
+																however this method is not suitable for all patch
+																designs.</p>
+														</div>
+
+													</div>
+
+
+
+
+
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: What
+																are the Available Patch Shapes?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<div>
+																<p>We have two standard shapes:</p>
+																<div>• Circle or round</div>
+																<div>• Square</div>
+																<div>Non-traditional shapes are called “Cut to
+																	shape”.  Any shape other than circle and square are
+																	labelled as “cut to shape”</div>
+															</div>
+														</div>
+
+													</div>
+
+
+
+
+
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q:
+																What&#8217;s the standard Patch Size?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Patch sizes can start from 1 inch to 12 inches
+																(sometimes even larger). The proper size for a custom
+																patch is determined by its intended use.</p>
+															<p>
+																For caps and hats, most people prefer patches from 1” to
+																3”<br /> Shoulder patches and front jacket patches are
+																commonly 3.5” to 5” inches tall<br /> Back patches
+																range from 10” to 17” sizes
+															</p>
+															<p>
+																To measure a patch you should add the height and the
+																width then divide the sum by 2<br /> (H+W)/2 = Patch
+																size
+															</p>
+														</div>
+
+													</div>
+
+
+
+
+
+													<div class="faq-question-answer">
+
+														<div class="faq-question faq-dt-hide-answer">
+
+															<a class="active" href="javascript: void(0);">Q: What
+																is your minimum order requirement?</a>
+
+														</div>
+
+														<div
+															class="faq-answer faq-dd-hide-answer collapsible collapsed"
+															style="display: none;">
+
+															<p>Hero Patches will entertain orders as small as 10
+																pcs. We can also accomodate large quantity orders and
+																will deliver your product on time with the lowest price
+																available in the market today.</p>
+														</div>
+
+													</div>
+
+
+
+												</div>
+
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+
+								<div class="col-sm-5 heropatches-about">
+
+									<div id="slider-form">
+
+										<div class="blueform">
+
+											<div class="col-sm-12">
+												<img
+													src="images/get-free-quote.png"
+													class="red-ribbon" />
+											</div>
+											&nbsp;
+
+											<!-- 引入web提交界面表单 -->
+											<#include "webPostOrderForm.html">
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- 页面里中间内容结束 -->
+
+		<!--引入底部-->
+		<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;"></div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

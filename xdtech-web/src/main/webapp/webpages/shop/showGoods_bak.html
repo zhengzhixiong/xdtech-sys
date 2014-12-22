@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>about</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+        var ffid=33333;
+        $(document).ready(function() {
+            $(".quote_outer input[type=file]").change(function(event) {
+                event.preventDefault();
+                $(this).after('<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');});
+        });
+
+        $(function() {
+            $( ".selector" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#datepicker" ).datepicker();
+            $( "#Deadline" ).datepicker();
+        });
+    </script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+            $('#slider2').nivoSlider();
+
+            $('#carousel').carouFredSel({
+                circular: true,         // Determines whether the carousel should be circular.
+                infinite: true,         // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+                responsive: true,      // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+                direction: "left",      // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+                width: null,            // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+                height: null,           // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+                align: "center",
+                scroll : {
+                    items           : 1
+                },
+                wraper : {
+                    element     : "div",
+                    classname   : "col-sm-8"
+                }
+            });
+        });
+
+
+    </script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+
+		<div style="clear: both;"></div>
+
+		<!--页面里中间内容 -->
+
+
+
+		<div class="top_container">
+
+
+
+
+
+
+
+
+
+			<div id="wrapper">
+
+				<div class="theme-default">
+
+
+
+
+
+
+
+					<div class="container relative">
+
+						<div id="hidden-form">
+
+							<div id="slider-form">
+
+								<div class="blueform">
+
+									<div class="col-sm-12">
+										<img
+											src="http://heropatches.com/wp-content/themes/heropatches/images/get-free-quote.png"
+											class="red-ribbon" />
+									</div>
+									1
+
+									<form role="form" method="POST" id="contact-form"
+										class="new-improved-form" enctype="multipart/form-data">
+
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label for="edit-title-1">Name: *</label><input type="text"
+													id="Name" name="form[Name]" placeholder="Name"
+													class="form-text form-control" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="edit-title-1">Phone:</label><input type="text"
+													id="Phone" name="form[Phone]" placeholder="Phone"
+													class="form-text form-control" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="edit-title-1">Email: *</label><input type="text"
+													id="Email" name="form[Email]" placeholder="Email"
+													class="form-text form-control" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="Size">Size:</label><select id="Size"
+													name="variations[Size]]" class="form-text form-control"><option
+														value="1">2 inches</option>
+													<option value="2">2.5 inches</option>
+													<option value="3">3 inches</option>
+													<option value="4">3.5 inches</option>
+													<option value="5">4 inches</option>
+													<option value="6">4.5 inches</option>
+													<option value="7">5 inches</option>
+													<option value="8">5.5 inches</option>
+													<option value="9">6 inches</option>
+													<option value="10">6.5 inches</option>
+													<option value="11">7 inches</option>
+													<option value="12">7.5 inches</option>
+													<option value="13">8 inches</option>
+													<option value="14">8.5 inches</option>
+													<option value="15">9 inches</option>
+													<option value="16">9.5 inches</option>
+													<option value="17">10 inches</option>
+													<option value="18">10.5 inches</option>
+													<option value="19">11 inches</option>
+													<option value="20">11.5 inches</option>
+													<option value="21">12 inches</option></select>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="PercentageofEmbroidery">% Embroidery:</label><select
+													id="PercentageofEmbroidery"
+													name="variations[PercentageofEmbroidery]]"
+													class="form-text form-control"><option value="27">50%</option>
+													<option value="28">75%</option>
+													<option value="29">100%</option></select>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="Quantity">Quantity:</label><select id="Quantity"
+													name="variations[Quantity]]" class="form-text form-control"><option
+														value="30">10</option>
+													<option value="31">20</option>
+													<option value="32">50</option>
+													<option value="33">100</option>
+													<option value="34">200</option>
+													<option value="35">300</option>
+													<option value="36">500</option>
+													<option value="37">1000</option>
+													<option value="38">2000</option>
+													<option value="39">3000</option>
+													<option value="40">4000</option>
+													<option value="41">5000</option>
+													<option value="42">7500</option>
+													<option value="43">10000</option></select>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="edit-title-1">Date needed: </label><input
+													type="text" id="Deadline" name="form[Deadline]"
+													placeholder="Deadline" class="form-text form-control" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<div id="edit-field-fq-image-0-1-ahah-wrapper">
+													<div class="form-item"
+														id="edit-field-fq-image-0-1-upload-wrapper">
+														<label for="File">Image Upload:</label>
+														<div class="filefield-upload clear-block">
+															<input style="width: 68%" type="file"
+																class="form-file wmds-form-file" id="File" name="File" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<input type="hidden" value="1" name="Product" />
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="edit-title-1">AlternativeEmail</label><input
+													type="text" id="AlternativeEmail"
+													name="form[AlternativeEmail]"
+													placeholder="AlternativeEmail"
+													class="form-text form-control" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="Notes">Notes: </label>
+												<textarea cols="60" rows="1" id="Notes" name="form[Notes]"
+													placeholder="Notes"
+													class="form-textarea  resizable form-control"></textarea>
+											</div>
+										</div>
+										<script type="text/javascript">
+
+                                        $('#AlternativeEmail').parent().parent().addClass('TopTd');
+
+                                    </script>
+
+										<div class="clearfix"></div>
+
+										<div class="col-md-12">
+
+											<div class="clearfix"></div>
+
+											<div class="center-submit">
+
+												<input name="button"
+													class="btn btn-warning submit-blue-form btn-lg btn-block"
+													id="button" value="Give me your best price"
+													onclick="return check_valid1();" type="submit">
+
+											</div>
+
+										</div>
+
+									</form>
+
+								</div>
+
+							</div>
+
+						</div>
+
+
+
+						<div class="heropatches-about">
+
+							<div class="about-text-title">
+								<h1>Military Patches</h1>
+							</div>
+
+							<div class="about-text">
+								<p>With great power comes great responsibility, no one
+									understands this more than the heroes that serve our country in
+									the military. These men and women perform their valiant duties
+									dressed in uniforms that display the honor and dignity of their
+									countries. Hero patches designs custom patches for the brave
+									heroes that serve our country with pride. We understand that
+									these are more than just patches but they are symbols of
+									strength and honor. We use the highest quality material for our
+									American heroes. We offer the most durable material. We offer
+									material that is common among military such as camouflage twill
+									and Velcro Hook or Loop backing and soft and hard pile.
+									Remember that Hero Patches is the only patch company that
+									creates one of a kind patches for everyday heroes!</p>
+								<p>We look forward to working with you on your custom patch
+									project. Please feel free to browse our gallery of military
+									patches that we have produced in the past.</p>
+							</div>
+
+						</div>
+
+
+
+
+
+						<div class="col-md-12 famous-patch-block">
+
+							<div id="products">
+
+
+
+								<div class="gallery_patches"
+									style="width: 160px; height: 162px; background-color: #FFF; border: 3px solid #F7F7F7; display: inline-block; text-align: center; margin: 5px">
+
+									<div
+										style="padding-bottom: 8px; clear: both; height: 150px; overflow: hidden;">
+
+										<a
+											href="images/cp-West-Coast-Military-Patch.png"
+											rel="prettyPhoto[gallery]" title="West Coast Military Patch">
+
+											<img alt="West Coast Military Patch"
+											src="images/cp-West-Coast-Military-Patch-150x150.png">
+
+										</a>
+
+									</div>
+
+								</div>
+
+
+
+								<div class="gallery_patches"
+									style="width: 160px; height: 162px; background-color: #FFF; border: 3px solid #F7F7F7; display: inline-block; text-align: center; margin: 5px">
+
+									<div
+										style="padding-bottom: 8px; clear: both; height: 150px; overflow: hidden;">
+
+										<a
+											href="images/cp-USAFA-Military-Patch.png"
+											rel="prettyPhoto[gallery]" title="USAFA Military Patch">
+
+											<img alt="USAFA Military Patch"
+											src="images/cp-USAFA-Military-Patch-150x150.png">
+
+										</a>
+
+									</div>
+
+								</div>
+
+
+
+								<div class="gallery_patches"
+									style="width: 160px; height: 162px; background-color: #FFF; border: 3px solid #F7F7F7; display: inline-block; text-align: center; margin: 5px">
+
+									<div
+										style="padding-bottom: 8px; clear: both; height: 150px; overflow: hidden;">
+
+										<a
+											href="images/cp-US-Troops-Support-Patch.png"
+											rel="prettyPhoto[gallery]" title="US Troops Support Patch">
+
+											<img alt="US Troops Support Patch"
+											src="images/cp-US-Troops-Support-Patch-150x150.png">
+
+										</a>
+
+									</div>
+
+								</div>
+
+
+
+								<div class="gallery_patches"
+									style="width: 160px; height: 162px; background-color: #FFF; border: 3px solid #F7F7F7; display: inline-block; text-align: center; margin: 5px">
+
+									<div
+										style="padding-bottom: 8px; clear: both; height: 150px; overflow: hidden;">
+
+										<a
+											href="images/cp-US-Cerv-Military-Patch.png"
+											rel="prettyPhoto[gallery]" title="US Military Patch"> <img
+											alt="US Military Patch"
+											src="images/cp-US-Cerv-Military-Patch-150x150.png">
+
+										</a>
+
+									</div>
+
+								</div>
+
+
+
+								<div class="gallery_patches"
+									style="width: 160px; height: 162px; background-color: #FFF; border: 3px solid #F7F7F7; display: inline-block; text-align: center; margin: 5px">
+
+									<div
+										style="padding-bottom: 8px; clear: both; height: 150px; overflow: hidden;">
+
+										<a
+											href="images/cp-Total-Force-Military-Patch.png"
+											rel="prettyPhoto[gallery]" title="Total Force Military Patch">
+
+											<img alt="Total Force Military Patch"
+											src="images/cp-Total-Force-Military-Patch-150x150.png">
+
+										</a>
+
+									</div>
+
+								</div>
+
+
+
+								<div class="gallery_patches"
+									style="width: 160px; height: 162px; background-color: #FFF; border: 3px solid #F7F7F7; display: inline-block; text-align: center; margin: 5px">
+
+									<div
+										style="padding-bottom: 8px; clear: both; height: 150px; overflow: hidden;">
+
+										<a
+											href="images/cp-Tiger-Force-Military-Patch.png"
+											rel="prettyPhoto[gallery]" title="Tiger Force Military Patch">
+
+											<img alt="Tiger Force Military Patch"
+											src="images/cp-Tiger-Force-Military-Patch-150x150.png">
+
+										</a>
+
+									</div>
+
+								</div>
+
+
+
+
+
+								<div class="clear"></div>
+
+							</div>
+
+						</div>
+
+						<!--                paginare -->
+
+
+
+						<div class="item-list">
+
+							<ul class="pager">
+
+								<li class="pager-current">1</li>
+								<li class="pager-item"><a class="active"
+									title="Go to page 2"
+									href="javascript: product_pagination_heropatches(1)">2</a></li>
+								<li class="pager-item"><a class="active"
+									title="Go to page 3"
+									href="javascript: product_pagination_heropatches(2)">3</a></li>
+								<li class="pager-item"><a class="active"
+									title="Go to page 4"
+									href="javascript: product_pagination_heropatches(3)">4</a></li>
+								<li class="pager-item"><a class="active"
+									title="Go to page 5"
+									href="javascript: product_pagination_heropatches(4)">5</a></li>
+								<li class="pager-item">...</li>
+								<li class="pager-next"><a class="active"
+									title="Go to next page"
+									href="javascript: product_pagination_heropatches(1);">next
+										›</a></li>
+
+								<li class="pager-last last"><a class="active"
+									title="Go to last page"
+									href="javascript: product_pagination_heropatches(6);">last
+										»</a></li>
+
+							</ul>
+
+						</div>
+						<div class="clearfloat"></div>
+
+					</div>
+
+					<div class="spacer">&nbsp;</div>
+				</div>
+			</div>
+
+		</div>
+
+	<!--页面里中间内容结束 -->
+
+	<!--引入底部-->
+	<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;"></div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

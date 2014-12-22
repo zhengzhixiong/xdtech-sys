@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="renderer" content="webkit">
+		<meta name="format-detection" content="telephone=no" />
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<style>
+			.gotop {
+				position: fixed;
+				display: none;
+				right: 0.5em;
+				bottom: 6em;
+				z-index: 10;
+			}
+			.carList .details{
+				min-height:110px;
+				}
+			.carList.orderEd .details h4{
+							font-size:1em;
+							line-height:1.2em;
+							margin:-0.2em 0 0.3em;
+							padding:3px 0;
+							min-height:5em;
+							height:auto;
+				}
+			.carList.orderEd .proNumber{
+				position:absolute;
+				bottom:0em;
+				right:0;
+				color:#004eae;
+				font-size:1em;
+				}
+			.parmBrand, .thouPri {
+				bottom:0em;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+		<script type="text/javascript" src="js/ed.js"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/orderclick.js" type="text/javascript" charset="utf-8"></script>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<span class="conBtu" onclick="toindex()">&nbsp;</span>
+			</div>
+		<div class="main indexBg" style="margin-bottom:15px;">
+            
+            <!--<div class="orderListOuter">
+            <h2>20140418012342014041801234</h2>
+            <div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="pic/pro_001.jpg"  onerror="javascript:this.src=\'images/close.png\';"/></span></div><div class="priceRi"><strong>￥113</strong><span>X2</span></div><div class="detailsShow"><h4>苹果iPhone5 联通3G 黑色 16G</h4><div class="parmValue">iPhone<br></div></div></div></div></div><div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="pic/pro_001.jpg"  onerror="javascript:this.src=\'images/close.png\';"/></span></div><div class="priceRi"><strong>￥113</strong><span>X2</span></div><div class="detailsShow"><h4>苹果iPhone5 联通3G 黑色 16G</h4><div class="parmValue">iPhone<br></div></div></div></div></div>
+            <div class="payStatus"><span>已支付</span><span class="fahuo">已发货</span><span class="priceL">合计:<strong>￥1288</strong></span></h2>
+            </div>
+            
+            </div>-->
+			<!--<div style="width: 100%;height: 1.5em;"></div>-->
+			<div class="controlBtu footerCon" >
+				<button class="sure" onclick="clicked('pay.html')"></button>
+			</div>
+			<div id="gotop" class="gotop">
+				<img alt="" style="width: 30px;height: 30px;" src="img/goTop.png">
+			</div>
+		</div>
+		<script>
+			$(function() {
+				//国际化
+				var json = [{"id" : ".sure","name" : "orderlist_checkPlayManner"},{"id" : ".edBody h1","name" : "orderlist_myorder"},
+						{"id":"title","name":"string_edaw"}
+				];
+				nation(json);
+				FastClick.attach(document.body);
+			});
+			
+		function imgSize(){
+		   var imgObj = new Image();
+		   imgObj.src = this.src;
+                var maxWidth =100; // 图片最大宽度   
+                var maxHeight =100;    // 图片最大高度   
+                var ratio = 0;  // 缩放比例  
+                var width = $(this).width();    // 图片实际宽度   
+                var height = $(this).height();  // 图片实际高度     // 检查图片是否超宽   
+				if(width > maxWidth){       
+                    ratio = maxWidth / width;   // 计算缩放比例       
+                    $(this).css("width", maxWidth); // 设定实际显示宽度       
+                    height = height * ratio;    // 计算等比例缩放后的高度       
+                    $(this).css("height", height);  // 设定等比例缩放后的高度   
+                }     // 检查图片是否超高  
+                if(height > maxHeight){       
+                    ratio = maxHeight / height; // 计算缩放比例      
+                    $(this).css("height", maxHeight);   // 设定实际显示高度       
+                    width = width * ratio;    // 计算等比例缩放后的高度       
+                    $(this).css("width", width);    // 设定等比例缩放后的高度   
+                }
+		}	
+			var firstAdd = true;
+			//判断是否第一次登录
+			var hasPro = false;
+			var index = 1;
+			//页面
+			var size = 10;
+			
+
+			function requestPro() {
+				RequestData('APP_OrderList', '', size, index, function(data) {
+					addProduct(data);
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+				}, function(data) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+				},function(){
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+				});
+			}
+
+			document.addEventListener("plusready", function() {
+////				返回键监听
+				if ("Android" == plus.os.name) {
+					setTimeout(function() {
+						plus.ui.getSelfWindow().addEventListener("back", function() {
+							toindex();
+						}, false);
+					}, 300);
+				}
+//				//连接订单列表数据
+				requestPro();
+			}, false);
+			var backoflag = false;
+			function toindex(){
+				setTimeout(function() {
+					if (backoflag)
+						return;
+					backoflag = true;
+					var winary = plus.ui.enumWindow();
+					winary[0].setVisible(true);
+						for (var i = 1; i < winary.length ; i++) {
+							plus.ui.closeWindow(winary[i]);
+						}
+					}, 300);
+				}
+			$('.addList').click(function() {
+				$('.addList').removeClass('on');
+				$(this).addClass('on');
+			});
+			$(".orderListShow table tbody").find("tr:odd").addClass('on');
+			//下拉加载数据
+			$(window).bind('scroll', function() {
+				if ($(window).scrollTop() + $(window).height() + 30 >= $(document).height()) {
+					if (hasPro) {//上次连接的时候有数据。这次才连接
+						index++;
+						plus.ui.enumWindow()[0].evalJS("openwait()");
+						requestPro();
+					}
+				}
+				if ($(window).scrollTop() > 100) {
+					$("#gotop").show(900);
+				} else {
+					$("#gotop").hide(900);
+				}
+			});
+			$("#gotop").click(//定义返回顶部点击向上滚动的动画
+			function() {
+				$('html,body').animate({
+					scrollTop : 0
+				}, 700);
+			}).hover(//为返回顶部增加鼠标进入的反馈效果，用添加删除css类实现
+			function() {
+				$(this).addClass("hover");
+			}, function() {
+				$(this).removeClass("hover");
+			});
+			//添加商品列表节点
+			function addProduct(data) {
+//				$("#title").text(data.ViewName);
+//				alert(data.ViewName)
+				var list = data.Data.OrderList;
+				var html = "";
+				//第一次连接如果订单列表为0
+				if (list.length <= 0 && firstAdd) {
+					html = ' <div class="icoShow" onclicked=(\'\')><div class="cartEmpty cyclue">' + $.i18n.prop("orderlist_youNoPlaceOrder") + '</div><h2>' + $.i18n.prop("orderlist_edCanGive") + '</h2>' + '<button class="buyNow" onclick="clicked(\'list.html?type=手机库#SJK\')">' + $.i18n.prop("orderlist_buyPhone") + '</button><button class="addCart" onclick="clicked(\'list.html?type=配件库#PJK\')">' + $.i18n.prop("orderlist_buyParts") + '</button></div> ';
+					$('.footerCon').hide();
+				} else {
+					firstAdd = false;
+					//加载的数据为0
+					if (list.length <= 0) {
+						hasPro = false;
+					} else {
+						hasPro = true;
+					}
+					for (var i = 0; i < list.length; i++) {
+						var p = list[i];
+						var pList = p.OrderProductList;
+						var order = p.Order;
+						//没有商品或者总价为0的跳过
+						if (pList == null | pList == "" )
+							continue;
+//						html += '<div class="orderListShow"><table width="100%" border="0" cellspacing="0" cellpadding="0"><thead>' + '<tr><th colspan="3" align="left">' + order.ID + '<span>' + order.CreateDate + '</span></th></tr></thead><tbody>'
+//						html += '<div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="pic/pro_001.jpg"  onerror="javascript:this.src=\'images/close.png\';"/></span></div><div class="priceRi"><strong>￥5113</strong><span>X2</span></div><div class="detailsShow"><h4>苹果iPhone5 联通3G 黑色 16G</h4><div class="parmValue">iPhone<br></div></div></div></div></div>';
+						html += '<div class="orderListOuter"><h2>' +order.OrderNum+ '</h2>';
+						for (var j = 0; j < pList.length; j++) {
+							if (pList[j].Product != null) {
+								var pl = pList[j].Product;
+								var proPrice = parseInt(pList[j].Price);
+								var proName = pl.ProductName.length > 18 ? pl.ProductName.substring(0, 17)+"..." : pl.ProductName;
+								//单双行显示颜色不同
+								var strNumShow = pList[j].OldNum ;
+								if(pList[j].Num!=0){
+									strNumShow += '('+pList[j].Num +')';
+								}
+								//四件商品直接显示
+								if (pList.length < 4){
+									html += '<div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="'+pl.ThumbPicture+'"  onerror="javascript:this.src=\'images/logo.png\';"/></span></div><div class="priceRi"><strong>￥'+proPrice+'</strong></div><div class="detailsShow"><h4>' + proName + '</h4><div class="parmValue">'+pl.Model+'<br></div></div><div class="proNumber">X'+strNumShow+'</div></div></div></div>';
+//									html += '<div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="'+pl.ThumbPicture+'"  onerror="javascript:this.src=\'images/logo.png\';"/></span></div><div class="priceRi"><strong>￥'+proPrice+'</strong></div><div class="detailsShow"><h4>pro Name pro Name pro Name pro Name pro Name pro Name pro Name pro Name pro Name pro Name pro Name </h4><div class="parmValue"> Model  Model Model Model Model<br></div></div><div class="proNumber">X'+strNumShow+'</div></div></div></div>';
+//									html += firstsd + '<td>' + proName + '</td><td width="30">x' + pList[j].OldNum+strNumShow + '</td><td width="60" align="right">￥' + proPrice + '</td></tr>';
+								}else {
+									//显示前2件
+									if (j < 2)
+										html += '<div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="'+pl.ThumbPicture+'"  onerror="javascript:this.src=\'images/logo.png\';"/></span></div><div class="priceRi"><strong>￥'+proPrice+'</strong></div><div class="detailsShow"><h4>' + proName + '</h4><div class="parmValue">'+pl.Model+'<br></div></div><div class="proNumber">X'+strNumShow+'</div></div></div></div>';
+//									else if (j == 2){}
+										//显示省略
+//										html += '<div class="carList orderEd"><div class="proCart">(省略' + (pList.length - 3) + '项)</div></div>';
+//										html += '<tr><td>...(省略' + (pList.length - 3) + '项)</td><td width="30"></td><td width="60" align="right"></td><tr>';
+//									else if (j == pList.length - 1)
+//										html += '<div class="carList orderEd"><div class="proCart"><div class="details"><div class="imgShow"><span><img class="listImg" src="'+pl.ThumbPicture+'"  onerror="javascript:this.src=\'images/logo.png\';"/></span></div><div class="priceRi"><strong>￥'+proPrice+'</strong><span>X'+strNumShow+'</span></div><div class="detailsShow"><h4>' + proName + '</h4><div class="parmValue">'+pl.Model+'<br></div></div></div></div></div>';
+								}
+							}
+						}
+						//3件商品以上最后显示
+						if (pList.length > 3)
+							html += '<div class="carList orderEd">(' +$.i18n.prop("string_clickToOrderDetails",pList.length) + ')</div>';
+//							html += '<tr><td>(共' + (pList.length) + '件商品,点击可查看详情)</td><td width="30"></td><td width="60" align="right"></td><tr>';
+
+						//订单支付功能未实现
+						//						payStatus=0;
+						//						payStatus = payStatus== 1?'<div>'+$.i18n.prop("orderlist_paid")+'</div>':'<div class="noPay">'+$.i18n.prop("orderlist_nonPayment")+'</div>';
+						//						payStatus = order.PaymentStatus == 1?'<div>'+$.i18n.prop("orderlist_paid")+'</div>':'<div class="noPay">'+$.i18n.prop("orderlist_nonPayment")+'</div>';
+						//						shipStatus = order.ShipStatus == 1?'<div>'+$.i18n.prop("orderlist_shipped")+'</div>':'<div class="noPay">'+$.i18n.prop("orderlist_notShipped")+'</div>';
+//						var processState = order.ProcessStatus == 0 ? '<div class="noPay">' + $.i18n.prop("orderDetail_toBeAccepted") : order.ProcessStatus >= 1 && order.ProcessStatus < 11 ? '<div  style="background:#2fce0f;">' + $.i18n.prop("orderDetail_hasAccepted") : '<div style="background:#277abe;" >' + $.i18n.prop("orderDetail_cancelled");
+						//html += '</tbody><tfoot><tr><td colspan="3">'+payStatus + shipStatus+'<span>'+$.i18n.prop("cart_total")+': <strong>￥' + order.TotalMoney + '</strong></span></td></tr></tfoot></table></div>'
+//						html += '</tbody><tfoot><tr><td colspan="3">' + processState + '</div><span>' + $.i18n.prop("cart_total") + ': <strong>￥' + order.TotalMoney + '</strong></span></td></tr></tfoot></table></div>'
+//						html +='<div class="payStatus"><span>'+order.ShipStatusShow+'</span><span class="fahuo">'+order.ProcessStatusShow+'</span><span class="priceL">合计:<strong>￥'+order.TotalMoney+'</strong></span></h2></div></div>';
+//						var payStatus = order.ProcessStatusShow=="未受理"?"未受理":order.ShipStatusShow==null?"已受理":order.ShipStatusShow=="未付款"?"已受理":order.ShipStatusShow;
+						var payStatus = order.ProcessStatusShow;
+//						payStatus = payStatus=="<span>已受理</span>"?order.ShipStatusShow=="已发货"?"":"<span>已支付</span>":'<span>'+payStatus+'</span>';
+						if(order.ProcessStatusShow=="已受理"){
+							if(order.ShipStatusShow=="已发货"){
+								payStatus = '<span>'+$.i18n.prop("string_shipped")+'</span>';
+							}else if(order.ShipStatusShow=="已支付"){
+								payStatus = '<span>'+$.i18n.prop("string_paid")+'</span>';
+							}else{
+								payStatus = '<span>'+$.i18n.prop("string_hasBennAccepted")+'</span>';
+							}
+						}else if(order.ProcessStatusShow=="未受理"){
+							payStatus = '<span>'+$.i18n.prop("string_notAccepted")+'</span>';
+						}else{
+							payStatus = '<span style="color: grey;">'+$.i18n.prop("string_cancelled")+'</span>';
+						}
+						html +='<div class="payStatus">'+ payStatus +'<span class="priceL">'+$.i18n.prop("cart_total")+':<strong>￥'+order.TotalMoney+'</strong></span></h2></div></div>';
+					}	
+				}
+				$(".main").append(html);
+				$('.imgShow img').each(function() {
+	                	var memberHeaderimg=$(this)[0];
+						memberHeaderimg.onload = function(){
+						imgSize.call(memberHeaderimg);
+					}
+				});
+				
+				
+				//跳转订单详情页
+				$('.orderListOuter').click(function() {
+					var orderId = $(this).children('h2').html();
+					clicked('order_details.html?id=' + orderId);
+				});
+
+			}
+
+
+
+		</script>
+	</body>
+</html>

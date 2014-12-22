@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="renderer" content="webkit">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script type="text/javascript" src="js/ed.js"></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/common.js" ></script>
+		<script type="text/javascript" src="js/swipe.min.js" ></script>
+		<script src="js/downloader.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/cart.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<script src="update/update.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/net.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			#banner_list > span {
+				float: left;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<!--<span class="conBtu toBack" onClick="back()">&nbsp;</span>-->
+				<span class="rightBtu" onClick="logout()">&nbsp;</span>
+			</div>
+			<div class="main">
+				<div class="search">
+					<div class="scan" onClick="openScan('barcode_scan.html','slide-in-left');"></div>
+					<div class="message" onClick="openSysInfo();"></div>
+					<input readonly="readonly" class="inText" type="text" onclick="openSearch_history();"  placeholder="查询信息" />
+				</div>
+				<div id="banner" class="banner">
+					<div id="banner_list">
+						<!--<span><img onClick="clicked('products.html?type=p_n')" src="pic/ad01.jpg" title="ad" /></span>
+						<span><img onClick="clicked('products.html?type=p_t')" src="pic/ad02.jpg" title="ad" /></span>
+						<span><img onClick="clicked('products.html?type=p_th')" src="pic/ad03.jpg" title="ad" /></span>
+						<span><img onClick="clicked('products.html?type=p_th')" src="pic/ad04.jpg" title="ad" /></span> -->
+					</div>
+					<ul>
+						<li style="background:#0f63b1"></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<ul class="showPic">
+					<!--<li  onclick="clicked('list.html?type=QYJ')" class="longer"><img src="pic/adSmall01.jpg" alt="nokia"></li>
+					<li class="right"  onclick="clicked('list.html?type=GDJ')"><img src="pic/adSmall02.jpg" alt="nokia"></li>
+					<li  onclick="clicked('list.html?type=SJK')"><img src="pic/adSmall03.jpg" alt="nokia"></li>
+					<li class="right longer"  onclick="clicked('list.html?type=PJK')"><img src="pic/adSmall04.jpg" alt="nokia"></li>-->
+					<li class="centerBtu" id="cartB" onClick="clicked('cart.html','fade-in');">
+						<button>
+							<span class="cartIco"></span>
+						</button>
+					</li>
+					<li class="right centerBtu"  onclick="clicked('order_list.html','fade-in')">
+						<button>
+							<span class="orderIco"></span>
+						</button>
+					</li>
+				</ul>
+			</div>
+			<div id="footer">
+				<ul>
+					<li class="myEd on">
+						<div>
+						</div>
+					</li>
+					<li class="service" onClick="clicked('service.html','fade-in');">
+						<div>
+						</div>
+					</li>
+					<li class="cart" onClick="clicked('cart.html','fade-in');">
+						<div>
+						</div>
+					</li>
+					<li class="mine" onClick="clicked('me.html','fade-in');">
+						<div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function() {	
+				FastClick.attach(document.body);	//加快手机点击速度
+				//国际化
+				var nationJson = [{"id":"title","name":"string_edaw"},{"id" : ".myEd div","name" : "footer_myed"}, 
+					{"id" : ".service div","name" : "footer_service"}, {"id" : ".cart div","name" : "footer_cart"}, 
+					{"id" : ".mine div","name" : "footer_mine"},{"id" : ".edBody h1","name" : "footer_myed"},
+					{"id" : ".cartIco","name" : "footer_cart"},{"id" : ".orderIco","name" : "orderlist_myorder"}
+				];
+				nation(nationJson);
+				//$('').html($.i18n.prop(""));
+				
+				
+				
+				//首页图片大小比例控制
+				//		$('#banner_list').height(Math.round($('#banner_list img').width()/640*300) + 'px');
+				//		$('#banner_list img').height(Math.round($('#banner_list img').width()/640*300) + 'px');
+				//		$('.showPic li').height(Math.round($('.showPic li').width()/344*158) + 'px');
+			});
+			var swpie = new Object;	//控制轮播图片
+
+			function openSysInfo(){
+				plus.storage.setItem("nuReadMsg","false");
+				clicked('system_info.html');
+			}
+			var waitwin = null;
+			function getwait(){
+				return waitwin;
+			}
+			function closewait() {
+			if (waitwin != null) {
+				waitwin.close();
+				waitwin = null;
+				}
+			}
+			function openwait() {
+				if (waitwin == null){
+				waitwin = plus.ui.createWaiting();
+				}
+				setTimeout(function() {
+					closewait();
+				}, 18000);
+			}
+
+			
+			//页面准备好
+			document.addEventListener("plusready", function() {
+//				var winary = plus.ui.enumWindow();
+//				var mwin = winary[winary.length - 2];
+				//存未读消息的状态(初始化)
+				var nuReadMsg = plus.storage.getItem("nuReadMsg");
+				if(!nuReadMsg){
+					plus.storage.setItem("nuReadMsg","login");
+				}
+				nuReadMsg = plus.storage.getItem("nuReadMsg");
+				if(nuReadMsg=="false"){//如果为false，删除红点提示
+					$('.message span').remove();
+				}else if(nuReadMsg=="login"){//如果本地标识为没有未读就连接后台数据
+					RequestData('APP_UnreadMsgCount', '', '10', '1', function(data) {
+						var d = data.Data;
+						if (d) {//如果有未读信息，添加红点提示
+							plus.storage.setItem("nuReadMsg","true");
+							$('.message').append('<span></span>');
+						}else{//如果没有删除红点提示
+							plus.storage.setItem("nuReadMsg","false");
+							$('.message span').remove();
+						}
+					}, function(data) {
+					},function(){
+					});
+				}else if(nuReadMsg=="true"){//标志为有未读消息
+					$('.message').append('<span></span>');
+				}
+				//连接首页图片数据
+				RequestData('APP_AdvertList', '', 0, 0, function(data) {
+					var list = data.Data.Adverts;
+					for (var i = 0; i < list.length; i++) {
+						var p = list[i];
+						if (p.Type == '1') {
+//							loadImage(p.ImageUri,function(fs){
+//								$("#banner_list").append('<span><img onClick="clicked(\'list.html?type='+p.Remark+'|'+p.ID+'\',\'fade-in\')" src="'+fs.toLocalURL()+'" title="ad" /></span> ');
+//							},function(fs){
+//			
+//							});
+							$("#banner_list").append('<span><img onClick="clicked(\'li_advert.html?type=' + p.Remark + '|' + p.ID + '\',\'fade-in\')" src="' + p.ImageUri + '" title="ad" /></span> ');
+						}
+						
+						if (p.Type == '2' && i == 4) {
+	
+							$("#cartB").before('<li  onclick="clicked(\'li_advert.html?type=' + p.Remark + '|' + p.ID + '\',\'fade-in\')" class="longer"><img src="' + p.ImageUri + '" alt="nokia"></li>');
+						}
+						if (p.Type == '2' && i == 5) {
+							$("#cartB").before('<li class="right"  onclick="clicked(\'li_advert.html?type=' + p.Remark + '|' + p.ID + '\',\'fade-in\')"><img src="' + p.ImageUri + '" alt="nokia"></li>');
+						}
+						if (p.Type == '3' && i == 6) {
+							$("#cartB").before('<li  onclick="clicked(\'list.html?type=' + p.Remark + '#SJK\',\'fade-in\')" class="longer"><img src="' + p.ImageUri + '" alt="nokia"></li>');
+						}
+						if (p.Type == '3' && i == 7) {
+							$("#cartB").before('<li class="right longer"  onclick="clicked(\'parts.html?type=' + p.Remark + '#PJK\',\'fade-in\')"><img src="' + p.ImageUri + '" alt="nokia"></li>');
+						}
+					}
+					//轮播图片
+					var elem = document.getElementById('banner');
+					window.mySwipe = Swipe(elem, {
+						startSlide : 0,
+						auto : 3000,
+						continuous : true,
+						disableScroll : false,
+						stopPropagation : false,
+						callback : function(index, element) {
+							var liList = $("#banner ul li");
+							$.each(liList, function(i) {
+								liList[i].style.background = "#C3C3C3";
+							});
+							liList[index].style.background = "#0f63b1";
+						},
+						transitionEnd : function(index, element) {
+						}
+					});
+					swipe = window.mySwipe ;
+					//首页图片大小比例控制
+					$('#banner_list').height(Math.round($('#banner_list img').width() / 640 * 300) + 'px');
+					$('#banner_list img').height(Math.round($('#banner_list img').width() / 640 * 300) + 'px');
+					//		$('.showPic li').height(Math.round($('.showPic li').width()/284*158) + 'px');
+					$('.showPic li').height(Math.round($('.showPic li').width() / 295 * 158) + 'px');
+					//		$('.showPic li').height(Math.round($('.showPic li').width()/344*158) + 'px');
+//				 closewait();
+				 plus.ui.enumWindow()[0].evalJS("closewait()");
+				}, function(d) {
+//					 closewait();
+					 plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+				},function(){
+//					 closewait();
+					 plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+				});
+
+			},false);
+			//resume的时候，跳到手势密码页面
+			document.addEventListener("resume", function() {
+				if (plus.storage.getItem("patternPwd") != null) {
+					var winary = plus.ui.enumWindow();
+					if (winary[winary.length - 1].getUrl().indexOf("patternLock.html") == -1) {
+						var pwdfwin = plus.ui.createWindow("patternLock.html", {
+							name : url,
+							scrollIndicator : "none",
+							scalable : false,
+						});
+						pwdfwin.show();
+						winary[winary.length - 1].setVisible(false);
+					}
+				}
+			});
+
+			var floatWin = null;
+			//点击扫描图标，打开扫描页面
+			function openScan(id) {
+				var url = encodeURI(id);
+				if (navigator.userAgent.indexOf("Html5Plus") > 0) {
+					floatWin = plus.ui.createWindow(url, {
+						name : url,
+						scalable : false
+					});
+					floatWin.show('zoom-out', 200);
+					floatWin.addEventListener('loaded', function() {
+						setTimeout(function() {
+							floatWin = null;
+							plus.ui.getSelfWindow().setVisible(false);
+						}, 200);
+					}, false);
+				} else {
+					window.location.href = id;
+				}
+			}
+
+			function openSearch_history() {
+				clicked('search_history.html', 'fade-in');
+			}
+			//登出后，设置信息标识为login，并跳转到login.html
+			function logout(){
+				plus.storage.setItem("nuReadMsg","login");
+				plus.ui.getSelfWindow().load('login.html');
+			}
+		</script>
+
+	</body>
+</html>

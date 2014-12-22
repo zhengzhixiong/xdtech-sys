@@ -169,7 +169,7 @@ public class RoleServiceImpl  implements RoleService {
 
 	public boolean deleteRoles(List<Long> ids) {
 		for (Long id : ids) {
-			roleDao.delete(id);
+			deleteRoleLinkAllInfo(id);
 		}
 		return true;
 	}
@@ -226,6 +226,51 @@ public class RoleServiceImpl  implements RoleService {
 
 	public List<Role> getAll() {
 		return roleDao.getAll();
+	}
+
+
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-11-30下午5:56:08
+	 * @modified by
+	 * @param item
+	 * @return
+	 */
+	public boolean saveOrUpdateRole(RoleItem item) {
+		Role role = null;
+		if (item.getId()==null) {
+			role = new Role();
+		}else {
+			role = roleDao.get(item.getId());
+		}
+		//复制前台修改的属性
+		BeanUtils.copyProperties(role, item);
+		roleDao.save(role);
+		return true;
+	}
+
+
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-11-30下午6:06:09
+	 * @modified by
+	 * @param roleIds
+	 */
+	public boolean deleteRoleInfo(List<Long> roleIds) {
+		for (Long id : roleIds) {
+			deleteRoleLinkAllInfo(id);
+		}
+		return true;
+	}
+	
+	private void deleteRoleLinkAllInfo(Long id) {
+		//删除跟菜单关联信息
+		roleDao.excuteUpdateBySql("delete from sys_role_menu where role_id="+id);
+		//删除角色关联权限组
+		roleDao.excuteUpdateBySql("delete from sys_usergroup_role where role_id="+id);
+		delete(id);
 	}
 
 }

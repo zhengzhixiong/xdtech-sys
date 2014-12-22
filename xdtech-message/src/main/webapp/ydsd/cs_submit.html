@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<style>
+			.cs label{
+			position:absolute;
+			line-height:40px;
+			top:5px;
+			left:10px;
+			font-size:1em;
+			font-weight:normal;
+			}
+			.cs li{
+				line-height:40px;
+			}
+			.controlBtu{
+				height: auto;
+			}
+			
+			.contact li h4{
+				margin-top:6px;
+				font-weight:normal;
+			}
+		</style>
+	</head>
+	<body class="indexBg">
+		<div class="edBody">
+			<h1 id="title"></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">
+				</span>
+			</div>
+			<div class="main indexBg" style="margin-bottom:35px;">
+				<div class="contact noHover">
+                    <ul>
+                    <li><label for="im"><h4></h4></label><span><input type="number"  placeholder="" id="im"></span><strong id="imTip"></strong></li>
+                    <li><label for="contact"><h4></h4></label>
+                      <span><input type="text" placeholder="" id="contact" ></span><strong id="contactTip"></strong></li>
+                    <li><label for="phone"><h4></h4></label>
+                      <span><input type="number"  placeholder="" id="phone" /></span><strong id="phoneTip"></strong></li>
+                    <li class="selectLabel"><h4></h4><span>
+                    <select name="serviceType" id="serviceType">
+                        <!--<option selected>请选择售后类型</option>-->
+                        <option value="0" selected></option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                    </select>
+                    </span></li>
+                    <li class="selectLabel"><h4></h4><span>
+                    <select name="serviceType" id="serviceReson">
+                        <option value="1" selected></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                       <option value="4"></option>
+                       <option value="5"></option>
+                       <option value="6"></option>
+                    </select>
+                    </span></li>
+                    <li class="textMore"><label for="reason"><h4></h4></label><span>
+                    <textarea  id="reason" style="margin-top: 8px;" rows="5" placeholder=""></textarea>
+                    <strong id="reasonTip"></strong></span></li>
+                    </ul>
+				</div>
+			</div>
+			<div style="width: 100%;height: 2em;margin-top: 2.1em;"></div>
+            <div class="controlBtu footerCon">
+                <button class="sure" onClick="checkAll()"></button>
+            </div>
+            <div class="cartTips" style="background: white;" id="cannotBack">
+                <h3></h3>
+                <p></p>
+                <button type="button" onClick="closeDi();" >
+                </button>
+            </div>
+            <div class="cartTips" id="inputErr">
+				<h2 style="color: #000000;"></h2><h3 id="inputErrTip"></h3><button class="oneBtu" onClick="closeInput();"></button>
+			</div>
+		</div>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/m_ed.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+	<script src="js/fastclick.min.js" type="text/javascript"></script>
+	<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(function() {
+		FastClick.attach(document.body);	//加快点击事件响应
+		//国际化
+		var nationJson = [{"id":"title","name":"string_edaw"},{"id":"#title","name":"string_submitNewCustomerService"},
+			{"id":".contact ul li:eq(0) h4","name":"string_IMEI_Code"},{"id":".contact ul li:eq(1) h4","name":"reg_contacts"},
+			{"id":".contact ul li:eq(2) h4","name":"reg_phone"},{"id":".contact ul li:eq(3) h4","name":"string_customerServiceType"},
+			{"id":".contact ul li:eq(5) h4","name":"reg_input_comment"},
+			{"id":"#inputErr h2","name":"string_warmPrompt"},{"id":".oneBtu,#cannotBack button","name":"string_ok"},
+			{"id":".sure","name":"string_submit"},{"id":"#cannotBack h3","name":"string_submitSucceed"},
+			{"id":".selectLabel h4","name":"string_typeOfCause"},{"id":"#serviceType option:eq(0)","name":"string_service"},
+			{"id":"#serviceType option:eq(1)","name":"string_changeGoods"},{"id":"#serviceType option:eq(2)","name":"string_changeParts"},
+			{"id":"#serviceType option:eq(3)","name":"string_lossOfSwitchBox"},{"id":"#serviceType option:eq(4)","name":"string_other"},
+			{"id":"#serviceType option:eq(5)","name":"string_unknown"},{"id":"#serviceReson option:eq(0)","name":"string_screenProblem"},
+			{"id":"#serviceReson option:eq(1)","name":"string_housingProblem"},{"id":"#serviceReson option:eq(2)","name":"string_batteryProblem"},
+			{"id":"#serviceReson option:eq(3)","name":"string_motherBoardProblem"},{"id":"#serviceReson option:eq(4)","name":"string_chargerProblem"},
+			{"id":"#serviceReson option:eq(5)","name":"string_other"}
+		];
+		var inputJson = [{"id":"#im","name":"string_pleaseInputIMEICode"},{"id":"#phone","name":"string_input_pleaseInputPhone"},
+			{"id":"#contact","name":"string_input_pleaseInputContactName"},{"id":"#reason","name":"string_HereYouCanDescribeTheProblem"}
+			];
+		nation(nationJson,inputJson);
+		$('#cannotBack p').html($.i18n.prop("string_requestHasBeenSubmit")+"<br/>"+$.i18n.prop("string_weWillContactYouAsSoonAs") );
+		$('#inputErrTip').html($.i18n.prop("recive_pop_infoNoFillIn")+"<br/>"+$.i18n.prop("recive_pop_FillInEnd") );
+		//input框例子提示
+		$('#im').attr("onBlur","checkIMEI('#im','#imTip','"+$.i18n.prop("string_onblur_imei")+"')");
+		$('#contact').attr("onBlur","check('#contact','#contactTip','"+$.i18n.prop("string_onblur_consignee")+"')");
+		$('#phone').attr("onBlur","checkPhone('#phone','#phoneTip','"+$.i18n.prop("string_onblur_phone")+"')");
+		$('#address').attr("onBlur","check('#reason','#reasonTip','"+$.i18n.prop("string_onblur_broken")+"！')");
+	});
+	
+	document.addEventListener("plusready", function() {
+		plus.ui.enumWindow()[0].evalJS("closewait()");
+		if ("iOS" == plus.os.name) {
+		//输入框获得焦点把顶部定位改为ansolute。因为在ios里打开输入框时，fixed失效
+			$("input,select,textarea").focusin(function(){ 
+				$("#title").css("position","absolute");
+				$(".topInfo").css("position","absolute");
+				$(".conBtu").css("position","absolute");
+				$(".controlBtu").hide();
+				$(".controlBtu button").hide();
+			});
+			//输入没有焦点时，再修改为以前的。
+			$("input,select,textarea").focusout(function(){ 
+				$("#title").css("position","fixed");
+				$(".topInfo").css("position","fixed");
+				$(".conBtu").css("position","fixed");
+				$(".controlBtu").show();
+				$(".controlBtu button").show();
+			});
+		}
+		
+		if ("Android" == plus.os.name) {
+			//如果是安卓系统，点击输入框，窗口大小会变小 ，利用这来隐藏底部的按钮
+			setTimeout(function(){
+				var height = $(window).height() ;
+				$(window).resize(function() {
+					if($(window).height()<height){
+						$(".controlBtu button").hide();
+						$(".controlBtu").hide();
+					}else if($(window).height()==height){
+						$(".controlBtu").show();
+						$(".controlBtu button").show();
+					}
+				});
+			},900);
+			$('input[type="number"]').each(function(i,el){
+				el.type = "text";
+				el.onfocus = function(){
+					this.type="number";
+					$(this).attr("onBlur",$(this).attr("onBlur"));
+				};
+			    el.onblur = function(){this.type="text";};
+			});
+		}
+		
+	},false);
+	function closeDi(){ 
+		$.skygqbox.hide();
+		remliste();
+		var winary = plus.ui.enumWindow();
+		winary[winary.length-2].close();
+		openPage('cs.html');
+	}
+	function closeInput(){
+		$.skygqbox.hide();
+		remliste();
+	}
+	
+	/**
+ * 检查手机号或电话号码的格式是否正确
+ */
+	function checkPhone(obj,tipOjb,tip) {
+//		var pattern = /(^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/;
+		var pattern = /^1[3|4|5|6|8|9][0-9]{9}$/;
+		if (!pattern.test($("#phone").val())) {
+				$(tipOjb).css("color","red");
+				$(tipOjb).text(tip);
+				$(tipOjb).click(function(){
+					$(obj).focus();
+				});
+//				$(obj).focus();
+			return false;
+		}
+		$(tipOjb).text("");
+		return true;
+	}
+	
+	//输入框验证
+	function check(obj,tipOjb,tip){
+		if($(obj).val().length<1){
+			$(tipOjb).css("color","red");
+			$(tipOjb).text(tip);
+			$(tipOjb).click(function(){
+				$(obj).focus();
+			});
+//			$(obj).focus();
+			return false;
+		}
+		$(tipOjb).text("");
+		return true;
+	}
+	var m_checked = false;
+	
+	function checkIMEI(obj,tipOjb,tip){
+		var v = $(obj).val();
+		if(v.length<1){
+			$(tipOjb).css("color","red");
+			$(tipOjb).text(tip);
+			$(tipOjb).click(function(){
+				$(obj).focus();
+			});
+//			$(obj).focus();
+			return false;
+		}else{
+			var r = '{"IMEI":"'+v+'"}';
+			//提交售后的时候，连接有无此imei码.没有的话不可提交
+			RequestData('APP_ProductByIMEI',r,0,0,function(data){
+				$(tipOjb).text("");
+				m_checked = true;
+				return true;
+			},function(data){
+				m_checked = true;
+				$(tipOjb).text('该IMEI号码未纳入易道');
+				return true;
+			},function(){
+				m_checked = true;
+				$(tipOjb).text('');
+				plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+				return true;
+			});
+		}
+	}
+	function checkM(obj,tipOjb){
+		if($(obj).val().length<1 ){
+			$(tipOjb).css("color","red");
+			$(tipOjb).text($.i18n.prop("string_onblur_imei"));
+			$(tipOjb).click(function(){
+				$(obj).focus();
+			});
+			return false;
+		}
+		$(tipOjb).text("");
+		return true;
+	}
+	
+	function checkAll(){
+		//$.i18n.prop("string_onblur_broken")
+
+		if(checkM('#im','#imTip') && check('#contact','#contactTip',$.i18n.prop("string_onblur_consignee")) &&　checkPhone('#phone','#phoneTip',$.i18n.prop("string_onblur_phone")) &&check('#reason','#reasonTip',$.i18n.prop("string_onblur_broken"))){
+			if(m_checked){
+				submitService();
+				return true;
+			}else{
+				$('#imTip').text($.i18n.prop("string_noThisIMEI"));
+				return false;
+			}
+			
+		}else{
+			
+		$('#inputErr').skygqbox();
+		return false;
+		}
+	}
+	
+	function submitService(){
+		plus.ui.enumWindow()[0].evalJS("openwait()");
+		var data = '{"IMEI": "'+$("#im").val()+'","Linker": "'+$("#contact").val()+'","LinkPhone": "'+$("#phone").val()+'","Type": "'+$("#serviceType").val()+'","ReasonType": "'+$("#serviceReson").val()+'","Reason": "'+$("#reason").val()+'"}';
+		//提交售后信息
+		RequestData('APP_AftersaleServiceAdd', data, 0, 0, function(e) {
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			$('#cannotBack').skygqbox();
+			addliste();
+			
+		}, function(data) {plus.ui.enumWindow()[0].evalJS("closewait()");plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");},function(){
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+		});
+	}
+	</script>
+	</body>
+</html>

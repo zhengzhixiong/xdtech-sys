@@ -11,41 +11,8 @@
 			searchUser(groupId);
 		}
 	}
-	/**
-	 * 新增用户
-	 */
-	function newUser(){
-			parent.$.modalDialog({
-				title : '新增用户',
-				width : 500,
-				height : 300,
-				href : 'user.do?editUser',
-				buttons : [ {
-					text : '确定',
-					handler : function() {
-						parent.$.modalDialog.openner_userList = $('#user_userlist');
-						var f = parent.$.modalDialog.handler.find('#form');
-						f.submit();
-					}
-				},{
-					text : '取消',
-					handler : function() {
-						$.modalDialog.handler.dialog('destroy');
-						$.modalDialog.handler = undefined;			}
-				} ]
-			});
-	}
-	/**
-	 * 编辑用户
-	 */
-	function editUser(){
-	    var row = $('#user_userlist').datagrid('getSelected');
-	    if (row) {
-	    	editUserInfo(row.id,'编辑用户');
-		}else {
-			alertMsg('请选择编辑用户.');
-		} 
-	}
+	
+	
 	/**
 	 * 查看用户
 	 */
@@ -91,48 +58,14 @@
 	 * 编辑用户信息
 	 */
 	function editUserInfo(userId) {
-		printLog('user.do?addUser&userId='+userId);
-	    parent.$.modalDialog({
-			title : '编辑用户',
-			width : 500,
-			height : 300,
-			href : 'user.do?addUser&userId='+userId,
-			buttons : [ {
-				text : '确定',
-				handler : function() {
-					parent.$.modalDialog.openner_userList = $('#user_userlist');
-					var f = parent.$.modalDialog.handler.find('#form');
-					f.submit();
-				}
-			},{
-				text : '取消',
-				handler : function() {
-					$.modalDialog.handler.dialog('destroy');
-					$.modalDialog.handler = undefined;			}
-			} ]
-		});
+		printLog('user.do?editUser&userId='+userId);
+		createFromWindow("新增用户信息", 'user.do?editUser&userId='+userId, "user.do?editUser",
+				function(data) {
+					reloadNew();
+				});
 	}
-	/**
-	 * 删除用户
-	 */
-	function deleteUser(){
-	    var row = $('#user_userlist').datagrid('getSelected');
-	    if (row){
-	        $.messager.confirm('询问','你确认要删除用户吗?',function(r){
-	            if (r){
-	                $.post('user.do?deleteUser',{id:row.id},function(result){
-	                	console.log(result);
-	                    if (result.success){
-	                        $('#user_userlist').datagrid('reload');    // reload the user data
-	                    }
-	                    showMsg(result.msg);
-	                },'json');
-	            }
-	        });
-	    }else {
-	    	showMsg("请选择用户记录.");
-	    }
-	}
+	
+	
 	//表格查询  
 	function searchUser(){  
 	    var params = $('#user_userlist').datagrid('options').queryParams; //先取得 datagrid 的查询参数  
@@ -196,33 +129,155 @@
 // 		printLog(s);
 		return s;
 	}
+	
+	//工具按钮删除选中人员，勾选的那些记录
+	
+	/////////////////////////////////// js重构
+	/**
+	 * 工具按钮新增用户
+	 */
+	function addUser(){
+		createFromWindow("新增用户信息", "user.do?editUser", "user.do?saveUser",
+			function(data) {
+				reloadUser();
+			});
+	}
+	/**
+	 * 工具按钮删除用户
+	 */
+	function deleteUser(){
+	    var rows = user_userlist.datagrid('getChecked');
+	    if (rows&&rows.length>0){
+	        $.messager.confirm('询问','你确认要删除用户吗?',function(r){
+	        	if (r){
+	            	var ids = "";
+	            	for(var i=0; i<rows.length; i++){
+	            		ids += rows[i].id+",";
+	            	}
+	                $.post('user.do?deleteUserItems',{ids:ids},function(result){
+	                    if (result.success){
+	                    	reloadUser();    
+	                    }
+	                    showMsg(result.msg);
+	                },'json');
+	            }
+	        });
+	    }else {
+	    	showMsg("请选择用户记录.");
+	    }
+	}
+	/**
+	 * 工具按钮编辑用户
+	 */
+	function editUser(){
+	    var rows = user_userlist.datagrid('getChecked');
+		if (rows&&rows.length>0) {
+			if(rows.length>1) {
+				showMsg('请选择一条操作记录.');
+				return;
+			}
+			createFromWindow("编辑用户信息", "user.do?editUser&userId=" + rows[0].id,
+					"user.do?saveUser", function(data) {
+						reloadUser();
+					},true);
+		} else {
+			showMsg('请选择操作记录.');
+		}
+	}
+	/**
+	 *用户表格重新加载
+	 */
+	function reloadUser() {
+		var params = user_userlist.datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+		user_userlist.datagrid('reload'); //设置好查询参数 reload 一下就可以了  
+		user_userlist.datagrid('unselectAll');
+		user_userlist.datagrid('uncheckAll');
+	}
+	
+	//记录后面操作按钮
+	//操作按钮触发
+	function operationsLookUser(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = user_userlist.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			createFromWindow("查看用户信息", "user.do?editUser&userId=" + id,
+					null, null,false);
+		} else {
+			showMsg('请选择查看记录.');
+		}
+	}
+	
+	function operationsEditUser(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = user_userlist.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			createFromWindow("编辑用户信息", "user.do?editUser&userId=" +id,
+					"user.do?saveUser", function(data) {
+						reloadUser();
+					},true);
+		} else {
+			showMsg('请选择编辑记录.');
+		}
+	}
+	
+	function operationsUserLinkRole(id) {
+		if (id == undefined) {//点击右键菜单才会触发这个
+			var rows = user_userlist.datagrid('getSelections');
+			id = rows[0].id;
+		}
+		if (id) {
+			createFromWindowOptions({
+				title:"用户角色信息",
+				maximizable:false,
+				href:'user.do?userLinkRoles&userId='+id,
+				callback:function(data) {
+					var f  = data.find('#userLinkRoleForm');
+					f.submit();;
+				},
+				enableSaveButton:true
+			});
+		} else {
+			showMsg('请选择编辑记录.');
+		}
+	}
+	
 </script>
+<#assign operations = "[\{shiro:'',onClick:'operationsLookUser',src:'plugins/xdtech/images/notes/note.png',title:'查看'},
+	   					\{shiro:'sys:user:edit',onClick:'operationsEditUser',src:'plugins/xdtech/images/notes/note_edit.png',title:'编辑'},
+	   					\{shiro:'sys:user:linkRole',onClick:'operationsUserLinkRole',src:'plugins/xdtech/images/notes/note_go.png',title:'角色信息'},
+	   					\{shiro:'sys:user:delete',onClick:'disableUser',src:'plugins/xdtech/images/notes/note_delete.png',title:'禁用'}
+	  				   ]"/>
 <div class="easyui-layout" data-options="fit:true">
 	<div data-options="region:'west',split:true,title:'用户组',collapsible:false,border:false,tools:[
 					{
 						iconCls:'icon-reload',
 						handler:function(){userRefreshGroup()}
 					}]" style="width:200px;">
-	<#assign operations = "[\{shiro:'addUser',onClick:'lookUserInfo',src:'plugins/xdtech/images/notes/note.png',title:'查看'},
-		   					\{shiro:'editUser',onClick:'editUserInfo',src:'plugins/xdtech/images/notes/note_edit.png',title:'编辑'},
-		   					\{shiro:'editUser',onClick:'userRoleInfo',src:'plugins/xdtech/images/notes/note_go.png',title:'角色信息'},
-		   					\{shiro:'editUser',onClick:'disableUser',src:'plugins/xdtech/images/notes/note_delete.png',title:'禁用'}
-		  				   ]"/>
-	<@eu.tree id="groupTree" method="post" 
-		url="group.do?usergroupTree" onCheck="onCheckTree(node, checked)"
-		formatter="return formatterGroupTree(node)"
-		onClick="clickUsergroup(node.id)"/>
+
+		<@eu.tree id="groupTree" method="post" 
+			url="group.do?usergroupTree" onCheck="onCheckTree(node, checked)"
+			formatter="return formatterGroupTree(node)"
+			onClick="clickUsergroup(node.id)"/>
 	</div>
 	<div data-options="region:'center',border:false">
-		<@eu.datagrid id="user_userlist" idField="id" toolbar="#userlist_search"  pagination="true" rownumbers="true" singleSelect="false" operations="${operations!}" url="user.do?loadByCondition" item="com.xdtech.sys.vo.UserItem" pagination="true" />
+		<@eu.datagrid id="user_userlist" idField="id"
+		toolbar="#userlist_search"  operations="${operations!}"
+		url="user.do?loadByCondition" item="com.xdtech.sys.vo.UserItem" />
 		<div id="userlist_search"> 
 			<div style="margin-bottom:5px;padding-left:5px;margin-top: 5px;">
 				<@eu.searchbox id="userSearchBox" prompt="请输入用户名" searcher="doSearchUser" />
-				<@eu.linkbutton showName="清空" shiro="sys:user:clear" iconCls="icon-clear" onclick="clearSearch()"/>
+				<@eu.linkbutton showName="清空" iconCls="icon-clear" onclick="clearSearch()"/>
 			</div>
 			<div id="user_toolbar" style="height: auto">
-				<@eu.linkbutton showName="新增" shiro="sys:user:add" iconCls="icon-add" onclick="newUser()"/>
+				<@eu.linkbutton showName="新增" shiro="sys:user:add" iconCls="icon-add" onclick="addUser()"/>
 				<@eu.linkbutton showName="删除" shiro="sys:user:delete" iconCls="icon-remove" onclick="deleteUser()"/>
+				<@eu.linkbutton showName="编辑" shiro="sys:user:edit" iconCls="icon-edit" onclick="editUser()"/>
+				<@eu.linkbutton showName="刷新" shiro="sys:user:refresh" iconCls="icon-reload" onclick="reloadUser()"/>
+				
 			</div>
 		</div>
 		

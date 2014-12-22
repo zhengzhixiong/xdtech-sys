@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+	</head>
+	<body class="indexBg">
+		<div class="edBody">                                   
+			<h1 id="title"></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">
+				</span>
+			</div>
+			<div class="main indexBg" style="margin-bottom:35px;">
+				<div class="contact">
+                    <!--<ul>
+	                    <li><h4>维修单号</h4><span>SHEDAW-2012112100001</span></li>
+	                    <li><h4>提交时间</h4><span>2014/04/14 12：30</span></li>
+	                    <li><h4>商品名</h4><span>诺基亚2020黑色(不可换机)</span></li>
+	                    <li><h4>IMEI码</h4><span>354130057049329</span></li>
+	                    <li><h4>售后类型</h4><span>开箱损换机</span></li>
+	                    <li><h4>受理人</h4><span>暂无</span></li>
+	                    <li><h4>状态</h4><span>待受理</span></li>
+	                    <li><h4>维修费用</h4><span>￥102</span></li>
+	                    <li><h4>联系人</h4><span>李毅</span></li>
+	                    <li><h4>联系电话</h4><span><a href="tel:18603053295">18603053295</a></span></li>
+                    </ul>-->
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/ed.js"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+	<script type="text/javascript" src="js/fastclick.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);	//加快点击响应时间
+			var nationJson = [{"id":"title","name":"string_edaw"},{"id":"#title","name":"service_after"},
+			];
+				nation(nationJson);
+			//$('').html($.i18n.prop(""));
+		});	
+		//获取url传送过来的值
+		var urlinfo = window.location.href;
+		var info = urlinfo.split("?");
+		var id = decodeURI(info[1].split("=")[1]);
+		var data = '{"ID": "'+id+'"}';
+		
+		//页面做准备好了，创建等待窗口连接数据，并添加数据到页面上
+		document.addEventListener( "plusready", function () {
+			RequestData('APP_AftersaleServiceDetail', data, 0, 0, function(e) {
+				var d = e.Data.AftersaleService;
+				var html = "";
+				var man = d.CreateMan;
+				var type = $.i18n.prop("string_repair");
+				var cost = 0;
+				if(!man){
+					man = $.i18n.prop("string_notAvailable");
+				}
+				if(d.Type=='1'){
+					type = $.i18n.prop("string_changeGoods");
+				}
+				if(d.Cost){
+					cost = d.Cost;
+				}
+				if(d){
+					html =  '<ul><li><h4>'+$.i18n.prop("string_repairOrder")+'</h4><span>'+d.ID+'</span></li><li><h4>'+$.i18n.prop("string_submissionTime")+'</h4><span>'+d.CreateDate+'</span></li><li><h4>'+$.i18n.prop("string_productName")+'</h4><span>'+d.ProductName+'</span></li><li><h4>'+$.i18n.prop("string_IMEI_Code")+'</h4><span>'+d.IMEI+'</span></li><li><h4>'+$.i18n.prop("string_customerServiceType")+'</h4><span>'+type+'</span></li><li><h4>'+$.i18n.prop("string_acceptPeople")+'</h4><span>'+man+'</span></li><li><h4>'+$.i18n.prop("string_status")+'</h4><span>'+d.StatusName+'</span></li><li><h4>'+$.i18n.prop("string_repairCost")+'</h4><span>￥'+cost+'</span></li><li><h4>'+$.i18n.prop("reg_contacts")+'</h4><span>'+d.Linker+'</span></li><li><h4>'+$.i18n.prop("reg_phone")+'</h4><span><a href="tel:'+d.LinkPhone+'">'+d.LinkPhone+'</a></span></li></ul>';
+					$(".contact").html(html);
+				}
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+			}, function(d) {
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+			},function(){
+				plus.ui.enumWindow()[0].evalJS("closewait()");
+				plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+			});
+		},false);
+			
+	
+	</script>
+	</body>
+</html>

@@ -60,4 +60,12 @@ public interface UserService extends IBaseService<User> {
 	 * @return
 	 */
 	public boolean updateUserPwd(Long userId,String newPwd);
+	/**
+	 * 
+	 * @author max.zheng
+	 * @create 2014-11-30下午12:26:12
+	 * @modified by
+	 * @param newIds
+	 */
+	public boolean deleteUserInfo(List<Long> userIds);
 }

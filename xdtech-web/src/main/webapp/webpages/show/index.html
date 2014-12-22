@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+<#include "headImport.html">
+<title> Max - 专注前端技术、深入体验细节</title>
+</head>
+<body data-nav="home" data-autopager="true">
+	<#include "navigation.html">
+
+	<div id="banner" class="pr">
+		<canvas id="particles" class="pa"></canvas>
+		<br> <br>
+		<h1 class="text-center">专注前端技术、深入体验细节</h1>
+		<p class="text-center">真正的简约不是删繁就简，而是在纷繁中构建秩序。</p>
+	</div>
+
+
+	<div class="container">
+		<div class="row">
+			<#include "leftContent.html">
+			<!-- 中间列 -->
+			<div class="col-xs-12 col-md-9 col-lg-7">
+				<h3 class="title">
+					最新更新<span>&nbsp;/&nbsp;NEW</span>
+				</h3>
+				<#list articles as article>
+				<div class="media media-yckit">
+					<div class="media-body">
+						<h4 class="media-heading">
+							<img src="show/images/50.jpg" width="30px;" height="30px;">
+							<span style="font-size: 15px;">${(article.member)!}&nbsp;发布于${(article.createTime)?string("yyyy-MM-dd HH:mm:ss")} </span>
+						</h4>
+						<div class="media-content">${(article.content)!}</div>
+						<h4>
+							<img src="show/images/no_ding.png" />
+							<img src="show/images/no_cai.png" />
+							<img src="show/images/no_bookmark.png" />
+							<img src="show/images/comment.png" />
+						</h4>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				</#list>
+				
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/25.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201411/thumb.525AC9EBD96C4A2BF65D6A43A9E72979.jpg" -->
+<!-- 						alt="杭州西湖一游" width="180"> <span class="pa">记录生活</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/25.html">杭州西湖一游</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">前几天去了杭州西湖玩玩，去了后感觉和上海气候差不多的，也下了一天的雨。不过雨天游西湖也别有一番滋味。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/24.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.08F0DD3A29505186FA0947C0153385A0.png" -->
+<!-- 						alt="神器！Mac OSX上Finder增强插件XtraFinder" width="180"> <span -->
+<!-- 						class="pa">分享干货</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/24.html">神器！Mac OSX上Finder增强插件XtraFinder</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">用习惯了WINDOWS文件夹操作方式的朋友在MAC上难免会对Finder产生抱怨，比如没有剪切功能，也不能新建文件。现在好了有了XtraFinder可以让Finder像WINDOWS一样方式操作了。而...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/23.html">YCKIT V4 之主题包中编写PHP调用数据</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">有时候制作模板的时候需要编写PHP代码来调用特殊数据内容，但是直接在模板里面写不太方便。YCKIT支持主题包内PHP调用接口，满足了开发者建站特殊所需。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/22.html">升级小菜一碟！YCKIT 旧版本数据转移到YCKIT V4.x</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">YCKIT -->
+<!-- 							发布于2012年初，到至今有2个免费发布版本V2012和V2013版本。V4版本在各个方面都有不少提升，从架构上还是后台UI和操作上绝对比之前版本好很多。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/21.html">YCKIT V4.1~v4.1.1升级之301永久重定向实现方法</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">因为版本升级关系会遇到rewrite规则变化，这样已经被搜录的文章会访问不到。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/20.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.3739CD6AC13130ACEAE8990166795A46.png" -->
+<!-- 						alt="YCKIT V4 之调用管理使用" width="180"> <span class="pa">功能使用</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/20.html">YCKIT V4 之调用管理使用</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">调用管理是YCKIT -->
+<!-- 							V4中得一个特色功能。能让站长不需要懂PHP就可以使用标签调用出自己想要显示的文章列表。调用支持按照选择的分类，或者文章的ID来进行显示，而且支持包含封面、推荐等条件属性。使用调...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/19.html">很屌！Sumlime text3 插件Emmet</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">EMMET是类似ZEN -->
+<!-- 							CODING的代码速写HTML插件，使前端WEB开发者提升工作效率。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/18.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.512356B64B3D6944413AC278E14787F8.png" -->
+<!-- 						alt="扁平化！本本更新到MAC OSX Yosemite 10.10" width="180"> <span -->
+<!-- 						class="pa">记录生活</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/18.html">扁平化！本本更新到MAC OSX Yosemite 10.10</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">期待已久的MAC OSX Yosemite -->
+<!-- 							10.10今日终于推送更新了！感觉完爆WINDOWS系统！更新大概花掉几个小时。安装更新包大概5G多。下载完后就开始安装，大概重启了好几次才好。相对于以前的...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/17.html">LNMP正确安装memcached组件</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">根据LNMP官网介绍直接执行./memcached.sh是不够的。虽然可以把memcached和php_memcache组件都安装上了但是官网没有提修改php.ini。接下来看我的步骤是如何做得。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/16.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.FEDFD3547E38D48C5264AFB4ACFCA03E.png" -->
+<!-- 						alt="用了才知道！MAC下Sublime Text3如何安装插件？" width="180"> <span -->
+<!-- 						class="pa">分享干货</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/16.html">用了才知道！MAC下Sublime Text3如何安装插件？</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">用了Sublime Text -->
+<!-- 							好多年了！一直都是手写代码没去注意插件这个。现在发现插件真心好用，真是有点相见恨晚的感觉。安装插件前大家要安装很多东西，JAVA -->
+<!-- 							SDK&NODEJS&git 等等。还有...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/15.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.DA18962F6A7AD3A8FCFD97AACAD6FE51.jpg" -->
+<!-- 						alt="国庆长假这几天的生活清单！" width="180"> <span class="pa">记录生活</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/15.html">国庆长假这几天的生活清单！</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">国庆假期的这几天里，过得还算充实。陪老婆去购物、去爬山、下馆子等。而且这几天天气很舒服，秋风凉爽，阳光温暖。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/14.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.DACECBCFA3BDFC3061573DAE10D402EE.jpg" -->
+<!-- 						alt="吃货必杀技！美味辣白菜" width="180"> <span class="pa">吃货秘笈</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/14.html">吃货必杀技！美味辣白菜</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">辣白菜是我们朝鲜族平日里舌尖上的美食，不管每顿饭有没有肉，但是辣白菜是不能缺的。今天我教大家如何简单的制作辣白菜。</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/13.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201410/thumb.3F84F83F72D9BE775BB8C35A28AF77E1.jpg" -->
+<!-- 						alt="MAC 下去图片去噪点PS插件之Noiseware " width="180"> <span -->
+<!-- 						class="pa">分享干货</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/13.html">MAC 下去图片去噪点PS插件之Noiseware </a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">这是一款Mac平台的降噪磨皮滤镜工具，是一款Photoshop的插件，Noiseware用于恢复图片质量，通过消除图像噪点和讨厌的人为因素，如高ISO设置或低亮度环境。它提供了许多已经设置好的配置，让...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/12.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201409/thumb.B55ECE4C2A4435E68E8D63DC1469FBCC.jpg" -->
+<!-- 						alt="基于Masonry插件制作瀑布流页面" width="180"> <span class="pa">开发实践</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/12.html">基于Masonry插件制作瀑布流页面</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动，这种布局还会不断加载数据块并附加至当前尾部。最早采用此布局的网站是Pinterest，逐渐...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/11.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201409/thumb.FFC947F95B77DFE63A0FAE106650D60C.jpg" -->
+<!-- 						alt="JS 控制VIEWPORT在微信上正常显示" width="180"> <span class="pa">开发实践</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/11.html">JS 控制VIEWPORT在微信上正常显示</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">经常在做移动手机网站的时候由于需要在微信平台推广我们不得不去兼容他。在IOS上由于苹果把控的很好，浏览器内核都是统一的。所以自然没有兼容问题。但是安卓就不同了，碎片化的缘故。加上微信的WEBVIEW是...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="media media-yckit"> -->
+<!-- 					<a class="media-left pull-left pr" href="/post/10.html"> <img -->
+<!-- 						src="http://static.jinzhe.net/data/post/201409/thumb.7CBFB6273849F93E080132BF8CF6B105.jpg" -->
+<!-- 						alt="前端福音！Iconfont阿里巴巴矢量图标库" width="180"> <span class="pa">分享干货</span> -->
+<!-- 					</a> -->
+<!-- 					<div class="media-body"> -->
+<!-- 						<h4 class="media-heading"> -->
+<!-- 							<a href="/post/10.html">前端福音！Iconfont阿里巴巴矢量图标库</a> -->
+<!-- 						</h4> -->
+<!-- 						<div class="media-content">无意中在网上看到了iconfont图标库，是阿里巴巴团队倾力打造，设计和前端开发的便捷工具。以前一直使用国外的fontawesome -->
+<!-- 							。fontawesome 是一个很优秀的前端图标字体库，但是很遗憾...</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="clearfix"></div> -->
+<!-- 				</div> -->
+				<div id="post-append"></div>
+				<br>
+				<div class="text-center">
+					<div id="more" class="cp" style="display: none">下一页</div>
+				</div>
+			</div>
+			<!-- 中间列 结束-->
+
+			<#include "rightContent.html">
+		</div>
+	</div>
+
+	<#include "footer.html">
+</body>
+</html>
+<#include "footImport.html">

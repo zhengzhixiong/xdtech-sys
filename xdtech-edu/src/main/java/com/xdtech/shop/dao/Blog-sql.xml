@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-statement>
+	<sql type="HQL" name="shop.blog.getByCondition">
+		<![CDATA[
+			FROM Blog b WHERE 1=1
+			  <#if title??>
+					and b.title like '%${title}%'
+			  </#if>
+			  <#if status??>
+					and b.status='${status}'
+			  </#if>
+			  order by createTime desc
+		 ]]>
+	</sql>
+</dynamic-statement>

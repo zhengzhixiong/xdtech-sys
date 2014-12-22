@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>发表博客</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+        var ffid=33333;
+        $(document).ready(function() {
+            $(".quote_outer input[type=file]").change(function(event) {
+                event.preventDefault();
+                $(this).after('<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');});
+        });
+
+    </script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+            $('#slider2').nivoSlider();
+
+            $('#carousel').carouFredSel({
+                circular: true,         // Determines whether the carousel should be circular.
+                infinite: true,         // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+                responsive: true,      // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+                direction: "left",      // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+                width: null,            // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+                height: null,           // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+                align: "center",
+                scroll : {
+                    items           : 1
+                },
+                wraper : {
+                    element     : "div",
+                    classname   : "col-sm-8"
+                }
+            });
+        });
+
+
+    </script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+		
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+		
+		<div style="clear: both;"></div>
+
+		<!-- about页面里中间内容 -->
+		<div class="top_container">
+			<div id="wrapper">
+
+				<div class="theme-default">
+
+						<div class="container">
+
+								<div class="col-sm-5 heropatches-about">
+										<div class="blueform2" style="height: 500px;">
+
+											<div class="col-sm-12">
+												<div class="get-free-quote">博客信息</div>
+											</div>
+											
+
+											<form role="form" method="POST" id="blogEditForm" action="blog.do?saveBlog2"
+												class="new-improved-form" enctype="multipart/form-data">
+												<input type="hidden" value="${(member.id)!}" name="memberId">
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">标题: *</label><input
+															type="text" id="title" name="title" 
+															placeholder="title" class="form-text form-control" value=""/>
+													</div>
+												</div>
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">图片:</label>
+														<input type="file" name="imageFile"/> 
+													</div>
+												</div>
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">内容:*</label>
+														<textarea class="form-text form-control"  rows="6"  name="content"></textarea>
+													</div>
+												</div>
+												<div class="clearfix" style="height: 10px;"></div>
+
+												<div class="col-md-12">
+
+													<div class="clearfix"></div>
+
+													<div class="center-submit">
+
+														<input name="button"
+															class="btn btn-warning submit-blue-form btn-lg btn-block"
+															id="button" value="发表" type="submit">
+													</div>
+												</div>
+												<div class="col-md-12 center-submit" style="margin-top: 5px;">
+													${(r.msg)!}
+												</div>
+				
+											</form>
+
+										</div>
+
+									
+								</div>
+
+						</div>
+
+
+				</div>
+
+			</div>
+		
+		</div>
+
+		<!-- about页面里中间内容结束 -->
+
+		<!--引入底部-->
+		<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;">
+		</div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

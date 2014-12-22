@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+
+		<style>
+			.selArea select {
+				border: none;
+				font-family: Tahoma, Geneva, sans-serif, '宋体';
+				font-size: 1em;
+				width: 100%;
+				color: #535353;
+			}
+
+		</style>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body>
+		<div class="edBody">
+			<h1 id="title">&nbsp;</h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">&nbsp;</span>
+			</div>
+			<div class="main" style="margin-bottom:90px;">
+				<div class="reg">
+					<form>
+						<ul>
+							<li>
+								<h4>:</h4>
+								<input type="text" placeholder="" onBlur="" id="name"/>
+								<span class="alarmText"></span>
+							</li>
+							<li>
+								<h4>:</h4>
+								<input type="number" placeholder=""   onBlur="" id="phone"/>
+								<span class="alarmText"></span>
+							</li>
+							<li>
+								<h4>:</h4>
+								<input type="number" placeholder=""  onBlur="" id="postcode"/>
+								<span class="alarmText"></span>
+							</li>
+							<li>
+								<label for="selProvince"><h4>:</h4>
+									<select id="selProvince" name="province" onChange="getCity(this.options[this.selectedIndex].value)"></select></label>
+							</li>
+							<li>
+								<label for="selCity"><h4>:</h4>
+									<select id="selCity" name="City"></select></label>
+							</li>
+							<li
+							<label for="address"><h4>:</h4><input placeholder="" onBlur="" id="address"></input><span id="addressTip"></span></label></li>
+							</ul>
+							</form>
+							<div class="controlBtu footerCon" id="submitBtn">&nbsp;
+
+							</div>
+							<div class="cartTips" id="tips"></div>
+							<div class="cartTips" id="cannotBack"><h3></h3><br /><button type="button" onClick="clicked('index.html')"></button><button onClick="closeDiv('#cannotBack');"></button></div>
+							<div class="cartTips" id="inputErr">
+							<h2 style="color: #000000;"></h2><h3 id="inputErrTip"></h3><button class="oneBtu" onClick="closeDialog();"></button>
+							</div>
+							<div class="cartTips" id="updateErr">
+							<h2 style="color: #000000;"></h2><h3 id="updateErrTip"></h3><button class="oneBtu" onClick="loadPage();"></button>
+							</div>
+							</div>
+							</div>
+							</div>
+							<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+							<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+							<script src="js/m_ed.js" type="text/javascript" charset="utf-8"></script>
+							<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+							<script src="js/province.js" type="text/javascript" charset="utf-8"></script>
+							<script src="js/fastclick.min.js" type="text/javascript" charset="utf-8"></script>
+							<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+							<script type="text/javascript">
+								$(function() {
+									FastClick.attach(document.body);//加快响应点击事件
+									//国际化
+									var nationJson = [{"id":"title","name":"string_edaw"},
+										{"id" : "#inputErr h2,#updateErr h2","name" : "string_warmPrompt"},
+										{"id" : "#cannotBack h3","name" : "recive_pop_comfirmBack"},
+										{"id" : "#inputErr button,#updateErr button","name" : "string_ok"},
+										{"id" : "#tips:eq(0) button","name" : "string_yes"},
+										{"id" : "#tips:eq(1) button","name" : "string_no"}
+									];
+									nation(nationJson);
+									$('form ul li:eq(0) h4').prepend($.i18n.prop("recive_consignee"));
+									$('form ul li:eq(1) h4').prepend($.i18n.prop("recive_phone"));
+									$('form ul li:eq(2) h4').prepend($.i18n.prop("recive_postCode"));
+									$('form ul li:eq(3) h4').prepend($.i18n.prop("recive_province"));
+									$('form ul li:eq(4) h4').prepend($.i18n.prop("recive_city"));
+									$('form ul li:eq(5) h4').prepend($.i18n.prop("recive_address"));
+									//input框提示文字
+									$('#phone').attr("placeholder",$.i18n.prop("recive_input_phone"));
+									$('#name').attr("placeholder",$.i18n.prop("recive_input_consignee"));	
+									$('#postcode').attr("placeholder",$.i18n.prop("recive_input_postCode"));
+									$('#address').attr("placeholder",$.i18n.prop("recive_input_address"));
+									//input框例子提示
+									$('#name').attr("onBlur",'check(this,"'+$.i18n.prop("string_onblur_consignee")+'")');
+									$('#phone').attr("onBlur",'checkPhone(this,"'+$.i18n.prop("string_onblur_phone")+'")');
+									$('#postcode').attr("onBlur",'check(this,"'+$.i18n.prop("string_onblur_postCode")+'")');
+									$('#address').attr("onBlur",'check(this,"'+$.i18n.prop("string_onblur_address")+'")');
+//									$('#cannotBack').append($.i18n.prop("recive_pop_infoWillDisappear"));	//
+								});
+								//获取url传送过来的值
+								var urlinfo = window.location.href;
+								var info = urlinfo.split("?");
+								var addId = "";
+								//判断URL是否带参
+								if (info[1] != null)
+									var addId = info[1].split("=")[1];	//获取参数
+								document.addEventListener("plusready", function() {
+									//连接地址数据APP_Province
+									getProvince();
+									//带参则修改，没有则新增
+									if (addId != null && addId != "") {
+										//标题和底部
+										$('#title').html($.i18n.prop("recive_update_title"));
+										$('.controlBtu').html('<button class="sure" onClick="addAddress();">'+$.i18n.prop("string_saveUpdate")+'</button>');
+										$('#tips').html($.i18n.prop("string_updateSucceed"));
+										var data = '{"ID": "' + addId + '"}';
+										RequestData('APP_DeliveryAddressDetail', data, 0, 0, function(e) {
+											plus.ui.enumWindow()[0].evalJS("closewait()");	//获取到数据后关闭等待框
+											setTimeout(function() {
+												//将数据写入html
+												var addDetails = e.Data.DeliveryAddress;
+												$('#name').val(addDetails.ReceiptName);
+												$('#phone').val(addDetails.Phone);
+												$('#selProvince').val(addDetails.ProvinceID);
+												if(addDetails.ProvinceID!=0){
+													setTimeout(function(){
+														getCity(addDetails.ProvinceID,addDetails.CityID);
+													},200);
+												}
+//												$('#selCity').val(addDetails.CityID);
+												$('#address').val(addDetails.Address);
+												$('#postcode').val(addDetails.ZipCode);
+											}, 100);
+										}, function(d) {
+											plus.ui.enumWindow()[0].evalJS("closewait()");		//关闭等待框
+											//弹出服务器返回失败的原因
+											plus.ui.alert(d.Message, function() {}, "请求失败", "确定");
+											setTimeout(function() {
+												back();			//0.2秒后返回我的页面
+											}, 200);
+										},function(){
+											plus.ui.enumWindow()[0].evalJS("closewait()");
+											plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+										});
+									} else {
+										//新增地址
+										$('#title').html($.i18n.prop("recive_insert_title"));
+										$('.controlBtu').html('<button class="sure" onClick="addAddress();">'+$.i18n.prop("string_save")+'</button>');
+										$('#tips').html($.i18n.prop("recive_insert_succeed"));
+										plus.ui.enumWindow()[0].evalJS("closewait()");
+									}
+									if ("iOS" == plus.os.name) {
+										//输入框获得焦点把顶部定位改为ansolute。因为在ios里打开输入框时，fixed失效
+										$("input,select").focusin(function() {
+											$("#title").css("position", "absolute");
+											$(".topInfo").css("position", "absolute");
+											$(".conBtu").css("position", "absolute");
+											$(".controlBtu").hide();
+										});
+										//输入没有焦点时，再修改为以前的。
+										$("input,select").focusout(function() {
+											$("#title").css("position", "fixed");
+											$(".topInfo").css("position", "fixed");
+											$(".conBtu").css("position", "fixed");
+											$(".controlBtu").show();
+										});
+									}
+
+									if ("Android" == plus.os.name) {
+										setTimeout(function() {
+											var height = $(window).height();
+											$(window).resize(function() {
+												if ($(window).height() < height) {
+													$(".controlBtu").hide();
+												} else if ($(window).height() == height) {
+													$(".controlBtu").show();
+												}
+											});
+										}, 900);
+										$('input[type="number"]').each(function(i,el){
+											el.type = "text";
+											el.onfocus = function(){
+												this.type="number";
+												$(this).attr("onBlur",$(this).attr("onBlur"));
+											};
+										    el.onblur = function(){
+										    	this.type="text";
+										    };
+										});
+									}
+								}, false);
+						
+								
+								//JS验证
+								function check(obj, text) {
+									if ($(obj).val().length < 1) {
+										$(obj).next().text(text);
+										$(obj).parent().addClass('alarmText');
+										//										$(obj).focus();
+										return false;
+									} else {
+										$(obj).next().text("");
+										$(obj).parent().removeClass('alarmText');
+										return true;
+									}
+								}
+								
+								/**
+								 * 模拟input number类型
+								 */
+								function checkNumber(e){
+									var keynum; 
+								    var keychar; 
+								    var numcheck; 
+								    if(window.event) { //IE 
+								        keynum = e.keyCode; 
+								       } else if(e.which) { //!IE 
+								        keynum = e.which; 
+								       } 
+								    keychar = String.fromCharCode(keynum); //将键盘码转为实际字符 
+								    numcheck = /d/; 
+								  
+								    return numcheck.test(keychar); // return !numcheck.test(keychar); 不能输入汉字 
+								}
+								
+								/**
+								 * 检查手机号或电话号码的格式是否正确
+								 */
+								function checkPhone(obj, text) {
+									var pattern = /(^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/;
+									if (!pattern.test($(obj).val())) {
+										$(obj).next().text(text);
+										$(obj).parent().addClass("alarmText");
+										//										$(obj).focus();
+										return false;
+									} else {
+										$(obj).next().text("");
+										$(obj).parent().removeClass('alarmText');
+										return true;
+									}
+								}
+								//跳转页面
+								function loadPage() {
+									var e_win = plus.ui.enumWindow();
+									e_win[e_win.length-2].close();
+									openPage('recive_add.html');
+								}
+								//恢复按钮点击事件
+								function RestorationClick(){
+									document.getElementById("submitBtn").onclick = function(){addAddress();};
+								}
+								//添加地址
+								function addAddress() {
+									
+									if(!$("#selProvince").val()){
+										$("#inputErrTip").html("请您选择省份！！！");
+										openDialog('#inputErr');	//弹出信息输入不正常弹出框
+										return;
+									}
+									if(!$("#selCity").val()){
+										$("#inputErrTip").html("请您选择城市/区！！！");
+										openDialog('#inputErr');	//弹出信息输入不正常弹出框
+										return;
+									}
+									/*不能填写单纯的数字及字母*/
+									if(/^[a-zA-Z]+|\d+$/ig.test($('#address').val())){
+										$("#inputErrTip").html("请您认真填写详细地址！！！");
+										openDialog('#inputErr');	//弹出信息输入不正常弹出框
+										return;
+									}
+									//JS验证是否通过
+									if (check('#name', $.i18n.prop("string_onblur_consignee")) && checkPhone('#phone', $.i18n.prop("string_onblur_phone")) && check('#postcode', $.i18n.prop("string_onblur_postCode"))&& check('#address', $.i18n.prop("string_onblur_address")) ) {
+										$(".sure").attr('disabled',"true");
+										$(".sure").css("background","#e7e7e7");
+										var type = "", worry = "", tips = "",data="";
+										//判断是新增还是修改地址
+										if (addId != null && addId != "") {
+											data = '{"ID":"' + addId + '","ReceiptName":"' + $('#name').val() + '","Phone":"' + $('#phone').val() + '","ProvinceID":"' + $('#selProvince').val() + '","CityID":"' + $('#selCity').val() + '","Address":"' + $('#address').val() + '","ZipCode":"' + $('#postcode').val() + '"}';
+											type = 'APP_DeliveryAddressUpdate';			//修改接口
+											worry = $.i18n.prop("string_updateFailed");	//失败提示文字
+											tips = $.i18n.prop("string_updateSucceed");	//成功提示文字
+										} else {
+											data = '{"ReceiptName":"' + $('#name').val() + '","Phone":"' + $('#phone').val() + '","ProvinceID":"' + $('#selProvince').val() + '","CityID":"' + $('#selCity').val() + '","Address":"' + $('#address').val() + '","ZipCode":"' + $('#postcode').val() + '"}';
+											type = 'APP_DeliveryAddressAdd';			//新增接口
+											worry = $.i18n.prop("string_insertFailed");	//失败提示文字
+											//tips="新增成功";
+										}
+										//取消点击按钮事件
+										document.getElementById("submitBtn").onclick = function(){};
+										plus.ui.enumWindow()[0].evalJS("openwait()");
+										//连接数据
+										RequestData(type, data, 0, 0, function(e) {
+											$(".sure").removeAttr("disabled");
+											$(".sure").css("background","#ffc527");
+											plus.ui.enumWindow()[0].evalJS("closewait()");
+											//tips('#tips');
+											//如果数据库存在商品信息，则返回选择发货地址页面
+											if (plus.storage.getItem("products")) {
+												var e_win = plus.ui.enumWindow();
+												e_win[e_win.length-2].close();
+												openPage('address.html');
+											} else if (tips) {
+												setTimeout(function() {
+													$("#updateErrTip").html(tips);	//提示文字写入html
+													openDialog("#updateErr");		//弹出修改成功弹出框
+												}, 10);
+											} else {
+												var e_win = plus.ui.enumWindow();
+												e_win[e_win.length-2].close();
+												openPage('recive_add.html');		//返回收货地址页面
+											}
+										}, function(e) {
+											$(".sure").removeAttr("disabled");
+											$(".sure").css("background","#ffc527");
+											RestorationClick();
+											plus.ui.alert(e.Message, function() {}, "请求失败", "确定");;
+										},function(){
+											$(".sure").removeAttr("disabled");
+											$(".sure").css("background","#ffc527");
+											plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+										});
+									} else {
+										$("#inputErrTip").html($.i18n.prop("recive_pop_infoNoFillIn")+"<br/>"+$.i18n.prop("recive_pop_FillInEnd"));
+										openDialog('#inputErr');	//弹出信息输入不正常弹出框
+									}
+								}
+							</script>
+	</body>
+</html>

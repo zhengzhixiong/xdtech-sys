@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>about</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+		var ffid = 33333;
+		$(document)
+				.ready(
+						function() {
+							$(".quote_outer input[type=file]")
+									.change(
+											function(event) {
+												event.preventDefault();
+												$(this)
+														.after(
+																'<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');
+											});
+						});
+
+		$(function() {
+			$(".selector").datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+			$("#datepicker").datepicker();
+			$("#Deadline").datepicker();
+		});
+	</script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$('#slider').nivoSlider();
+			$('#slider2').nivoSlider();
+
+			$('#carousel').carouFredSel({
+				circular : true, // Determines whether the carousel should be circular.
+				infinite : true, // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+				responsive : true, // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+				direction : "left", // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+				width : null, // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+				height : null, // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+				align : "center",
+				scroll : {
+					items : 1
+				},
+				wraper : {
+					element : "div",
+					classname : "col-sm-8"
+				}
+			});
+		});
+	</script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+
+		<div style="clear: both;"></div>
+
+		<!-- about页面里中间内容 -->
+		<div class="top_container">
+
+
+
+
+
+			<div class="mobile-600 hidden-lg hidden-md hidden-sm visible-xs">
+
+				<div class="container">
+
+					<div class="col-sm-12">
+
+
+
+						<div class="col-sm-12 blueform-mobile-small">
+
+							<div class="height-15"></div>
+
+							<div class="get-free-quote">GET A FREE QUOTE NOW!</div>
+
+							<form role="form" method="POST" id="contact-form"
+								class="mobile-small-new-form" enctype="multipart/form-data">
+
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label for="edit-title-1">Name:</label><input type="text"
+											id="m-Name" name="form[Name]" placeholder="Name"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="edit-title-1">Phone:</label><input type="text"
+											id="m-Phone" name="form[Phone]" placeholder="Phone"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="edit-title-1">Email:</label><input type="text"
+											id="m-Email" name="form[Email]" placeholder="Email"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="Quantity">Quantity:</label><select id="Quantity"
+											name="variations[Quantity]]" class="form-text form-control"><option
+												value="30">10</option>
+											<option value="31">20</option>
+											<option value="32">50</option>
+											<option value="33">100</option>
+											<option value="34">200</option>
+											<option value="35">300</option>
+											<option value="36">500</option>
+											<option value="37">1000</option>
+											<option value="38">2000</option>
+											<option value="39">3000</option>
+											<option value="40">4000</option>
+											<option value="41">5000</option>
+											<option value="42">7500</option>
+											<option value="43">10000</option></select>
+									</div>
+								</div>
+								<input type="hidden" id="m-Deadline" name="form[Deadline]"
+									placeholder="Deadline" class="form-text form-control" /><input
+									type="hidden" value="1" name="Product" />
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="edit-title-1">AlternativeEmail</label><input
+											type="text" id="m-AlternativeEmail"
+											name="form[AlternativeEmail]" placeholder="AlternativeEmail"
+											class="form-text form-control" />
+									</div>
+								</div>
+								<script type="text/javascript">
+									$('#m-AlternativeEmail').parent().parent()
+											.addClass('TopTd');
+								</script>
+
+								<div class="clearfix"></div>
+
+								<div class="col-md-12">
+
+									<div class="clearfix"></div>
+
+									<div class="center-submit">
+
+										<input name="button"
+											class="btn btn-warning submit-blue-form btn-lg btn-block"
+											id="button" value="Give me your best price"
+											onclick="return check_valid1();" type="submit">
+
+									</div>
+
+								</div>
+
+							</form>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+
+			<div id="wrapper">
+
+				<div class="slider-wrapper theme-default">
+
+
+
+					<div class="visible-lg visible-md visible-sm hidden-xs">
+
+
+
+						<div class="container">
+
+							<div class="">
+
+								<div class="col-sm-7 heropatches-about">
+
+									<div class="about-text-title title-padding">
+
+										<h3>Pricing 50% Embroidery Coverage</h3>
+
+
+
+									</div>
+
+									<div class="text-1-text-2">
+
+										<p>50% Embroidery – This means 50% or less of the patch
+											surface area will be covered in embroidery. This method is
+											ideal for Name patches (patches that display name or position
+											of the user. E.g. “Trevor” or “President”). This is usually
+											used for much simpler patches that display words or numbers
+											only.</p>
+										<p>
+											<a
+												href="images/Custom-Patches-Portfolio.png"><img
+												class="aligncenter img-responsive size-full wp-image-168"
+												alt="Custom-Patches-Portfolio"
+												src="images/Custom-Patches-Portfolio.png"
+												width="689" height="360" /></a>
+										</p>
+										<div class="col-sm-12">
+											<div class="col-sm-4">
+												<a class="btn btn-default embroidery-button"
+													href="/pricing-50-embroidery-coverage/">50% Embroidery
+													Coverage</a>
+											</div>
+											<div class="col-sm-4">
+												<a class="btn btn-default embroidery-button"
+													href="/pricing-75-embroidery-coverage/">75% Embroidery
+													Coverage</a>
+											</div>
+											<div class="col-sm-4">
+												<a class="btn btn-default embroidery-button"
+													href="/100-embroidery-coverage/">100% Embroidery
+													Coverage </a>
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+								</div>
+
+								<div class="col-sm-5 heropatches-about">
+
+									<div id="slider-form">
+
+										<div class="blueform">
+
+											<div class="col-sm-12">
+												<img
+													src="images/get-free-quote.png"
+													class="red-ribbon" />
+											</div>
+											1
+
+											<form role="form" method="POST" id="contact-form"
+												class="new-improved-form" enctype="multipart/form-data">
+
+												<div class="col-sm-12">
+													<div class="form-group">
+														<label for="edit-title-1">Name: *</label><input
+															type="text" id="Name" name="form[Name]"
+															placeholder="Name" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">Phone:</label><input type="text"
+															id="Phone" name="form[Phone]" placeholder="Phone"
+															class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">Email: *</label><input
+															type="text" id="Email" name="form[Email]"
+															placeholder="Email" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="Size">Size:</label><select id="Size"
+															name="variations[Size]]" class="form-text form-control"><option
+																value="1">2 inches</option>
+															<option value="2">2.5 inches</option>
+															<option value="3">3 inches</option>
+															<option value="4">3.5 inches</option>
+															<option value="5">4 inches</option>
+															<option value="6">4.5 inches</option>
+															<option value="7">5 inches</option>
+															<option value="8">5.5 inches</option>
+															<option value="9">6 inches</option>
+															<option value="10">6.5 inches</option>
+															<option value="11">7 inches</option>
+															<option value="12">7.5 inches</option>
+															<option value="13">8 inches</option>
+															<option value="14">8.5 inches</option>
+															<option value="15">9 inches</option>
+															<option value="16">9.5 inches</option>
+															<option value="17">10 inches</option>
+															<option value="18">10.5 inches</option>
+															<option value="19">11 inches</option>
+															<option value="20">11.5 inches</option>
+															<option value="21">12 inches</option></select>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="PercentageofEmbroidery">% Embroidery:</label><select
+															id="PercentageofEmbroidery"
+															name="variations[PercentageofEmbroidery]]"
+															class="form-text form-control"><option
+																value="27">50%</option>
+															<option value="28">75%</option>
+															<option value="29">100%</option></select>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="Quantity">Quantity:</label><select
+															id="Quantity" name="variations[Quantity]]"
+															class="form-text form-control"><option
+																value="30">10</option>
+															<option value="31">20</option>
+															<option value="32">50</option>
+															<option value="33">100</option>
+															<option value="34">200</option>
+															<option value="35">300</option>
+															<option value="36">500</option>
+															<option value="37">1000</option>
+															<option value="38">2000</option>
+															<option value="39">3000</option>
+															<option value="40">4000</option>
+															<option value="41">5000</option>
+															<option value="42">7500</option>
+															<option value="43">10000</option></select>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">Date needed: </label><input
+															type="text" id="Deadline" name="form[Deadline]"
+															placeholder="Deadline" class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<div id="edit-field-fq-image-0-1-ahah-wrapper">
+															<div class="form-item"
+																id="edit-field-fq-image-0-1-upload-wrapper">
+																<label for="File">Image Upload:</label>
+																<div class="filefield-upload clear-block">
+																	<input style="width: 68%" type="file"
+																		class="form-file wmds-form-file" id="File" name="File" />
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<input type="hidden" value="1" name="Product" />
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="edit-title-1">AlternativeEmail</label><input
+															type="text" id="AlternativeEmail"
+															name="form[AlternativeEmail]"
+															placeholder="AlternativeEmail"
+															class="form-text form-control" />
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label for="Notes">Notes: </label>
+														<textarea cols="60" rows="1" id="Notes" name="form[Notes]"
+															placeholder="Notes"
+															class="form-textarea  resizable form-control"></textarea>
+													</div>
+												</div>
+												<script type="text/javascript">
+													$('#AlternativeEmail')
+															.parent().parent()
+															.addClass('TopTd');
+												</script>
+
+												<div class="clearfix"></div>
+
+												<div class="col-md-12">
+
+													<div class="clearfix"></div>
+
+													<div class="center-submit">
+
+														<input name="button"
+															class="btn btn-warning submit-blue-form btn-lg btn-block"
+															id="button" value="Give me your best price"
+															onclick="return check_valid1();" type="submit">
+
+													</div>
+
+												</div>
+
+											</form>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+	</div>
+
+
+
+	<!--    special options-->
+
+
+
+	<div class="jumbotron jumbotron-form">
+
+		<div class="container container-patches">
+
+
+
+			<div class="about-text">
+
+				<div>50% Embroidery Coverage – This means 50% or less of the
+					patch surface area will be covered in embroidery. This method is
+					ideal for Name patches (patches that display name or position of
+					the user. E.g. “Trevor” or “President”). This is usually used for
+					much simpler patches that display words or numbers only.</div>
+				<table class="tblProp" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr class="blackCell">
+							<td class="bdrR bdrB fWhite">Size</td>
+							<td class="bdrR bdrB fWhite">10</td>
+							<td class="bdrR bdrB fWhite">20</td>
+							<td class="bdrR bdrB fWhite">50</td>
+							<td class="bdrR bdrB fWhite">100</td>
+							<td class="bdrR bdrB fWhite">200</td>
+							<td class="bdrR bdrB fWhite">300</td>
+							<td class="bdrR bdrB fWhite">500</td>
+							<td class="bdrR bdrB fWhite">1000</td>
+							<td class="bdrR bdrB fWhite">2000</td>
+							<td class="bdrR bdrB fWhite">3000</td>
+							<td class="bdrR bdrB fWhite">4000</td>
+							<td class="bdrR bdrB fWhite">5000</td>
+							<td class="bdrR bdrB fWhite">7500</td>
+							<td class="bdrB fWhite">10000</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">2.0&#8243;</td>
+							<td class="bdrB bdrR"><span
+								style="color: #000000; font-family: Calibri;"><span
+									style="white-space: pre;">$7.60</span><br /> </span></td>
+							<td class="bdrB bdrR">$3.91</td>
+							<td class="bdrB bdrR">$1.69</td>
+							<td class="bdrB bdrR"><span
+								style="color: #000000; font-family: Calibri;"><span
+									style="white-space: pre;">$1.08</span><br /> </span></td>
+							<td class="bdrB bdrR">$0.60</td>
+							<td class="bdrB bdrR">$0.52</td>
+							<td class="bdrB bdrR">$0.42</td>
+							<td class="bdrB bdrR">$0.36</td>
+							<td class="bdrB bdrR">$0.33</td>
+							<td class="bdrB bdrR">$0.30</td>
+							<td class="bdrB bdrR">$0.27</td>
+							<td class="bdrB bdrR">$0.24</td>
+							<td class="bdrB bdrR">$0.22</td>
+							<td class="bdrB">$0.20</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">2.5&#8243;</td>
+							<td class="bdrB bdrR">$9.35</td>
+							<td class="bdrB bdrR">$4.82</td>
+							<td class="bdrB bdrR">$2.10</td>
+							<td class="bdrB bdrR"><span
+								style="color: #000000; font-family: Calibri;"><span
+									style="white-space: pre;">$1.25</span><br /> </span></td>
+							<td class="bdrB bdrR">$0.81</td>
+							<td class="bdrB bdrR">$0.69</td>
+							<td class="bdrB bdrR">$0.57</td>
+							<td class="bdrB bdrR">$0.48</td>
+							<td class="bdrB bdrR">$0.44</td>
+							<td class="bdrB bdrR">$0.40</td>
+							<td class="bdrB bdrR">$0.37</td>
+							<td class="bdrB bdrR">$0.34</td>
+							<td class="bdrB bdrR">$0.32</td>
+							<td class="bdrB">$0.30</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">3.0&#8243;</td>
+							<td class="bdrB bdrR">$<span
+								style="color: #000000; font-family: Calibri;"><span
+									style="white-space: pre;">11.09</span><br /> </span></td>
+							<td class="bdrB bdrR">$5.70</td>
+							<td class="bdrB bdrR">$2.47</td>
+							<td class="bdrB bdrR">$1.46</td>
+							<td class="bdrB bdrR">$0.94</td>
+							<td class="bdrB bdrR">$0.82</td>
+							<td class="bdrB bdrR">$0.66</td>
+							<td class="bdrB bdrR">$0.48</td>
+							<td class="bdrB bdrR">$0.46</td>
+							<td class="bdrB bdrR">$0.45</td>
+							<td class="bdrB bdrR">$0.42</td>
+							<td class="bdrB bdrR">$0.39</td>
+							<td class="bdrB bdrR">$0.37</td>
+							<td class="bdrB">$0.35</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">3.5&#8243;</td>
+							<td class="bdrB bdrR">$12.46</td>
+							<td class="bdrB bdrR">$6.86</td>
+							<td class="bdrB bdrR">$3.01</td>
+							<td class="bdrB bdrR">$1.67</td>
+							<td class="bdrB bdrR">$1.20</td>
+							<td class="bdrB bdrR">$1.04</td>
+							<td class="bdrB bdrR">$0.84</td>
+							<td class="bdrB bdrR">$0.63</td>
+							<td class="bdrB bdrR">$0.59</td>
+							<td class="bdrB bdrR">$0.59</td>
+							<td class="bdrB bdrR">$0.56</td>
+							<td class="bdrB bdrR">$0.46</td>
+							<td class="bdrB bdrR">$0.51</td>
+							<td class="bdrB">$0.44</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">4.0&#8243;</td>
+							<td class="bdrB bdrR">$13.49</td>
+							<td class="bdrB bdrR">$7.44</td>
+							<td class="bdrB bdrR">$3.54</td>
+							<td class="bdrB bdrR">$1.90</td>
+							<td class="bdrB bdrR">$1.34</td>
+							<td class="bdrB bdrR">$1.24</td>
+							<td class="bdrB bdrR">$1.03</td>
+							<td class="bdrB bdrR">$0.81</td>
+							<td class="bdrB bdrR">$0.77</td>
+							<td class="bdrB bdrR">$0.74</td>
+							<td class="bdrB bdrR">$0.71</td>
+							<td class="bdrB bdrR">$0.53</td>
+							<td class="bdrB bdrR">$0.66</td>
+							<td class="bdrB">$0.51</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">4.5&#8243;</td>
+							<td class="bdrB bdrR">$15.26</td>
+							<td class="bdrB bdrR">$8.40</td>
+							<td class="bdrB bdrR">$4.07</td>
+							<td class="bdrB bdrR">$2.30</td>
+							<td class="bdrB bdrR">$1.55</td>
+							<td class="bdrB bdrR">$1.46</td>
+							<td class="bdrB bdrR">$1.20</td>
+							<td class="bdrB bdrR">$0.93</td>
+							<td class="bdrB bdrR">$0.87</td>
+							<td class="bdrB bdrR">$0.88</td>
+							<td class="bdrB bdrR">$0.85</td>
+							<td class="bdrB bdrR">$0.59</td>
+							<td class="bdrB bdrR">$0.81</td>
+							<td class="bdrB">$0.57</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">5.0&#8243;</td>
+							<td class="bdrB bdrR">$16.62</td>
+							<td class="bdrB bdrR">$9.46</td>
+							<td class="bdrB bdrR">$4.78</td>
+							<td class="bdrB bdrR">$2.54</td>
+							<td class="bdrB bdrR">$2.00</td>
+							<td class="bdrB bdrR">$1.69</td>
+							<td class="bdrB bdrR">$1.40</td>
+							<td class="bdrB bdrR">$1.11</td>
+							<td class="bdrB bdrR">$1.02</td>
+							<td class="bdrB bdrR">$1.03</td>
+							<td class="bdrB bdrR">$1.00</td>
+							<td class="bdrB bdrR">$0.79</td>
+							<td class="bdrB bdrR">$0.95</td>
+							<td class="bdrB">$0.75</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">5.5&#8243;</td>
+							<td class="bdrB bdrR">$18.17</td>
+							<td class="bdrB bdrR">$11.62</td>
+							<td class="bdrB bdrR">$5.62</td>
+							<td class="bdrB bdrR">$3.11</td>
+							<td class="bdrB bdrR">$2.24</td>
+							<td class="bdrB bdrR">$2.03</td>
+							<td class="bdrB bdrR">$1.69</td>
+							<td class="bdrB bdrR">$1.37</td>
+							<td class="bdrB bdrR">$1.28</td>
+							<td class="bdrB bdrR">$1.27</td>
+							<td class="bdrB bdrR">$1.24</td>
+							<td class="bdrB bdrR">$0.93</td>
+							<td class="bdrB bdrR">$1.19</td>
+							<td class="bdrB">$0.89</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">6.0&#8243;</td>
+							<td class="bdrB bdrR">$20.77</td>
+							<td class="bdrB bdrR">$13.58</td>
+							<td class="bdrB bdrR">$6.68</td>
+							<td class="bdrB bdrR">$3.57</td>
+							<td class="bdrB bdrR">$2.85</td>
+							<td class="bdrB bdrR">$2.45</td>
+							<td class="bdrB bdrR">$2.08</td>
+							<td class="bdrB bdrR">$1.79</td>
+							<td class="bdrB bdrR">$1.65</td>
+							<td class="bdrB bdrR">$1.61</td>
+							<td class="bdrB bdrR">$1.58</td>
+							<td class="bdrB bdrR">$1.14</td>
+							<td class="bdrB bdrR">$1.53</td>
+							<td class="bdrB">$1.10</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">6.5&#8243;</td>
+							<td class="bdrB bdrR">$22.83</td>
+							<td class="bdrB bdrR">$15.77</td>
+							<td class="bdrB bdrR">$7.50</td>
+							<td class="bdrB bdrR">$4.03</td>
+							<td class="bdrB bdrR">$3.25</td>
+							<td class="bdrB bdrR">$2.83</td>
+							<td class="bdrB bdrR">$2.42</td>
+							<td class="bdrB bdrR">$2.10</td>
+							<td class="bdrB bdrR">$1.94</td>
+							<td class="bdrB bdrR">$1.90</td>
+							<td class="bdrB bdrR">$1.87</td>
+							<td class="bdrB bdrR">$1.44</td>
+							<td class="bdrB bdrR">$1.82</td>
+							<td class="bdrB">$1.39</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">7.0&#8243;</td>
+							<td class="bdrB bdrR">$24.91</td>
+							<td class="bdrB bdrR">$17.43</td>
+							<td class="bdrB bdrR">$8.35</td>
+							<td class="bdrB bdrR">$4.94</td>
+							<td class="bdrB bdrR">$3.98</td>
+							<td class="bdrB bdrR">$3.40</td>
+							<td class="bdrB bdrR">$2.94</td>
+							<td class="bdrB bdrR">$2.60</td>
+							<td class="bdrB bdrR">$2.42</td>
+							<td class="bdrB bdrR">$2.39</td>
+							<td class="bdrB bdrR">$2.36</td>
+							<td class="bdrB bdrR">$1.64</td>
+							<td class="bdrB bdrR">$2.31</td>
+							<td class="bdrB">$1.58</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">7.5&#8243;</td>
+							<td class="bdrB bdrR">$26.49</td>
+							<td class="bdrB bdrR">$20.00</td>
+							<td class="bdrB bdrR">$10.28</td>
+							<td class="bdrB bdrR">$6.63</td>
+							<td class="bdrB bdrR">$4.80</td>
+							<td class="bdrB bdrR">$4.19</td>
+							<td class="bdrB bdrR">$3.71</td>
+							<td class="bdrB bdrR">$3.34</td>
+							<td class="bdrB bdrR">$3.15</td>
+							<td class="bdrB bdrR">$3.11</td>
+							<td class="bdrB bdrR">$3.08</td>
+							<td class="bdrB bdrR">$2.19</td>
+							<td class="bdrB bdrR">$3.04</td>
+							<td class="bdrB">$2.09</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">8.0&#8243;</td>
+							<td class="bdrB bdrR">$28.04</td>
+							<td class="bdrB bdrR">$21.35</td>
+							<td class="bdrB bdrR">$11.63</td>
+							<td class="bdrB bdrR">$7.78</td>
+							<td class="bdrB bdrR">$5.86</td>
+							<td class="bdrB bdrR">$5.21</td>
+							<td class="bdrB bdrR">$4.70</td>
+							<td class="bdrB bdrR">$4.32</td>
+							<td class="bdrB bdrR">$4.12</td>
+							<td class="bdrB bdrR">$4.08</td>
+							<td class="bdrB bdrR">$4.05</td>
+							<td class="bdrB bdrR">$3.10</td>
+							<td class="bdrB bdrR">$4.01</td>
+							<td class="bdrB">$2.99</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">8.5&#8243;</td>
+							<td class="bdrB bdrR">$29.07</td>
+							<td class="bdrB bdrR">$21.81</td>
+							<td class="bdrB bdrR">$12.41</td>
+							<td class="bdrB bdrR">$8.40</td>
+							<td class="bdrB bdrR">$6.40</td>
+							<td class="bdrB bdrR">$5.74</td>
+							<td class="bdrB bdrR">$5.21</td>
+							<td class="bdrB bdrR">$4.81</td>
+							<td class="bdrB bdrR">$4.61</td>
+							<td class="bdrB bdrR">$4.57</td>
+							<td class="bdrB bdrR">$4.54</td>
+							<td class="bdrB bdrR">$3.23</td>
+							<td class="bdrB bdrR">$4.49</td>
+							<td class="bdrB">$3.10</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">9.0&#8243;</td>
+							<td class="bdrB bdrR">$30.11</td>
+							<td class="bdrB bdrR">$22.59</td>
+							<td class="bdrB bdrR">$13.17</td>
+							<td class="bdrB bdrR">$9.03</td>
+							<td class="bdrB bdrR">$6.95</td>
+							<td class="bdrB bdrR">$6.27</td>
+							<td class="bdrB bdrR">$5.30</td>
+							<td class="bdrB bdrR">$5.14</td>
+							<td class="bdrB bdrR">$5.09</td>
+							<td class="bdrB bdrR">$5.05</td>
+							<td class="bdrB bdrR">$5.02</td>
+							<td class="bdrB bdrR">$3.35</td>
+							<td class="bdrB bdrR">$4.98</td>
+							<td class="bdrB">$3.22</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">9.5&#8243;</td>
+							<td class="bdrB bdrR">$32.19</td>
+							<td class="bdrB bdrR">$24.16</td>
+							<td class="bdrB bdrR">$14.13</td>
+							<td class="bdrB bdrR">$9.87</td>
+							<td class="bdrB bdrR">$7.74</td>
+							<td class="bdrB bdrR">$7.03</td>
+							<td class="bdrB bdrR">$6.46</td>
+							<td class="bdrB bdrR">$6.03</td>
+							<td class="bdrB bdrR">$5.82</td>
+							<td class="bdrB bdrR">$5.78</td>
+							<td class="bdrB bdrR">$5.75</td>
+							<td class="bdrB bdrR">$3.82</td>
+							<td class="bdrB bdrR">$5.70</td>
+							<td class="bdrB">$3.67</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">10.0&#8243;</td>
+							<td class="bdrB bdrR">$34.79</td>
+							<td class="bdrB bdrR">$25.02</td>
+							<td class="bdrB bdrR">$14.91</td>
+							<td class="bdrB bdrR">$10.50</td>
+							<td class="bdrB bdrR">$8.29</td>
+							<td class="bdrB bdrR">$7.56</td>
+							<td class="bdrB bdrR">$6.96</td>
+							<td class="bdrB bdrR">$6.53</td>
+							<td class="bdrB bdrR">$6.30</td>
+							<td class="bdrB bdrR">$6.27</td>
+							<td class="bdrB bdrR">$6.24</td>
+							<td class="bdrB bdrR">$3.96</td>
+							<td class="bdrB bdrR">$6.19</td>
+							<td class="bdrB">$3.81</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">10.5&#8243;</td>
+							<td class="bdrB bdrR">$36.35</td>
+							<td class="bdrB bdrR">$26.18</td>
+							<td class="bdrB bdrR">$15.68</td>
+							<td class="bdrB bdrR">$11.12</td>
+							<td class="bdrB bdrR">$8.84</td>
+							<td class="bdrB bdrR">$8.08</td>
+							<td class="bdrB bdrR">$7.47</td>
+							<td class="bdrB bdrR">$7.01</td>
+							<td class="bdrB bdrR">$6.79</td>
+							<td class="bdrB bdrR">$6.75</td>
+							<td class="bdrB bdrR">$6.72</td>
+							<td class="bdrB bdrR">$4.35</td>
+							<td class="bdrB bdrR">$6.67</td>
+							<td class="bdrB">$4.18</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrB bdrR darkCellBack">11.0&#8243;</td>
+							<td class="bdrB bdrR">$38.42</td>
+							<td class="bdrB bdrR">$27.74</td>
+							<td class="bdrB bdrR">$16.45</td>
+							<td class="bdrB bdrR">$11.75</td>
+							<td class="bdrB bdrR">$9.39</td>
+							<td class="bdrB bdrR">$8.60</td>
+							<td class="bdrB bdrR">$7.98</td>
+							<td class="bdrB bdrR">$7.51</td>
+							<td class="bdrB bdrR">$7.28</td>
+							<td class="bdrB bdrR">$7.24</td>
+							<td class="bdrB bdrR">$7.21</td>
+							<td class="bdrB bdrR">$4.57</td>
+							<td class="bdrB bdrR">$7.16</td>
+							<td class="bdrB">$4.40</td>
+						</tr>
+						<tr class="lightCellBack">
+							<td class="bdrB bdrR darkCellBack">11.5&#8243;</td>
+							<td class="bdrB bdrR">$41.89</td>
+							<td class="bdrB bdrR">$29.29</td>
+							<td class="bdrB bdrR">$17.22</td>
+							<td class="bdrB bdrR">$12.37</td>
+							<td class="bdrB bdrR">$9.94</td>
+							<td class="bdrB bdrR">$9.14</td>
+							<td class="bdrB bdrR">$8.49</td>
+							<td class="bdrB bdrR">$8.00</td>
+							<td class="bdrB bdrR">$7.76</td>
+							<td class="bdrB bdrR">$7.72</td>
+							<td class="bdrB bdrR">$7.69</td>
+							<td class="bdrB bdrR">$5.12</td>
+							<td class="bdrB bdrR">$7.64</td>
+							<td class="bdrB">$4.92</td>
+						</tr>
+						<tr class="whiteCell">
+							<td class="bdrR darkCellBack">12.0&#8243;</td>
+							<td class="bdrB bdrR">$44.49</td>
+							<td class="bdrB bdrR">$31.16</td>
+							<td class="bdrB bdrR">$17.98</td>
+							<td class="bdrB bdrR">$12.99</td>
+							<td class="bdrB bdrR">$10.50</td>
+							<td class="bdrB bdrR">$9.66</td>
+							<td class="bdrB bdrR">$8.99</td>
+							<td class="bdrB bdrR">$8.50</td>
+							<td class="bdrB bdrR">$8.24</td>
+							<td class="bdrB bdrR">$8.21</td>
+							<td class="bdrB bdrR">$8.18</td>
+							<td class="bdrB bdrR">$5.86</td>
+							<td class="bdrB bdrR">$8.13</td>
+							<td>$5.63</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+
+
+
+			<div class="clear"></div>
+
+
+
+		</div>
+		
+	<!-- 中间内容结束 -->
+
+	<!--引入底部-->
+	<#include "footer.html">
+	</div>
+
+
+
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;"></div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

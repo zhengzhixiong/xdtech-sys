@@ -1,0 +1,78 @@
+<script type="text/javascript">
+	$(function() {
+		$('#editGoodsForm').form({
+			onSubmit : function() {
+// 				var isValid = $(this).form('validate');
+// 				alert(isValid);
+				return true;
+			},
+			success : function(result) {
+				result = $.parseJSON(result);
+				if (result.success){
+                	$.messager.show({
+		                title:'系统提示',
+		                msg:'操作成功.'
+		            });
+                	reloadGoods();
+                } else {
+                    $.messager.show({    // show error message
+                        title: '系统提示',
+                        msg: result.msg
+                    });
+                }
+			}
+		});
+	});
+</script>
+<form id="editGoodsForm" method="post" action="goods.do?saveGoods" enctype="multipart/form-data">
+<table cellpadding="5">
+	<input name="id" type="hidden" value="${(goodsItem.id)!}" />
+	<input name="images" type="hidden" value="${(goodsItem.images)!}" />
+	<input name="bigImg" type="hidden" value="${(goodsItem.bigImg)!}" />
+	<input name="smallImg" type="hidden" value="${(goodsItem.smallImg)!}" />
+	<input name="status" type="hidden" value="${(goodsItem.status)!0}" />
+	<tr>
+		<td>名称:</td>
+		<td>
+			<input name="name"  class="easyui-validatebox" data-options="required: true" value="${(goodsItem.name)!}"/>
+		</td>
+		<td>图片:</td>
+		<td>
+			<#if (goodsItem.images)?exists>
+				<img alt=""  src="${(goodsItem.images)!}" width="100px">
+				<input type="file" name="myfiles" hidden="true"/> 
+			<#else>
+				<input type="file" name="myfiles"/> 
+			</#if>
+		</td>
+	</tr>
+	<tr>
+		<td>商品类别:</td>
+		<td>
+			<@eu.comboTree url="category.do?categoryTree&goodsId=${(goodsItem.id)!}" name="categoryIds" required="true" multiple="true"/>
+		</td>
+		<td>价格:</td>
+		<td>
+			<input name="price"  class="easyui-numberbox" data-options="required: true" value="${(goodsItem.price)!}" />
+		</td>
+	</tr>
+	<tr>
+		<td>产源地:</td>
+		<td>
+			<input name="produceArea"  class="easyui-validatebox" data-options="required: true" value="${(goodsItem.produceArea)!}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>保质期:</td>
+		<td>
+			<input name="qualityDay"  class="easyui-validatebox" data-options="width:159" value="${(goodsItem.qualityDay)!}" />
+		</td>
+	</tr>
+	<tr>
+		<td>描述:</td>
+		<td colspan="3">
+			<textarea style="height: 120px;" class="easyui-validatebox"  rows="6" cols="40" name="description">${(goodsItem.description)!}</textarea>
+		</td>
+	</tr>
+</table>
+</form>

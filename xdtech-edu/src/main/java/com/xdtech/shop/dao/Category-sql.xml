@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-statement>
+	<sql type="SQL" name="getCategoryIdsByGoodsId">
+		select category_id from shop_goods_category where goods_id=${goodsId}
+	</sql>
+	
+</dynamic-statement>

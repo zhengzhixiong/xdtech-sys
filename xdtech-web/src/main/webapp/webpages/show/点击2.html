@@ -1,0 +1,438 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="ie6"><![endif]-->
+<!--[if IE 7]>   <html class="ie7"><![endif]-->
+<!--[if IE 8]>   <html class="ie8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Web App">
+<meta name="format-detection" content="telephone=no">
+
+<meta name="360-site-verification" content="846c5179bc82eccd68fd000fb2036682" />
+<meta name="baidu_union_verify" content="a7a36270ac6900fa8bd453946a7a85c9">
+<meta property="qc:admins" content="35362544462056654" />
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="stylesheet" id="css" href="/styles/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/styles/font.css" type="text/css">
+<link rel="stylesheet" href="/themes/bootstrap/base.css" type="text/css">
+<script>var PATH="/";</script><link rel="prev" href="/post-11.html" title="JS 控制VIEWPORT在微信上正常显示">
+	<link rel="prerender" href="/post/11.html">
+	<link rel="prefetch" href="/post/11.html">
+<link rel="prev" href="/post/26.html" title="JS 控制VIEWPORT在微信上正常显示">
+	<link rel="prerender" href="/post/26.html">
+	<link rel="prefetch" href="/post/26.html">
+<meta name="keywords" content="瀑布流">
+<meta name="description" content="瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动，这种布局还会不断加载数据块并附加至当前尾部。最早采用此布局的网站是Pinterest，逐渐在国内流行开来。国内大多数清新站基本为这类风格。">
+<meta name="author" content="野草">
+<title>基于Masonry插件制作瀑布流页面 - 金哲博客</title>
+</head>
+<body data-nav="2" data-autocommentpager="true">
+
+<nav class="navbar navbar-fixed-top navbar-default navbar-yckit" role="navigation">
+  <div class="container">
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">金哲博客</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+	      <span class="navbar-red"></span>
+	      <span class="navbar-yellow"></span>
+	      <span class="navbar-green"></span>
+      </a>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      		<li id="nav-1">
+			<a  href="/category/1/"><i class="fa fa-fw fa-heart-o"></i>&nbsp;记录生活</a>
+					</li>
+				<li id="nav-2">
+			<a  href="/category/2/"><i class="fa fa-fw fa-bell-o"></i>&nbsp;开发实践</a>
+					</li>
+				<li id="nav-3">
+			<a  href="/category/3/"><i class="fa fa-fw fa-folder-o"></i>&nbsp;分享干货</a>
+					</li>
+				<li id="nav-4">
+			<a  href="/category/4/"><i class="fa fa-fw fa-cutlery"></i>&nbsp;吃货秘笈</a>
+					</li>
+				<li id="nav-5" class="dropdown">
+			<a  class="dropdown-toggle" data-toggle="dropdown" href="/category/5/"><i class="fa fa-fw fa-coffee"></i>&nbsp;YCKIT专栏 <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						<li><a href="/category/6/"><i class="fa fa-fw fa-file"></i>&nbsp;功能使用</a></li>
+						<li><a href="/category/7/"><i class="fa fa-fw fa-desktop"></i>&nbsp;模板主题</a></li>
+						<li><a href="/category/8/"><i class="fa fa-fw fa-laptop"></i>&nbsp;二次开发</a></li>
+						</ul>
+					</li>
+		       <li id="nav-more">
+       <a class="dropdown-toggle" data-toggle="dropdown" href="#">更多 <span class="caret"></span></a>
+  <ul class="dropdown-menu" role="menu">
+      <li><a href="/music/"><i class="fa fa-fw fa-music"></i>&nbsp;心情电台</a></li>
+      <li><a href="/say/"><i class="fa fa-fw fa-volume-up"></i>&nbsp;在线留言</a></li>
+      <li><a href="/readers/"><i class="fa fa-fw fa-book"></i>&nbsp;读者排行</a></li>
+      <li><a href="/like/"><i class="fa fa-fw fa-thumbs-o-up"></i>&nbsp;点赞排行</a></li>
+      </ul>
+       </li>
+      </ul>
+     
+	<div class="navbar-right" id="user">
+     
+	</div>
+    </div>
+  </div>
+</nav>
+ <div class="container">
+<div class="row">
+	<div class="col-xs-12 col-md-2 hidden" id="left">
+		
+ 
+<h3 class="title text-right">搜索<span>&nbsp;/&nbsp;SEARCH</span></h3>
+<div class="tags text-right">
+	<div class="navbar-form navbar-right" role="search" id="search" data-title="请输入关键字">
+        <div class="form-group pr">
+          <input type="text" id="keyword" value="" class="form-control" placeholder="Search">
+          <i class="fa fa-search pa cp" style="right:10px;top:10px"></i>
+        </div>
+	</div>
+</div>
+		 
+<h3 class="title text-right">标签<span>&nbsp;/&nbsp;TAGS</span></h3>
+<div class="tags  text-right">
+	<a href="/tag/YCKIT/">YCKIT</a>
+	<a href="/tag/%E6%97%B6%E9%97%B4/">时间</a>
+	<a href="/tag/JS/">JS</a>
+	<a href="/tag/MAC/">MAC</a>
+	<a href="/tag/%E6%A8%A1%E5%9D%97/">模块</a>
+	<a href="/tag/%E5%AF%86%E7%A0%81/">密码</a>
+	<a href="/tag/chrome/">chrome</a>
+	<a href="/tag/%E6%99%BA%E5%B0%9A/">智尚</a>
+	<a href="/tag/%E8%A5%BF%E6%B9%96/">西湖</a>
+	<a href="/tag/%E6%9D%AD%E5%B7%9E/">杭州</a>
+	<a href="/tag/%E5%89%8D%E7%AB%AF/">前端</a>
+	<a href="/tag/%E6%BB%A4%E9%95%9C/">滤镜</a>
+	<a href="/tag/webkit/">webkit</a>
+	<a href="/tag/Finder/">Finder</a>
+	<a href="/tag/XtraFinder/">XtraFinder</a>
+	<a href="/tag/%E6%8E%A5%E5%8F%A3/">接口</a>
+	<a href="/tag/%E5%8D%87%E7%BA%A7/">升级</a>
+	<a href="/tag/301/">301</a>
+	<a href="/tag/%E8%B0%83%E7%94%A8/">调用</a>
+	<a href="/tag/%E7%BC%96%E8%BE%91%E5%99%A8/">编辑器</a>
+</div>
+ 		<p class="title text-right">友情链接<span>&nbsp;/&nbsp;LINK</span></p>
+<div class="tags text-right">
+		<a href="http://wuwen.org" target="_blank">无闻</a>
+		<a href="http://phtv.ifeng.com/program/jqgcs/" target="_blank">军情观察室</a>
+		<a href="https://www.rocboss.com" target="_blank">rocboss</a>
+		<a href="http://dmku.net" target="_blank">动漫酷</a>
+		<a href="http://yckit.com" target="_blank">野草工坊</a>
+		<a href="http://imku.net" target="_blank">向林博客</a>
+		<a href="http://yuur.net" target="_blank">遇见网</a>
+	</div>
+		<h3 class="title text-right">联系<span>&nbsp;/&nbsp;CONTACT</span></h3>
+<div id="left_px"></div>
+<div class="text-left" id="left_pin">
+<img src="/data/DCA3B5A85DB9C002B3AFC19A842385C4.jpg" width="135" id="weixin">
+</div>
+	</div>
+	<div class="col-xs-12 col-md-9 col-lg-7">
+ 
+ 	<article>
+		<h1>基于Masonry插件制作瀑布流页面</h1>
+		<p class="post-tip">
+			<span class="pull-right">发布于：2014-09-29 12:22</span>
+			阅读：<abbr title="该文一共被浏览了775次">775</abbr> 次 ,
+		
+					作者：<abbr>野草</abbr> ,
+			 		 
+		标签：<a href="/tag/%E7%80%91%E5%B8%83%E6%B5%81/">瀑布流</a>  
+				</p>
+		<div class="post-content"><p>瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动，这种布局还会不断加载数据块并附加至当前尾部。最早采用此布局的网站是<a href="http://www.pinterest.com/">Pinterest</a>，逐渐在国内流行开来。国内大多数清新站基本为这类风格。</p>
+
+<h3>布局优点</h3>
+
+<ol>
+	<li>
+	<p>有效的降低了界面复杂度，节省了空间：我们不再需要臃肿复杂的页码导航链接或按钮了。</p>
+	</li>
+	<li>
+	<p>对触屏设备来说，交互方式更符合直觉：在移动应用的交互环境当中，通过向上滑动进行滚屏的操作已经成为最基本的用户习惯，而且所需要的操作精准程度远远低于点击链接或按钮。</p>
+	</li>
+	<li>
+	<p>更高的参与度：以上两点所带来的交互便捷性可以使用户将注意力更多的集中在内容而不是操作上，从而让他们更乐于沉浸在探索与浏览当中。</p>
+	</li>
+</ol>
+
+<h3>布局缺点</h3>
+
+<p><strong>1. 有限的用例：</strong></p>
+
+<p>无限滚动的方式只适用于某些特定类型产品当中一部分特定类型的内容。</p>
+
+<p>例如，在电商网站当中，用户时常需要在商品列表与详情页面之间切换，这种情况下，传统的、带有页码导航的方式可以帮助用户更稳妥和准确的回到某个特定的列表页面当中。</p>
+
+<p><strong>2. 额外的复杂度：</strong></p>
+
+<p>那些用来打造无限滚动的JS库虽然都自称很容易使用，但你总会需要在自己的产品中进行不同程度的定制化处理，以满足你们自己的需求;另外这些JS库在浏览器和设备兼容性等方面的表现也参差不齐，你必须做好充分的测试与调整工作。</p>
+
+<p><strong>3. 再见了，页脚：</strong></p>
+
+<p>如果使用了比较典型的无限滚动加载模式，这就意味着你可以和页脚说拜拜了。</p>
+
+<p>最好考虑一下页脚对于你的网站，特别是用户的重要性;如果其中确实有比较重要的内容或链接，那么最好换一种更传统和稳妥的方式。</p>
+
+<p>千万不要耍弄你的用户，当他们一次次的浏览到页面底部，看到页脚，却因为自动加载的内容突然出现而无论如何都无法点击页脚中的链接时，他们会变的越发愤怒。</p>
+
+<p><strong>5. SEO：</strong></p>
+
+<p>集中在一页当中动态加载数据，与一页一页的输出相比，究竟那种方式更利于SEO，这是你必须考虑的问题。对于某些以类型网站来说，在这方面进行冒险是很不划算的。</p>
+
+<p>6. 关于页面数量的印象：</p>
+
+<p>其实站在用户的角度来看，这一点并非负面;不过，如果对于你的网站来说，通过更多的内容页面展示更多的相关信息(包括广告)是很重要的策略，那么单页无限滚动的方式对你并不适用。</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;华丽的分割线&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<p>下面教大家如何使用瀑布流！</p>
+
+<p>1.先去<a href="http://masonry.desandro.com" target="_blank">插件官网</a>下载最新的插件源码包！</p>
+
+<p>2.引入CSS和JS&nbsp;masonry.js</p>
+
+<p>3.由于在实际场景应用的时候是从服务端获取JSON后动态创建内容来完成显示，所以我们要获取其中的图片，要不然页面会计算错误的。以下是我写的所有代码。包括初始化、动态加载、载入等。</p>
+
+<p>Loading进度条（样式可以自己调整，这个是顶部fixed定位的，加载的时候会从左到右动画）</p>
+
+<pre class="brush:xml;">
+&lt;div id=&quot;loading&quot; class=&quot;px&quot;&gt;&lt;/div&gt;</pre>
+
+<p>JS代码(需要jQuery)</p>
+
+<pre class="brush:jscript;">
+var pageEnd=true;
+//初始化
+var $container=$(&#39;#container&#39;),page=1;
+	$container.masonry({
+      itemSelector: &#39;.item&#39;,
+      columnWidth: 250
+    });
+	$container.masonry(&#39;bindResize&#39;);
+//加载更多
+	var loadData=function(page){
+		var cid=$(&quot;body&quot;).data(&quot;cid&quot;)?&quot;&amp;cid=&quot;+$(&quot;body&quot;).data(&quot;cid&quot;):&#39;&#39;;
+		$.getJSON(PATH+&quot;api.php?action=ad&amp;do=more&amp;page=&quot;+page+cid,function(json){
+			pageEnd=json.result.end;
+  		//服务端获取数据
+ 		var images=[];
+		var $item=&#39;&#39;;
+			for (i in json.result.data){
+				// console.log(json.result.data[i]);
+				$item+=&#39;&lt;a href=&quot;&#39;+PATH+&#39;view/&#39;+json.result.data[i].id+&#39;/&quot; class=&quot;cube item new&quot;&gt;&lt;div class=&quot;item-inner&quot;&gt;&lt;img src=&quot;&#39;+json.result.data[i].image+&#39;&quot;&gt;&lt;p&gt;&#39;+json.result.data[i].title+&#39;&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&#39;;
+		images.push(json.result.data[i].image);
+			}
+ 		$(&quot;#loading&quot;).stop(true,true).show();
+		preLoad(images,function(){
+			$(&quot;#loading&quot;).stop(true,true).fadeOut(3000);
+			$container.append($item);
+			$container.masonry(&#39;appended&#39;,$(&quot;.item.new&quot;));
+			setTimeout(function(){
+				$(&quot;.new&quot;).removeClass(&quot;new&quot;);
+			},0)
+			
+		});
+		});	
+	};
+	//预加载
+	var preLoad=function(images,callback){
+	var done=0,val=0;
+	var count=images.length;	
+	var preload=function(url) {
+		var image = $(&quot;&lt;img /&gt;&quot;).attr(&quot;src&quot;, url).on(&quot;load&quot;,function () {
+			complete();
+		});
+	};
+	$(&#39;#loading&#39;).width(0);
+	var complete=function() {
+		done++;
+		val=done/count*100;
+		$(&#39;#loading&#39;).width(Math.ceil(val) + &quot;%&quot;);
+		if(done==count){
+			callback();
+		}
+	};
+	for(var i=0;i&lt;images.length;i++){
+		preload(images[i]);
+	}
+};
+loadData(1);
+	//加载数据
+$(window).scroll(function(e){
+	var dh=$(document).height();
+	var wh=$(window).height();
+	var st=$(this).scrollTop();
+	if (dh &lt;= wh+st&amp;&amp;!pageEnd){
+		loadData(++page);
+	}
+});</pre>
+
+<p>附上JSON格式</p>
+
+<pre class="brush:jscript;">
+{
+	&quot;success&quot;: true,
+	&quot;result&quot;: {
+	&quot;data&quot;: [
+		{
+			&quot;category_id&quot;: &quot;1&quot;,
+			&quot;id&quot;: &quot;18&quot;,
+			&quot;title&quot;: &quot;或许到明年，你就可以看到小米、360和腾讯之间的Launcher战争&quot;,
+			&quot;image&quot;: &quot;/images/demo/18.jpg&quot;,
+			&quot;click&quot;: &quot;2,134&quot;,
+			&quot;time&quot;: &quot;2014-05-14 00:53&quot;,
+			&quot;best&quot;: &quot;1&quot;
+		},
+		{
+			&quot;category_id&quot;: &quot;1&quot;,
+			&quot;id&quot;: &quot;17&quot;,
+			&quot;title&quot;: &quot;给你一次旅行的机会 ，你想去哪？我想去沙漠探险。&quot;,
+			&quot;image&quot;: &quot;/images/demo/17.jpg&quot;,
+			&quot;click&quot;: &quot;2,134&quot;,
+			&quot;time&quot;: &quot;2014-05-14 00:53&quot;,
+			&quot;best&quot;: &quot;1&quot;
+		}
+	],
+	&quot;current&quot;: 1,
+	&quot;count&quot;: 18,
+	&quot;page_count&quot;: 2,
+	&quot;end&quot;: false
+	}
+}</pre>
+
+<p>&nbsp;</p>
+</div>
+		
+		<div id="like-user" class="text-center">
+												<a href="/user/1/" class="tip"  data-toggle="tooltip" data-title="野草觉得很赞"><img src="http://q.qlogo.cn/qqapp/101151249/DBB54981DF9E13517AB1A6B2EDB5D844/100"></a>
+																<a href="/user/2/" class="tip"  data-toggle="tooltip" data-title="不吃怪叔叔的糖觉得很赞"><img src="/data/user/2.jpg"></a>
+									</div>
+		
+	<div class="post-like text-center">
+		<a id="like" class="cp tip" data-id="12"><i class="fa fa-thumbs-up fa-fw"></i>&nbsp;点赞 (<span>2</span>)</a>
+		<a class="jiathis_button_qzone fa fa-qq">&nbsp;QQ空间</a>
+		<a class="jiathis_button_tsina fa fa-weibo">&nbsp;微博分享</a>
+		<a class="jiathis_button_weixin fa fa-weixin">&nbsp;微信分享</a>
+		
+	</div>
+
+<script>var jiathis_config={summary:"",shortUrl:false,hideMore:true}</script>
+<script src="http://v3.jiathis.com/code_mini/jia.js"></script>
+
+
+
+
+		<div class="post-nav">
+				<div class="item">上一篇：<a href="/post/11.html">JS 控制VIEWPORT在微信上正常显示</a></div>
+						<div class="item">下一篇：<a href="/post/26.html">Chrome下去掉保存密码后输入框变成黄色背景样式</a></div>
+			</div>
+	
+</article>
+<div class="post-ad">
+	<script type="text/javascript">
+    /*653*60 创建于 2014-11-15*/
+    var cpro_id = "u1810280";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script><br></div>
+	
+<div class="post-comment"data-post-id="12" data-comment-count="1000">
+	<div id="comment-content">
+		<textarea placeholder="此处输入评论内容" disabled></textarea>
+				<span id="login-tip" class="pa text-center"><a href="/login/">登录</a>后才能评论哦！O(∩_∩)O</span>
+			</div>
+	 	<div id="comment-loop"></div>
+	<div class="text-center">
+		<div id="more" class="cp" style="display:none">更多</div>
+	</div>
+	<br><br>
+	<script type="text/template-x" id="comment-template">
+		<div class="comment-item">
+			<p>
+						<strong>~name~</strong> / ~time~ / ~ip~ 
+	
+			</p>
+			<div class="comment-content">
+			~content~
+			~admin~
+			~reply~
+			</div>
+		</div>
+
+	</script>
+	<script type="text/template-x" id="comment-reply-template">
+	<div class="reply-item"><strong>~name~</strong>：~content~&nbsp;<span class="ip">~ip~</span>&nbsp;<span class="time">~time~</span></div>
+	</script>
+</div>
+	</div>
+	<div class="col-xs-12 col-md-3" id="right">
+			<h3 class="title">赞助广告<span>&nbsp;/&nbsp;AD</span></h3>
+	<a href="http://yckit.com" target="_blank" style="display:block;margin-top:10px;padding:40px 0;background:#5DC266;color:#fff;font-size:2em;line-height:40px;border-radius:2px;" class="text-center">
+YCKIT<br>值得拥有
+</a>		<div id="right_pin">
+				 
+		<h3 class="title">
+			随机内容<span>&nbsp;/&nbsp;RANDOM</span>
+		</h3>
+	 	<ul class="list">
+	 		 	<li><a href="/post/10.html">前端福音！Iconfont阿里巴巴矢量图标库</a></li>
+	 		 	<li><a href="/post/4.html">MAC系统下压缩ZIP忽略“__MACOSX”或“.DS_Store”文件</a></li>
+	 		 	<li><a href="/post/8.html">Mac 下安装Phonegap开发环境</a></li>
+	 		 	<li><a href="/post/25.html">杭州西湖一游</a></li>
+	 		 	<li><a href="/post/22.html">升级小菜一碟！YCKIT 旧版本数据转移到YCKIT V4.x</a></li>
+	 		 	<li><a href="/post/17.html">LNMP正确安装memcached组件</a></li>
+	 		 	<li><a href="/post/3.html">很实用！教你做全景拖动环境展示效果</a></li>
+	 		 	<li><a href="/post/26.html">Chrome下去掉保存密码后输入框变成黄色背景样式</a></li>
+	 		 	<li><a href="/post/27.html">WEBKIT内核浏览器filter滤镜整理</a></li>
+	 		 	<li><a href="/post/5.html">新技能！CSS3动画运用总结</a></li>
+	 		 	</ul>
+	 			</div>
+		<div id="right_px"></div>
+	</div>
+
+</div>
+</div>
+ 
+<div id="footer">
+	<div class="container">
+
+		<div class="pull-left" id="footer-left">
+					<a href="/page/2.html">免责声明</a>&nbsp;-&nbsp;					<a href="/page/1.html">关于本站</a>				</div>
+		<div class="pull-right" id="footer-right">
+	 		 <a href="http://yckit.com" title="本站基于 YCKIT v4.1.5 驱动" target="_blank">YCKIT v4.1.5</a>&nbsp;&copy;&nbsp;2012~2014&nbsp;<b>金哲博客</b>
+			<span id="footer-right-line">
+						&nbsp;/&nbsp;
+	 		<a href="http://www.miitbeian.gov.cn">蜀ICP备14010229号-2</a>
+	 			 		&nbsp;/&nbsp;
+			<script src="http://s4.cnzz.com/stat.php?id=4072237&web_id=4072237" language="JavaScript"></script>			</span>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<div id="totop" title="返回顶部" data-placement="left" class="px text-center cp tip"><i class="fa fa-angle-up"></i></div>   
+</body>
+</html>
+
+<script src="/scripts/jquery.js"></script>
+<script src="/scripts/jquery.cookie.js"></script>
+<script src="/scripts/bootstrap.js"></script>
+<script src="/themes/bootstrap/scripts/main.js"></script>

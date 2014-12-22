@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的订单</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+        var ffid=33333;
+        $(document).ready(function() {
+            $(".quote_outer input[type=file]").change(function(event) {
+                event.preventDefault();
+                $(this).after('<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');});
+        });
+
+        $(function() {
+            $( ".selector" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            $( "#datepicker" ).datepicker();
+            $( "#Deadline" ).datepicker();
+        });
+    </script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+            $('#slider2').nivoSlider();
+
+            $('#carousel').carouFredSel({
+                circular: true,         // Determines whether the carousel should be circular.
+                infinite: true,         // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+                responsive: true,      // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+                direction: "left",      // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+                width: null,            // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+                height: null,           // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+                align: "center",
+                scroll : {
+                    items           : 1
+                },
+                wraper : {
+                    element     : "div",
+                    classname   : "col-sm-8"
+                }
+            });
+        });
+
+
+    </script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+		
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+		
+		<div style="clear: both;"></div>
+
+		<!--页面里中间内容 -->
+		<div class="top_container">
+			<div id="wrapper">
+				<div class="theme-default">
+					<div class="container relative">
+						<div class="heropatches-about">
+							<div class="blog_left">
+								<div class="blog_block">
+								<#if (rs.rows)??>
+									<#list rs.rows as row>
+										<h4>
+										编号：${(row.orderNo)!}
+										</h4>
+	
+										<div class="content">
+											<p>
+											姓名：${(row.name)!} &nbsp;&nbsp;状态：<span style="color: green;">${(row.statusName)!}</span>
+											</p>
+											<p>
+											电话：${(row.phone)!}
+											</p>
+											<p>
+											邮箱：${(row.email)!}
+											</p>
+											<p>
+											数量：${(row.quantity)!}
+											</p>
+											<p>
+											最迟时间：${(row.dateNeeded)?datetime}
+											</p>
+											<#if row.image??&&row.image!=''>
+												<img class="img-responsive max-img" class="wp-image-1987 alignleft" 
+													src="${row.image}" onerror="this.src=''"/>
+											</#if>
+											<p>
+											订单备注：${(row.notes)!}
+											</p>
+										</div>
+										<hr />
+									</#list>
+								</#if>
+								</div>
+							</div>
+							
+							<div class="item-list">
+
+								<ul class="pager">
+									<#if (rs.previous)??&&rs.previous>
+										<li class="pager-next"><a class="active"
+										title="上一页"
+										href="order.do?myOrders&page=${rs.page-1}">‹上一页 </a></li>
+									</#if>
+									<#if (rs.next)??&&rs.next>
+									<li class="pager-next"><a class="active"
+										title="下一页"
+										href="order.do?myOrders&page=${rs.page+1}">下一页 ›</a></li>
+									</#if>
+								</ul>
+
+							</div>
+							<div class="clearfloat"></div>
+						</div>
+
+						<div class="spacer">&nbsp;</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<!--页面里中间内容结束 -->
+
+		<!--引入底部-->
+		<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;">
+		</div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

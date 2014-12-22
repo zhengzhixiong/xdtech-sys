@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="cn">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<link href="css/ed.css" rel="stylesheet">
+		<style>
+			.modifyNm input{
+				text-align:center;
+			}
+			.cartNum input{
+				text-align:center;
+				width: 60px;
+			}
+			.details{
+				margin-left: 1.7em;
+			}
+			.selectCart,#checkAll{
+				width: 25px;
+				height: 25px;
+			}
+			.controlBtu .selAll{
+				padding-left: 1.9em;
+			}
+			
+			.selCart {
+				height:80px;
+				margin-left:-10px;
+				padding:35px 2px 0 7px;
+				position:absolute;
+				}
+			.carList .selectCart{
+				top:0;
+				position:relative;
+				}
+			.carList .parmValue {
+				color:#8b8b8b;
+				line-height:1em;
+				}
+			.carList .details {
+				padding-left:0;
+				margin-left:1.3em;
+				display:block;
+				min-height:90px;
+				position:relative;
+				}
+			.carList .imgShow {
+				line-height:90px;
+				}
+			.carList .imgShow img {
+				vertical-align:middle;
+				display:inline-block;
+				line-height:90px;
+				}
+			.carList .detailsShow {
+				display:block;
+				padding:5px 0 0.2em 110px;
+				}
+			.carList .details h4{
+				font-size:1em;
+				line-height:1.2em;
+				margin:-0.2em 0 0.3em;
+				padding:3px 0;
+				min-height:3.7em;
+				height:auto;
+				}
+			.carList .modifyNmL {
+				position:relative;
+				display:block;
+				}
+			.modifyNmL span {
+				float:right;
+				text-align:center;
+				margin:0.2em 0;
+				padding:0;
+				width:60px;
+				height:1.2em;
+				line-height:1.2em;
+				display:inline-block;
+				font-size:1.2em;
+				border:1px solid #ccc;
+				border-radius:4px;
+				color:#8b8b8b;
+				}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/ed.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<!--<script src="js/net.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/hideBottom.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="shortcut icon" href=".ico">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body>
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<!--<span class="conBtu" onClick="back()">&nbsp;</span>-->
+				<span class="rightBtu delPro" target="_self" onClick="popDelDialog()" style="display: none;">&nbsp;</span>
+			</div>
+			<div class="main cartBottom">
+				<div class="carList"></div>
+			</div>
+		</div>
+		<div class="controlBtu" style="display:none">
+			<label for="checkAll">
+				<div class="selAll">
+					<input style="width:30px;height:30px"  id="checkAll" checked type="checkbox" onClick="SelectAll()" />
+				</div></label>
+			<div class="overResult" style="width: 85%;">
+				<strong>￥0</strong>
+				<button onClick="checkOut()"></button>
+			</div>
+		</div>
+		</div>
+		<div id="footer">
+			<ul>
+				<li class="myEd" onclick="clicked('index.html','zoom-out');"><div></div></li>
+				<li class="service" onClick="clicked('service.html','fade-in');"><div></div></li>
+				<li class="cart on"><div></div></li>
+				<li class="mine" onClick="clicked('me.html','fade-in');"><div></div></li>
+			</ul>
+		</div>
+		</div>
+		<div class="cartTips" id="cannotBack">
+			<!--<h3></h3>-->
+			<div class="delExplain">"
+			</div>
+			<button id="closeDelBtn"></button>
+			<button id="delgood"></button>
+		</div>
+		<div class="cartTips" id="worryPrice">
+			<h2 style="color: #000000;"></h2><h3 id="inputErrTip"></h3><button class="oneBtu" ></button>
+		</div>
+		<div class="tipsBg"></div>
+		<div class="cartTips" id="modifyNum">
+			<div id="updateid" style="display: none"></div>
+			<div id="proId" style="display: none"></div>
+			<h3></h3>
+            <div class="editNum">
+            <span class="eddNum" onClick="minuscart()"></span><span class="cartNum">
+				<input id="updatenum" type="number" name="number" maxlength="3"/>
+			</span><span class="addNum" onClick="pluscart()"></span>
+            </div>
+			<button class="cancel" id="closeBtn">
+			</button>
+			<button id="confirmBtn" >
+			</button>
+		</div>
+		<!--<div class="infoTips fail" id="fail">
+			<h3></h3>
+		</div>-->
+	</body>
+	<script>
+	function imgSize(){
+	   var imgObj = new Image();
+	   imgObj.src = this.src;
+            var maxWidth =100; // 图片最大宽度   
+            var maxHeight =100;    // 图片最大高度   
+            var ratio = 0;  // 缩放比例  
+            var width = $(this).width();    // 图片实际宽度   
+            var height = $(this).height();  // 图片实际高度     // 检查图片是否超宽   
+			if(width > maxWidth){       
+                ratio = maxWidth / width;   // 计算缩放比例       
+                $(this).css("width", maxWidth); // 设定实际显示宽度       
+                height = height * ratio;    // 计算等比例缩放后的高度       
+                $(this).css("height", height);  // 设定等比例缩放后的高度   
+            }     // 检查图片是否超高  
+            if(height > maxHeight){       
+                ratio = maxHeight / height; // 计算缩放比例      
+                $(this).css("height", maxHeight);   // 设定实际显示高度       
+                width = width * ratio;    // 计算等比例缩放后的高度       
+                $(this).css("width", width);    // 设定等比例缩放后的高度   
+            }
+	}
+	
+	//关闭等待框
+		$(function() {
+			//国际化
+			var nationJson = [{"id":"title","name":"string_edaw"},{
+				"id" : ".myEd div",
+				"name" : "footer_myed"
+			}, {
+				"id" : ".service div",
+				"name" : "footer_service"
+			}, {
+				"id" : ".cart div",
+				"name" : "footer_cart"
+			}, {
+				"id" : ".mine div",
+				"name" : "footer_mine"
+			}, {
+				"id" : ".overResult button",
+				"name" : "cart_checkOut"
+			}, {
+				"id" : "#cannotBack h3",
+				"name" : "cart_affirmDelect"
+			}, {
+				"id" : "#modifyNum h3",
+				"name" : "cart_alterNum"
+			}, {
+				"id" : "#closeBtn,#closeDelBtn",
+				"name" : "string_no"
+			}, {
+				"id" : "#confirmBtn,#delgood",
+				"name" : "string_yes"
+			}, {
+				"id" : ".oneBtu",
+				"name" : "string_ok"
+			}, {
+				"id" : "#worryPrice h2",
+				"name" : "string_submitFailed"
+			},{
+				"id" : "#worryPrice h3",
+				"name" : "string_productHaveBeenUnderTheFrame"
+			}];
+			nation(nationJson);
+			$('.edBody h1').html($.i18n.prop("cart_title"));	//标题
+			$(".overResult").html($.i18n.prop("cart_total")+":"+$(".overResult").html());	//结算栏
+//			$('#fail').html($.i18n.prop("cart_inputErr")+'<br />'+$.i18n.prop("cart_pleaseInput"));
+		});
+	
+		var defaultNum = 1;		//保存弹出弹出框商品数量
+		//2014-6-3 弹出遮罩层,更新UI,数量由input改为span
+			function openDi(i) {
+				$("#updateid").html(i);						//将商品数组下标保存
+				var goodNums = $(".count");
+				$('#updatenum').val(goodNums[i].innerHTML);	//将弹出框数量修改为商品的数量
+				$('#modifyNum').skygqbox();					//弹出弹出框
+				defaultNum = goodNums[i].innerHTML;			//将当前商品修改前数量赋值
+				addliste();									//让蒙层不能滚动
+			}
+			//计算价格
+			//2014-6-3 更新UI后，重新修改获取对象
+			var countTotal = function() {
+				isAll();
+				var total = 0;	//总价
+				var chooseUnder = false;
+				var goodNums = $(".count");	//获取商品数组
+				var checkboxs = document.getElementsByName("select");
+				for (var i = 0; i < goodNums.length; i++) {
+					if (checkboxs[i].checked == true) {
+						//获取商品价格
+						var goodPrice = checkboxs[i].value.split('|');
+						var gNum = parseInt(goodNums[i].innerHTML);
+						if(gNum==0){
+							chooseUnder = true;
+						}
+						//计算总价
+						total += gNum * parseFloat(goodPrice[1]);
+					}
+				}
+				$(".overResult strong").html('￥' + total);		//更新总价
+				//判断价格是否为0
+				//不为0  则删除、结算按钮为可点状态
+				//为0 则取消删除和结算按钮点击状态，全选复选框状态也为不勾选状态
+				if (total != 0 &&!chooseUnder) {
+					$(".delPro").addClass("on");		
+					$(".overResult button").removeClass("off");
+					$('.overResult button').attr("disabled", false);
+				} else {
+					$(".delPro").removeClass("on");
+					$(".overResult button").addClass("off");
+					$('.overResult button').attr("disabled", "disabled");
+				}
+			}
+			//全选
+			function SelectAll() {
+				//所有复选框为勾选状态
+				$('input:enabled').attr("checked",document.getElementById("checkAll").checked);
+				countTotal();	//计算总价
+			}
+
+			//所有复选框选择时，全选变为true
+			function isAll() {
+				var isFalse = false;	//判断复选框是否有状态为false
+				var checkboxs = document.getElementsByName("select");
+				for (var i = 0; i < checkboxs.length; i++) {
+					//如果复选框有false状态，则isFalse为true
+					if (checkboxs[i].checked != true)
+						isFalse = true;		
+				}
+				//全部商品都勾选则全选复选框状态为勾选
+				if (!isFalse)
+					document.getElementById("checkAll").checked = true;
+			}
+
+			//弹出确认删除提示框
+			var popDelDialog = function() {
+				var proNum = 0;		//判断删除的商品数量	
+				var checkboxs = document.getElementsByName("select");
+				for (var i = 0; i < checkboxs.length; i++) {
+					if (checkboxs[i].checked)
+						proNum++;	//复选框有勾选状态则更新要删除数量
+				}
+				//要删除的商品数量大于0则弹出弹出框
+				if(proNum>0){
+					$('#cannotBack div').html($.i18n.prop("cart_delectPro",proNum));	//修改弹出框提示显示数量
+					$('#cannotBack').skygqbox();
+					addliste();
+				}
+			}
+			//结账
+			var checkOut = function() {
+				//$('.overResult button').attr("disabled","disabled");
+				//获取选择了的商品，将数据保存为字符串
+				plus.ui.enumWindow()[0].evalJS("openwait()");
+				//连接购物车详细数据判断后台商品价格是否改动
+				RequestData('APP_Cart', "", 0, 0, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");	//关闭等待框
+					var proArray = '[',proPriceIsChange =false;
+					$.each(e.Data.ProductList, function(i, e) {
+						proArray += '{"proId":"'+e.Product.ProductId+'","proPrice":"'+e.Price+'"},';
+					});
+					proArray = proArray.substring(0,proArray.length-1) + ']';
+					proArray = $.parseJSON(proArray);
+					var checkboxs = $('input[name="select"]');
+					var goodNums = $(".count");
+					var product = "";
+					for (var j = 0; j < goodNums.length; j++) {
+						if (checkboxs[j].checked) {
+							var value = checkboxs[j].value.split("|");
+							$.each(proArray, function(x,e) {
+								if(value[0]==e.proId){
+									if(value[1]!=e.proPrice){
+										proPriceIsChange = true;
+									}
+								}
+							});
+							product += "{\"Product\": {\"ProductId\": \"" + value[0] + "\"}," + "\"Price\": \"" + value[1] + "\", \"OldNum\": \"" + goodNums[j].innerHTML + "\"}";
+							//提交json格式
+							if (j != goodNums.length - 1) {
+								product += ",";
+							}
+							
+						}
+					}
+					if(proPriceIsChange){
+						openDialog('#worryPrice');
+					}else{
+						if(product.endWith(",")){
+							product = product.substring(0,product.length-1);
+						}
+						plus.storage.setItem("products",product);	//将数据保存到本地数据库
+						clicked('address.html');					//跳转到选择收货地址页
+					}
+					$('#worryPrice button').click(function(){
+						plus.ui.getSelfWindow().reload();
+					});
+				}, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+				},function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+				});
+			}
+			
+			String.prototype.endWith=function(str){     
+			  var reg=new RegExp(str+"$");     
+			  return reg.test(this);        
+			}
+			//添加数量
+			function pluscart() {
+				//如果数量大于最大值则为最大值
+				if(document.getElementById("updatenum").value<999)
+					document.getElementById("updatenum").value++;
+			}
+			//减少数量
+			function minuscart() {
+				var num = document.getElementById("updatenum");
+				//如果数量大于1则减1
+				if (num.value > 1)
+					num.value--;
+			}
+			//连接到数据后，将数据写成html
+			function loadData(e) {
+				//如果购物车为空时，显示空购物车状态
+				if (e.Data.ProductList.length <= 0) {
+					$(".cart div span").remove();
+					$(".main").html('<div class="icoShow"><div class="cartEmpty">您的购物车是空的哦</div><h2>小易可以给您最有价格优势的商品</h2>' + '<button class="buyNow" onclick="clicked(\'list.html?type=手机库#SJK\')">采购手机</button><button class="addCart" onclick="clicked(\'parts.html?type=配件库#PJK\')">采购配件</button></div>');
+					$('.delPro').hide();		//隐藏删除按钮
+					$('.controlBtu').hide();	//隐藏结算栏
+				} else {
+					//显示结算行，及删除按钮
+					$(".controlBtu").css("display","block");	
+					$(".delPro").css("display","block");		
+					$(".cart div").append("<span>"+e.Data.ProductList.length+"</span>");	//购物车数量标识
+					var procart = "";
+					var proDesc= "";
+					var proName= "";
+					var proStatus = true;	//判断商品是否能选择
+					//循环商品集合
+					$.each(e.Data.ProductList, function(i, e) {
+						var product = e.Product;
+						proDesc = product.ProductDesc;
+						proName=product.ProductName;
+						//如果分辨率小于720则商品名称只显示10位
+						if(window.screen.width<720){
+							if(proDesc.length>8)
+							proDesc = proDesc.substring(0,7)+"..";
+							if(proName.length>29)
+							proName=proName.substring(0,28)+".."
+						}
+						//如果分辨率大于并等于720则商品名称显示13位
+						else if(window.screen.width>=720){
+							if(proDesc.length>12)
+							proDesc = proDesc.substring(0,11)+"..";
+							if(proName.length>35)
+							proName=proName.substring(0,34)+".."
+						}
+						//判断图片是否为空，为空则显示默认图片
+//						var proPic = product.Pictures!=null?product.Pictures[0]:"images/logo.png";
+						var proPic = picUrl +(product.ThumbPicture?product.ThumbPicture:"images/logo.png");
+						var proPrice = "￥"+e.Price;
+						var productNum = e.OldNum;
+						if(e.Price <= 0){
+							procart +=	'<div class="proCart"><label for="' + product.ProductId + '"><span class="selCart"><input type="checkbox"  checked  class="inputSel" name="select" id="' + product.ProductId
+									+ '"value="' + product.ProductId + '|' + e.Price + '" /></span></label><div class="details"><div class="imgShow"><img class="listImg" src="'+proPic+'" onerror="javascript:this.src=\'images/logo.png\';" onclick="clicked(\'products.html?id=' + product.ProductId + '\')" /></div><div class="detailsShow"><h4>'+proName+'</h4><div class="parmValue">'+$.i18n.prop("string_allocation")+':'+proDesc+'</div><div class="modifyNmL"><strong>'+$.i18n.prop("string_productHaveBeenUnder")+'</strong><span class="count" >0</span></div></div></div></div>';
+						}else{
+							procart +=	'<div class="proCart"><label for="' + product.ProductId + '"><span class="selCart"><input type="checkbox"  class="inputSel" display="true" checked name="select" id="' + product.ProductId
+									+ '"value="' + product.ProductId + '|' + e.Price + '" /></span></label><div class="details"><div class="imgShow"><img class="listImg" src="'+proPic+'" onerror="javascript:this.src=\'images/logo.png\';" onclick="clicked(\'products.html?id=' + product.ProductId + '\')" /></div><div class="detailsShow"><h4>'+proName+'</h4><div class="parmValue">'+$.i18n.prop("string_allocation")+':'+proDesc+'</div><div class="modifyNmL"><strong>￥'+e.Price+'</strong><span class="count" onClick="openDi(' + i + ');">'+productNum+'</span></div></div></div></div>';
+							//procart +=	'<div class="proCart"><label for="' + product.ProductId + '"><span class="selCart"><input type="checkbox"  class="inputSel" display="true" checked name="select" id="' + product.ProductId
+							//		+ '"value="' + product.ProductId + '|' + e.Price + '" /></span></label><div class="details"><div class="imgShow"><img class="listImg" src="'+proPic+'" onerror="javascript:this.src=\'images/logo.png\';" onclick="clicked(\'products.html?id=' + product.ProductId + '\')" /></div><div class="detailsShow"><h4>proName is proName is hereproName is hereproName is hereproName is hereproName is hereproName is hereproName is here</h4><div class="parmValue">'+$.i18n.prop("string_allocation")+':一电一充配置高胖子包</div><div class="modifyNmL"><strong>￥'+e.Price+'</strong><span class="count" onClick="openDi(' + i + ');">'+productNum+'</span></div></div></div></div>';
+						
+						}
+//						procart += '<div class="proCart">' + '<label for="' + product.ProductId + '">' + '<span class="selCart"><input type="checkbox" checked display="true"   name="select" id="' + product.ProductId 
+//									+ '" value="' + product.ProductId + '|' + e.Price + '"  /></span></label>' + '<div class="details">' + '<div class="imgShow">' + '<span>' + '<img class="listImg" src="'+proPic+'" onerror="javascript:this.src=\'images/close.png\';" onclick="clicked(\'products.html?id=' + product.ProductId + '\')" />' + ' </span>' + '</div>' + '<div class="detailsShow">' + '<h4>' + proName + '</h4>' + '<div class="parmValue">配置: ' + proDesc + '</div>'  + '<div class="modifyNm">'+ '<strong>￥' + e.Price +'</strong>' + '<span>' + e.Num + '</span>' + '</div></div></div></div>';
+					});
+					$('.carList').html(procart);
+					$('.imgShow img').each(function() {
+	                	var memberHeaderimg=$(this)[0];
+						memberHeaderimg.onload = function(){
+							imgSize.call(memberHeaderimg);
+						}
+					});
+					//点击商品名称进入商品详情页
+					$(".details h4").click(function() {
+						var attrs = $(this).parent().parent().parent().children().children().children().attr("value");
+						clicked('products.html?id=' + attrs.split('|')[0]);
+					});
+					//选择商品后计算总价
+					$('.inputSel').click(function(){
+						if (this.checked == false) {
+							$('#checkAll').attr("checked", false)
+						}
+						countTotal();
+					});
+					countTotal();	//计算总价
+				}
+			}
+			//初始化
+			document.addEventListener("plusready", function() {
+				plus.storage.removeItem("products");
+				plus.storage.removeItem("buyNow");
+				//连接购物车详细数据
+				RequestData('APP_Cart', "", 0, 0, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");	//关闭等待框
+					loadData(e);	//执行解析数据函数
+				}, function(e) {
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+				},function(){
+					plus.ui.enumWindow()[0].evalJS("closewait()");
+					plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+					
+				});
+			},false);
+			
+			$(function() {
+				FastClick.attach(document.body);		//解决移动端onclick事件延迟
+//				$('.updatediv').hide();	//隐藏
+				//确认删除
+				$("#delgood").click(function() {
+					var data = "";
+					var flag = true;		//删除单个商品和多个商品接口不同  数量为1则为true 大于1则为false
+					var checkboxs = document.getElementsByName("select");
+					//循环复选框
+					for (var i = 0; i < checkboxs.length; i++) {
+						//如果复选框被勾选
+						if (checkboxs[i].checked == true) {
+							var goodId = checkboxs[i].value.split('|');		//获取商品ID
+							//如果商品
+							if (!flag) {
+								data += ',{"Product":{"ProductId":' + goodId[0] + '},"Num":0}';
+							} else {
+								data += '{"Product":{"ProductId":' + goodId[0] + '},"Num":0}';
+							}
+							flag = false;		
+							$.skygqbox.hide();	//隐藏弹出框
+							remliste();
+							//让页面能滚动
+						}
+					}
+					//判断是否批量删除
+					var requestType = flag == false ? "APP_Cart_BatchDelete" : "APP_Cart_Update";
+					//如果为批量删除，则封装json为数组
+					if (!flag)
+						var data = "[" + data + "]";
+					//连接删除接口
+					RequestData(requestType, data, 0, 0, function(e) {
+						//删除成功后，连接购物车接口
+						RequestData('APP_Cart', "", 0, 0, function(ed) {
+							loadData(ed);
+						}, function(e) {
+							plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+						}, function(e) {
+							plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+						});
+					}, function(e) {
+						plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+					}, function(e) {
+							plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+					});
+
+				});
+				//修改数量对话框判断是否负数,如果是则取绝对值
+				$('#updatenum').blur(function() {
+					//如果用户输入负数 则取绝对值
+					if ($('#updatenum').val() < 0)
+						$('#updatenum').val(Math.abs($('#updatenum').val()));
+					//如果用户输入空或者0则还原为修改前数量
+					if($('#updatenum').val()==""||$('#updatenum').val()==null||$('#updatenum').val()==0)
+						$('#updatenum').val(defaultNum);
+				});
+				//2014-6-3 关闭修改数量对话框
+				$('#closeBtn,#closeDelBtn').click(function() {
+					$.skygqbox.hide();	//隐藏弹出框
+					remliste();
+					//让页面能滚动
+				});
+				//关闭对话框，并更新数量
+				$('#confirmBtn').click(function() {
+					var goodNums = $(".count");								//获取商品数组
+					var i = parseInt($("#updateid").html());				//获取当前修改的数量数组下标
+					//2014-7-2  因数量不同，商品价格不同。所以不直接修改数量，改为请求购物车接口
+//					goodNums[i].innerHTML = $('#updatenum').val();	//将新数量赋值给商品
+					var checkboxs = document.getElementsByName("select");	//获取复选框数组
+					//获取要修改的商品ID和数量
+					var data = '{"Product":{"ProductId":' + checkboxs[i].value.split('|')[0] + '},"Num":' + $('#updatenum').val() + '}';
+					//连接修改商品数量接口
+					RequestData('APP_Cart_Update', data, 0, 0, function(e) {
+						//2014-7-2  修改成功后，重新请求
+						RequestData('APP_Cart', "", 0, 0, function(ed) {
+							loadData(ed);
+						}, function(e) {
+							plus.ui.alert($.i18n.prop("string_requsertFailed"), function() {}, "请求失败", "确定");
+						}, function(e) {
+							plus.ui.alert($.i18n.prop("string_requsertOver"), function() {}, "请求失败", "确定");
+						});
+					}, function(e) {
+						plus.ui.alert(e.Message, function() {}, "请求失败", "确定");
+						});
+					$.skygqbox.hide();	//隐藏弹出框
+					remliste();			//让页面能滚动
+					countTotal();		//计算总价
+				});
+			});
+	</script>
+</html>

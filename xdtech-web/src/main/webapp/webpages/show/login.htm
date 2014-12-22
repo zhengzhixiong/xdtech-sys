@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Web App">
+<meta name="format-detection" content="telephone=no">
+
+<meta name="360-site-verification" content="846c5179bc82eccd68fd000fb2036682" />
+<meta name="baidu_union_verify" content="a7a36270ac6900fa8bd453946a7a85c9">
+<meta property="qc:admins" content="35362544462056654" />
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="stylesheet" id="css" href="/styles/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/styles/font.css" type="text/css">
+<link rel="stylesheet" href="/themes/bootstrap/base.css" type="text/css">
+<script>var PATH="/";</script><title>会员登录 -  Max</title>
+</head>
+<body style="background:#fbfbfb !important">
+
+<nav class="navbar navbar-fixed-top navbar-default navbar-yckit" role="navigation">
+  <div class="container">
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">金哲博客</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+	      <span class="navbar-red"></span>
+	      <span class="navbar-yellow"></span>
+	      <span class="navbar-green"></span>
+      </a>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      		<li id="nav-1">
+			<a  href="/category/1/"><i class="fa fa-fw fa-heart-o"></i>&nbsp;记录生活</a>
+					</li>
+				<li id="nav-2">
+			<a  href="/category/2/"><i class="fa fa-fw fa-bell-o"></i>&nbsp;开发实践</a>
+					</li>
+				<li id="nav-3">
+			<a  href="/category/3/"><i class="fa fa-fw fa-folder-o"></i>&nbsp;分享干货</a>
+					</li>
+				<li id="nav-4">
+			<a  href="/category/4/"><i class="fa fa-fw fa-cutlery"></i>&nbsp;吃货秘笈</a>
+					</li>
+				<li id="nav-5" class="dropdown">
+			<a  class="dropdown-toggle" data-toggle="dropdown" href="/category/5/"><i class="fa fa-fw fa-coffee"></i>&nbsp;YCKIT专栏 <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						<li><a href="/category/6/"><i class="fa fa-fw fa-file"></i>&nbsp;功能使用</a></li>
+						<li><a href="/category/7/"><i class="fa fa-fw fa-desktop"></i>&nbsp;模板主题</a></li>
+						<li><a href="/category/8/"><i class="fa fa-fw fa-laptop"></i>&nbsp;二次开发</a></li>
+						</ul>
+					</li>
+		       <li id="nav-more">
+       <a class="dropdown-toggle" data-toggle="dropdown" href="#">更多 <span class="caret"></span></a>
+  <ul class="dropdown-menu" role="menu">
+      <li><a href="/music/"><i class="fa fa-fw fa-music"></i>&nbsp;心情电台</a></li>
+      <li><a href="/say/"><i class="fa fa-fw fa-volume-up"></i>&nbsp;在线留言</a></li>
+      <li><a href="/readers/"><i class="fa fa-fw fa-book"></i>&nbsp;读者排行</a></li>
+      <li><a href="/like/"><i class="fa fa-fw fa-thumbs-o-up"></i>&nbsp;点赞排行</a></li>
+      </ul>
+       </li>
+      </ul>
+     
+	<div class="navbar-right" id="user">
+     
+	</div>
+    </div>
+  </div>
+</nav>
+  <br> <br> <br> <br>
+<div class="container" style="width:300px;margin:auto;">
+<form class="user-form" role="form">
+  <div class="form-group">
+    <label for="user_login" style="color:#777">请输入帐号</label>
+    <input type="email" class="form-control" id="user_login" name="user_login" value="" autofocus="true" x-webkit-speech tabindex="1" placeholder="请输入Email/昵称">
+  </div>
+  <div class="form-group">
+    <label for="user_key" style="color:#777">请输入密码</label>
+    <input type="password" class="form-control" id="user_key" name="user_key" tabindex="2"  x-webkit-speech placeholder="请输入密码">
+  </div>
+
+  <div class="checkbox">
+ <label>
+          <input type="checkbox" value="1" checked="checked" name="remember"> 记住我 <a href="/reset/" class="floatright">忘记密码？</a>
+        </label>
+  </div>
+ 
+  <div class="form-group">
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle fa-fw"></i>&nbsp;立即登录</button>
+                  <button type="button" class="btn btn-success" onclick="location.href='/login/qq/'"><i class="fa fa-qq fa-fw"></i>&nbsp;Q&nbsp;Q&nbsp;登录</button>
+                 
+    </div>
+  </div>
+  <input type="hidden" name="http_from" value="http://jinzhe.net/like/"/>
+</form>
+</div> 
+</body>
+</html>
+
+<script src="/scripts/jquery.js"></script>
+<script src="/scripts/jquery.cookie.js"></script>
+<script src="/scripts/bootstrap.js"></script>
+<script src="/themes/bootstrap/scripts/main.js"></script><script src="/scripts/jquery.validate.js"></script>
+<script>
+$(function(){
+ 	$(".user-form").validate({
+        rules: {
+    	   	user_login: {
+    	    	required: true
+    	   	},
+    	   	user_key: {
+    	    	required: true
+    	   	}
+    	},
+    	messages: {
+    	   	user_login: {
+    	    	required: "请输入邮箱地址",
+    	    	email: "请输入有效的邮箱地址，如：129@qq.com"
+    	   	},
+    	   	user_key: {
+    	    	required: "请输入密码"
+    	   	}
+    	},
+      errorPlacement:function(label, element){
+      if(element.attr("type") == "checkbox"){
+        label.insertAfter($(element).parent().parent());
+      }else{
+        label.insertAfter(element);
+      }
+    },
+    	submitHandler:function(){
+    		$.post(PATH+"login/",$('form').serialize(),function(json){
+    			if(json.success){
+    				location.href=PATH;
+    			}else{
+    				if(json.result.error==-1){
+                        alert('系统禁止会员登录，请联系管理员'); 
+                    }else if(json.result.error==0){
+    					alert('帐号不能为空');	
+    				}else if(json.result.error==1){
+    					alert('密码不能为空');	
+    				}else if(json.result.error==2){
+    					alert('账户可能锁定或者没有激活');	
+    				}else{
+    					alert('登录失败');	
+    				}
+    			}
+    		});
+    	}
+	});
+});
+</script>
+</body>
+</html>

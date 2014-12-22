@@ -1,0 +1,75 @@
+<form role="form" method="POST" id="contact-form" action="order.do?submitFreeOrderInfo"
+	class="mobile-small-new-form" enctype="multipart/form-data">
+
+	<div class="col-sm-12">
+		<div class="form-group">
+			<label for="edit-title-1">姓名:</label><input type="text" id="m-Name"
+				name="name" placeholder="Name" class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">电话:</label><input type="text"
+				id="m-Phone" name="phone" placeholder="Phone"
+				class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">邮件:</label><input type="text"
+				id="m-Email" name="email" placeholder="Email"
+				class="form-text form-control" />
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="Quantity">数量:</label><select id="Quantity"
+				name="quantity" class="form-text form-control"><option
+					value="30">10</option>
+				<option value="31">20</option>
+				<option value="32">50</option>
+				<option value="33">100</option>
+				<option value="34">200</option>
+				<option value="35">300</option>
+				<option value="36">500</option>
+				<option value="37">1000</option>
+				<option value="38">2000</option>
+				<option value="39">3000</option>
+				<option value="40">4000</option>
+				<option value="41">5000</option>
+				<option value="42">7500</option>
+				<option value="43">10000</option></select>
+		</div>
+	</div>
+	<input type="hidden" id="m-Deadline" name="form[Deadline]"
+		placeholder="Deadline" class="form-text form-control" /><input
+		type="hidden" value="1" name="Deadline" />
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="edit-title-1">AlternativeEmail</label><input type="text"
+				id="m-AlternativeEmail" name="form[AlternativeEmail]"
+				placeholder="AlternativeEmail" class="form-text form-control" />
+		</div>
+	</div>
+	<script type="text/javascript">
+									$('#m-AlternativeEmail').parent().parent()
+											.addClass('TopTd');
+								</script>
+
+	<div class="clearfix"></div>
+
+	<div class="col-md-12">
+
+		<div class="clearfix"></div>
+
+		<div class="center-submit">
+
+			<input name="button"
+				class="btn btn-warning submit-blue-form btn-lg btn-block"
+				id="button" value="Give me your best price"  type="submit">
+
+		</div>
+
+	</div>
+
+</form>

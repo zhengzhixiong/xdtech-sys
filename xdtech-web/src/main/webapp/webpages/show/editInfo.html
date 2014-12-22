@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<#include "headImport.html">
+<title>会员中心 -Max</title>
+</head>
+<body data-nav="profile" data-autopager="true">
+	<#include "navigation.html">
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-12">
+				<ol class="breadcrumb">
+					<li><a href="#">首页</a></li>
+					<li><a href="#">会员中心</a></li>
+					<li class="active">修改信息</li>
+				</ol>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-3">
+				<div class="list-group">
+					<a href="member.do?toEditMember" class="list-group-item active">
+						<i class="fa fa-edit fa-fw"></i> 修改信息
+					</a> 
+					<a href="show.do?skip&url=postArticle" class="list-group-item">
+						<i class="fa fa-image fa-fw"></i>  发表帖子 
+					</a>
+					<a href="show.do?skip&url=myArticles" class="list-group-item">
+						<i class="fa fa-image fa-fw"></i>  我的帖子 
+					</a>
+					<a href="show.do?skip&url=myComments" class="list-group-item">
+						<i class="fa fa-comment-o fa-fw"></i> 我的评论
+					</a> 
+					<a href="member.do?logout" class="list-group-item">
+						<i class="fa fa-power-off fa-fw"></i> 退出登录
+					</a>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-md-9">
+				<form id="memberForm" role="form" action="member.do?updateMember" method="post" class="form" enctype="multipart/form-data">
+					<input type="hidden" value="${(member.id)!}"
+						name="id">
+					<div class="form-group">
+						<label for="exampleInputEmail1">帐号：</label> 
+						<input readonly  type="text" class="form-control" name="email" id="email" value="${(member.email)!}">
+					</div>
+
+					<div class="form-group">
+						<label for="password">密码：</label> 
+						<input type="password" class="form-control" name="password" id="password" placeholder="密码" value="${(member.password)!}">
+						<p class="help-block">不修改密码请留空即可。</p>
+					</div>
+					<div class="form-group">
+						<label for="nickName">昵称：</label> 
+						<input type="text" class="form-control" name="nickName" id="nickName" placeholder="昵称" value="${(member.nickName)!}">
+					</div>
+
+					<div class="form-group">
+						<label for="sex">性别：</label> 
+						<label><input type="radio" name="sex" value="M" <#if member.sex=='M'>checked</#if> /> 男</label> 
+						<label><input type="radio" name="sex" value="F" <#if member.sex=='F'>checked</#if> /> 女</label>
+					</div>
+
+					<div class="form-group">
+						<label for="telephone">手机：</label> 
+						<input type="text" class="form-control" name="telephone" id="telephone" placeholder="手机" value="${(member.telephone)!}">
+					</div>
+
+					<div class="form-group">
+						<label for="sign">签名：</label>
+						<textarea class="form-control" name="sign">${(member.sign)!}</textarea>
+					</div>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="sign">头像：</label> -->
+<!-- 						<input type="file" name="photoFile"/> -->
+<!-- 					</div> -->
+					<button id="submitBtn" type="button" class="btn btn-primary">
+						<i class="fa fa-check-circle fa-fw"></i>&nbsp;更新提交
+					</button>
+				</form>
+
+			</div>
+		</div>
+
+		<script src="show/js/jquery.js"></script>
+		<script src="show/js/jquery.cookie.js"></script>
+		<script src="show/js/bootstrap.js"></script>
+		<script src="show/js/main.js"></script>
+		<script src="show/js/jquery.validate.js"></script>
+<!-- 		<script src="show/js/jquery.form.js"></script> -->
+		<script>
+			function callBackFunc(responseText, statusText) {
+			    if (statusText == 'success') {
+			    	var d = $.parseJSON(responseText);
+			    	show_tip(d.msg,3,300);
+			    }
+				else{
+					show_tip("服务端错误",3,300);
+				}
+			}
+			$(function() {
+				 var options = {
+					        //target: '#output1',   // target element(s) to be updated with server response 
+// 					        beforeSubmit: showRequest,  // pre-submit callback 
+					       success: callBackFunc  // post-submit callback</font> 
+					        // other available options: 
+					        //url:       url         // override for form's 'action' attribute 
+					        //type:      type        // 'get' or 'post', override for form's 'method' attribute 
+					        //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
+					        //clearForm: true        // clear all form fields after successful submit 
+					        //resetForm: true        // reset the form after successful submit 
+					        // $.ajax options can be used here too, for example: 
+					        //timeout:   3000 
+					    };
+				
+// 				$('#memberForm').ajaxForm(options);
+				//验证表单
+// 				$("#memberForm").submit(
+// 						function() {
+// // 							提交表单
+// 						    $(this).ajaxSubmit();
+// // 						 	为了防止普通浏览器进行表单提交和产生页面导航（防止页面刷新？）返回false
+// 						    return false;
+// 						});
+
+// 				$('#memberForm').form({
+// 					onSubmit : function() {
+// 						return true;
+// 					},
+// 					success : function(result) {
+// 						alert(result);
+// 						result = $.parseJSON(result);
+// 						show_tip(json.msg, 3, 300);
+// 					}
+// 				});
+				
+				$('#submitBtn').click(function(e) {
+					$.post("member.do?updateMember",$('#memberForm').serialize(),function(json){
+						json = $.parseJSON(json);
+				    	show_tip(json.msg,3,300);
+					});
+				});
+			});
+		</script>
+</body>
+</html>

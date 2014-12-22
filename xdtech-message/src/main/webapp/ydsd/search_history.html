@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<link href="css/ed.css" rel="stylesheet">
+		<link rel="shortcut icon" href=".ico">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<style>
+			.modifyNm input{
+				text-align:center;
+			}
+			.cartNum input{
+				text-align:center;
+				width: 60px;
+			}
+			.details{
+				margin-left: 1.7em;
+			}
+			.selectCart,#checkAll{
+				width: 25px;
+				height: 25px;
+			}
+			.controlBtu .selAll{
+				padding-left: 1.9em;
+			}
+			.clearHistory{
+				width: 100%;
+				height: 30px;
+				text-align: center;
+				margin-top: 20px;
+				display: none;
+			}
+			.brandList li{
+				padding-left: 0.2em;
+				padding-right: 0.2em;
+			}
+			.filter .label {
+				position:relative;
+			}
+			.filter .label button {
+				position:absolute;
+				right:0;
+				top:5px;
+				padding:0;
+				line-height: 1.9em;
+				border:none;
+				background: #ffc527;
+			}
+			.filter .label input {
+				width:75%;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js" ></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/fastclick.min.js"></script>
+		<script src="js/jquery.skygqbox.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		$(function() {
+			FastClick.attach(document.body);	//加快响应点击事件
+			//国际化
+			var nationJson = [{"id":"title","name":"string_edaw"},{"id":".edBody h1","name":"search_title"},
+						{"id":".clearHistory","name":"search_cleanHistory"},{"id":"#inputErr h2","name":"string_warmPrompt"},
+						{"id":"#inputErrTip","name":"search_reallyCleanHistory"},{"id":"#inputErr button:eq(0)","name":"string_cancel"},
+						{"id":"#inputErr button:eq(1)","name":"string_ok"}];
+			nation(nationJson);
+			$('#search').attr("placeholder",$.i18n.prop("search_inputYouSearch"));
+		});	
+		var historySearch = null, sjkHistory = null;
+		//获取url传送过来的值
+		var urlinfo = window.location.href;
+		var info = urlinfo.split("?")[1];
+		document.addEventListener("plusready", function() {
+			plus.ui.enumWindow()[0].evalJS("closewait()");
+			var array = "00#00";
+			sjkHistory = plus.storage.getItem("sjkHistory");		//获取数据库数据
+			historySearch = plus.storage.getItem("searchHistory");		//获取数据库数据
+			if(!historySearch){
+				plus.storage.setItem("searchHistory",array);	//显示搜索历史
+			}else if(!sjkHistory){
+				plus.storage.setItem("sjkHistory",array);	//显示搜索历史
+			}
+			
+			getAllItem();
+		}, false);
+		//保存到搜索历史
+		function setItemFun() {
+			var v = $("#search").val().trim();
+			if(v){
+				var search = null,flag = false;
+				if(info)
+					search = plus.storage.getItem("sjkHistory");
+				else
+					search = plus.storage.getItem("searchHistory");
+				$.each(search.split("#"), function(i,n) {    
+					if(v==n){
+						flag = true;
+						return false;
+					}
+				});
+				if(!flag){
+					var array = search.split("#");
+					if(array.length>=10){
+						search = array[0]+ "#" + array[1]+ "#" + array[2]+ "#" + array[3]+ "#" + array[4]+ "#" + array[5]+ "#" + array[6]+ "#" + array[7]+ "#" + array[8]+ "#" + array[9];
+					}
+					array = v + "#" + search;
+					if(info){
+						plus.storage.setItem("sjkHistory",array);
+					}else{
+						plus.storage.setItem("searchHistory",array);
+					}
+				}
+				getAllItem();
+				var from = "";
+				if(info){
+					from = 'from=SJK&type=search#'+v;
+				}else{
+					from = 'from=ALL&type=search#'+v;
+				}
+				clicked('search_result.html?'+from);
+			}else{
+				plus.ui.alert($.i18n.prop("search_inputYouKeywords"), function() {}, "请求失败", "确定");
+			}
+		}
+		//获取搜索历史长度
+		function getLengthFun(){
+			var historySearch = plus.storage.getItem("searchHistory");
+			if(historySearch){
+				return historySearch.length;
+			}
+			return 0;
+		}
+		//显示搜索历史
+		function getAllItem(){
+			if(!info){
+				var historySearch = plus.storage.getItem("searchHistory");
+				if(historySearch){
+					var flat = false;
+					historySearch = historySearch.split("#");
+					$(".brandList").empty();
+					for ( var i=0; i < historySearch.length; i++ ) {
+					  	if(historySearch[i]!=00){
+					  		flat = true;
+						  	v = historySearch[i];
+						  	$(".brandList").append("<li>"+ v + "</li>");
+					  	}
+					};
+					if(flat) $(".clearHistory").show();
+				}
+			}else{
+				var sjkHistory = plus.storage.getItem("sjkHistory");
+				if(sjkHistory){
+					var flat = false;
+					sjkHistory = sjkHistory.split("#");
+					$(".brandList").empty();
+					for ( var i=0; i < sjkHistory.length; i++ ) {
+					  	if(sjkHistory[i]!=00){
+					  		flat = true;
+						  	v = sjkHistory[i];
+						  	$(".brandList").append("<li>"+ v + "</li>");
+					  	}
+					}
+					if(flat) $(".clearHistory").show();
+				}
+			}
+			addClick();
+		}
+		//搜索框，点击回车事件，提交搜索关键字数据
+		function keyDownInput(){
+			if(event.keyCode==13){
+				setItemFun();
+			}
+		}
+		//点击搜索历史直接跳转
+		function addClick(){
+			setTimeout(function(){
+				$('.brandList li').click(function(){
+					var from = "";
+					if(info){
+						from = 'from=SJK&type=search#';
+					}else{
+						from = 'from=ALL&type=search#';
+					}
+					from += $(this).text();
+					clicked('search_result.html?'+from);
+				});
+			},800);
+		}
+		
+		setTimeout(function(){
+			$(".clearHistory").click(function(){
+				openDialog("#inputErr");
+			});
+		},300);
+		//清除搜索历史
+		function deleteHistory(){
+			var array = "00#00";
+			if(info)
+				plus.storage.setItem("sjkHistory",array);
+			else
+				plus.storage.setItem("searchHistory",array);
+			getAllItem();
+			$(this).hide();
+			$(".clearHistory").hide();
+			closeDialog();
+		}
+		</script>
+	</head>
+	<body>
+		<div class="edBody">
+			<h1></h1>
+			<div class="topInfo">
+				<span class="conBtu" onClick="back()">&nbsp;</span>
+			</div>
+			<div class="main">
+				<div class="filter searchLabel">
+                	<div class="label"><label for="search"><input type="text" onkeydown="keyDownInput();" placeholder="" id="search" /></label><button onclick="setItemFun();">搜索</button></div>
+				</div>
+            	<ul  class="brandList" id="brand" style="display:block;">
+                </ul>
+                <div class="clearHistory"></div>
+        	</div>
+		</div>
+		<div class="cartTips" id="inputErr">
+			<h2 style="color: #000000;"></h2><h3 id="inputErrTip"></h3><button onClick="closeDialog();"></button><button  onClick="deleteHistory();"></button>
+		</div>
+	</body>
+</html>

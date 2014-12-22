@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>如何工作</title>
+<!--js and css-->
+<#include "importJsAndCss.html">
+</head>
+
+<body class="lightbox-processed">
+	<script type="text/javascript">
+		var ffid = 33333;
+		$(document)
+				.ready(
+						function() {
+							$(".quote_outer input[type=file]")
+									.change(
+											function(event) {
+												event.preventDefault();
+												$(this)
+														.after(
+																'<div id="'+ffid+'"><img src="images/images.jpg" alt=""/>&nbsp; Image Selected.</div>');
+											});
+						});
+
+		$(function() {
+			$(".selector").datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+			$("#datepicker").datepicker();
+			$("#Deadline").datepicker();
+		});
+	</script>
+
+	<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$('#slider').nivoSlider();
+			$('#slider2').nivoSlider();
+
+			$('#carousel').carouFredSel({
+				circular : true, // Determines whether the carousel should be circular.
+				infinite : true, // Determines whether the carousel should be infinite. Note: It is possible to create a non-circular, infinite carousel, but it is not possible to create a circular, non-infinite carousel.
+				responsive : true, // Determines whether the carousel should be responsive. If true, the items will be resized to fill the carousel.
+				direction : "left", // The direction to scroll the carousel. Possible values: "right", "left", "up" or "down".
+				width : null, // The width of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable widths), "auto" (measure the widest item) or a percentage like "100%" (only applies on horizontal carousels)
+				height : null, // The height of the carousel. Can be null (width will be calculated), a number, "variable" (automatically resize the carousel when scrolling items with variable heights), "auto" (measure the tallest item) or a percentage like "100%" (only applies on vertical carousels)
+				align : "center",
+				scroll : {
+					items : 1
+				},
+				wraper : {
+					element : "div",
+					classname : "col-sm-8"
+				}
+			});
+		});
+	</script>
+
+	<div id="wrapper">
+		<!--引入头部-->
+		<#include "header.html">
+
+		<!-- 引入导航 -->
+		<#include "navigation.html">
+
+		<div style="clear: both;"></div>
+
+		<!-- 页面里中间内容 -->
+		<div class="top_container">
+			<div class="mobile-600 hidden-lg hidden-md hidden-sm visible-xs">
+
+				<div class="container">
+
+					<div class="col-sm-12">
+						<div class="col-sm-12 blueform-mobile-small">
+
+							<div class="height-15"></div>
+
+							<div class="get-free-quote">GET A FREE QUOTE NOW!</div>
+
+							<!-- 引入手机端提交界面表单 -->
+							<#include "mobilePostOrderForm.html">
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+			<div id="wrapper">
+
+				<div class="slider-wrapper theme-default">
+
+
+
+					<div class="visible-lg visible-md visible-sm hidden-xs">
+
+
+
+						<div class="container">
+
+							<div class="">
+
+								<div class="col-sm-7 heropatches-about">
+
+									<div class="about-text-title">
+										<h1>Here is how we process your custom patch order for
+											both no minimum &#038; single custom patches</h1>
+									</div>
+
+
+
+									<p>&nbsp;</p>
+									<p>It always starts with an idea. You need a company that
+										will turn your idea into reality. A Patch Expert from Hero
+										Patches will walk you through the entire process of turning
+										your idea into a high quality embroidered patch.</p>
+									<p>
+										<a
+											href="http://heropatches.com/wp-content/uploads/2014/01/howitwork-banner-2.jpg"><img
+											class="aligncenter img-responsive size-full wp-image-253"
+											alt="howitwork-banner-2"
+											src="http://heropatches.com/wp-content/uploads/2014/01/howitwork-banner-2.jpg"
+											width="689" height="360" /></a>
+									</p>
+									<p>Our designers are the most talented designers in the
+										custom patch industry! Our designers will send you a proof
+										sample to allow you to see a visual prototype of how your
+										patch will look like. This proof copy of your custom patch
+										will ensure that we are on the same page in terms of your
+										custom patches’ style, size, color and special options. We
+										will also provide you with a price quote to complete your
+										project – The lowest price in the market!</p>
+								</div>
+
+								<div class="col-sm-5 heropatches-about modified-form">
+
+									<div id="slider-form">
+
+										<div class="blueform">
+
+											<div class="col-sm-12">
+												<img
+													src="images/get-free-quote.png"
+													class="red-ribbon" />
+											</div>
+											&nbsp;
+
+											<!-- 引入web提交界面表单 -->
+											<#include "webPostOrderForm.html">
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+
+
+
+
+
+
+		<div class="container">
+
+			<div class="content">
+
+
+
+
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-1.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>1. Visit heropatches.com</h3>
+
+						<p>Visit heropatches.com or simply call us at 877-731-4711.
+							One of our sales representatives will attend to you every step of
+							the way. From designing you custom patches up, approving the
+							final sewn out sample that we will send you and our sales
+							representative will carefully monitor the delivery to ensure that
+							you will get your custom patches right on time.</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-2.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>2. Submit a Free Quote Form</h3>
+
+						<p>Let us know the quantity of your requirement and delivery
+							deadline. We have the fastest production and shipping time in the
+							industry! If you order now, your custom patches will be with you
+							in 8 to 12 business days. If you are in a hurry, avail of our
+							lighting fast delivery package you will get your custom patches
+							in 2-4 days.</p>
+						<p>We also offer 50%, 75% or 100% embroidery coverage for your
+							patches. You can also choose from various special option that
+							include iron on backing, metallic thread, vintage worn style,
+							crystals and more.</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-3.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>3. Proof Process</h3>
+
+						<p>Our designers are the most talented designers in the custom
+							patch industry! Our designers will send you a proof sample to
+							allow you to see a visual prototype of how your patch will look
+							like. This proof copy of your custom patch will ensure that we
+							are on the same page in terms of your custom patches&#8217;
+							style, size, color and special options. We will also provide you
+							with a price quote to complete your project &#8211; The lowest
+							price in the market!</p>
+						<p>Once you approve the price and the mockup we will send an
+							electronic invoice to you. Once you return the invoice we will
+							begin with the production of your order.</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-4.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>4. Embroidery Digitizing</h3>
+
+						<p>As an add on to your custom patch order, we will digitize
+							the patch embroidery for free!</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-5.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>5. Production &#038; Quality Control</h3>
+
+						<p>Our production staff will then take over and ensure that
+							your custom patch will be produced on time and within budget. Our
+							production team will also carefully go through the finish
+							products and perform Quality Control.</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-6.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>6. Get the Hero Treatment</h3>
+
+						<p>Once you receive the sewn out sample of your custom patch,
+							you have the choice to either approve the patch for production,
+							or you can make unlimited edits until you are 100% satisfied with
+							your order. We treat our clients as Heroes and we make sure that
+							they get a worry-free experience!</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-7.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>7. Lightning Fast Delivery</h3>
+
+						<p>When your order is complete it will be shipped to our
+							warehouse, we then deliver your customized order to you either
+							via Fed Ex or USPS free of charge! We make it a point that you
+							get your custom patch on time.</p>
+					</div>
+
+				</div>
+
+				<div class="howitwork_block">
+
+					<div class="left col-sm-3">
+
+						<img class="img-responsive" style="width: 218px; height: 159px;"
+							src="http://heropatches.com/wp-content/uploads/2014/01/Step-8.png"
+							alt="">
+
+					</div>
+
+					<div class="right col-sm-9">
+
+						<h3>8. Follow Through</h3>
+
+						<p>One of our Sales Representatives will keep track of your
+							order. If for some reason you are not satisfied with the patch
+							you received, let us know and we&#8217;ll address any issues you
+							may have with our product. It is our mission that you get the
+							best custom patch product and ensure that you get the best
+							treatment. On top of this, we assure you that nobody can beat our
+							price!</p>
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+		<!-- howItWork页面里中间内容结束 -->
+
+		<!--引入底部-->
+		<#include "footer.html">
+	</div>
+
+
+	<script type="text/javascript" src="js/conversion.js"></script>
+	<noscript>
+		<div style="display: inline;"></div>
+	</noscript>
+
+	<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
+

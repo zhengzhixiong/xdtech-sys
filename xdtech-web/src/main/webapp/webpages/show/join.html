@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<#include "headImport.html">
+<title>会员注册 - Max</title>
+</head>
+<body style="background: #fbfbfb !important">
+	<#include "navigation.html">
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="container" style="width: 300px; margin: auto;">
+		<form id="joinForm" class="user-form" role="form">
+			<div class="form-group">
+				<label for="email" style="color: #777">请输入邮箱</label> <input
+					type="email" class="form-control" id="email" name="email"
+					value="" autofocus="true" x-webkit-speech tabindex="1"
+					placeholder="请输入Email">
+			</div>
+			<div class="form-group">
+				<label for="password" style="color: #777">请输入密码</label> 
+				<input type="password" class="form-control" id="password" name="password" tabindex="2" x-webkit-speech placeholder="请输入密码">
+			</div>
+			<div class="form-group">
+				<label for="nickName" style="color: #777">请输入昵称</label> <input
+					type="text" class="form-control" id="nickName"
+					name="nickName" tabindex="3" x-webkit-speech
+					placeholder="请输入昵称">
+			</div>
+			
+			<div class="form-group">
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary">
+						<i class="fa fa-check-circle fa-fw"></i>&nbsp;立即注册
+					</button>
+					<button type="button" class="btn btn-success"
+						onclick="location.href='/login/qq/'">
+						<i class="fa fa-qq fa-fw"></i>&nbsp;Q&nbsp;Q&nbsp;登录
+					</button>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+
+<script src="show/js/jquery.js"></script>
+<script src="show/js/jquery.cookie.js"></script>
+<script src="show/js/bootstrap.js"></script>
+<script src="show/js/main.js"></script>
+<script src="show/js/jquery.validate.js"></script>
+<script>
+	$(function() {
+		//验证表单
+		$("#joinForm").validate({
+			rules : {
+				email : {
+					required : true,
+					email : true
+				},
+				password : {
+					required : true,
+					rangelength : [ 6, 18 ]
+				},
+				nickName : {
+					required : true,
+					rangelength : [ 2, 10 ]
+				},
+				remember : {
+					required : true,
+				}
+			},
+			messages : {
+				email : {
+					required : "请输入邮箱地址",
+					email : "请输入有效的邮箱地址，如：129@qq.com"
+				},
+				password : {
+					required : "请输入密码",
+					rangelength : "请输入6-16位密码，字母区分大小写"
+				},
+				nickName : {
+					required : "请输入昵称",
+					rangelength : "请输入2-10位昵称"
+				},
+				remember : {
+					required : "请接受用户协议",
+				}
+			},
+
+			submitHandler : function() {
+				$.post("member.do?join", $('#joinForm').serialize(), function(json) {
+					$.parseJSON(json);
+					show_tip(json.msg,2,300);
+					if (d.success) {
+						location.href = "show.do?index";
+					}
+				});
+			}
+		});
+	});
+</script>
+</body>
+</html>

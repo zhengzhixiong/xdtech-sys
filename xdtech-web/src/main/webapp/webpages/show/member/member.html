@@ -1,0 +1,101 @@
+<script type="text/javascript">
+	function doSearchMember(value) {
+		
+	}
+	
+	//表格查询  
+	function reloadMember() {
+		var params = member_list.datagrid('options').queryParams; //先取得 datagrid 的查询参数  
+		printLog(params);
+		member_list.datagrid('reload'); //设置好查询参数 reload 一下就可以了  
+		member_list.datagrid('unselectAll');
+		member_list.datagrid('uncheckAll');
+	}
+
+
+	function addMember() {
+		createFromWindow("新增消息信息", "member.do?editMember", "member.do?saveMember",
+				function(data) {
+					reloadMember();
+				});
+	}
+	function deleteMember() {
+		var rows = member_list.datagrid('getChecked');
+	    if (rows&&rows.length>0){
+	        $.messager.confirm('询问','你确认要删除吗?',function(r){
+	            if (r){
+	            	var ids = "";
+	            	for(var i=0; i<rows.length; i++){
+	            		ids += rows[i].id+",";
+	            	}
+	                $.post('member.do?deleteMemberItems',{ids:ids},function(result){
+	                    if (result.success){
+	                    	reloadMember();    
+	                    }
+	                    showMsg(result.msg);
+	                },'json');
+	            }
+	        });
+	    }else {
+	    	showMsg("请选择操作记录.");
+	    }
+	}
+
+	function editMember() {
+		var rows = member_list.datagrid('getChecked');
+		printLog(rows);
+		if (rows&&rows.length>0) {
+			if(rows.length>1) {
+				showMsg('请选择一条操作记录.');
+				return;
+			}
+			createFromWindow("编辑信息", "member.do?editMember&memberId=" + rows[0].id,
+					"member.do?saveMember", function(data) {
+						reloadMember();
+					},true);
+		} else {
+			showMsg('请选择操作记录.');
+		}
+
+	}
+	
+	
+
+	function deleteSelectMember(){
+	    var row = member_list.datagrid('getSelected');
+	    if (row){
+	        $.showr.confirm('询问','你确认要删除吗?',function(r){
+	            if (r){
+	                $.post('member.do?deleteMember',{id:row.id},function(result){
+	                	console.log(result);
+	                    if (result.success){
+	                        reloadMember();    // reload the user data
+	                    }
+	                    showMsg(result.msg);
+	                },'json');
+	            }
+	        });
+	    }else {
+	    	showMsg("请选择操作记录.");
+	    }
+	}
+</script>
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center',border:false">
+		
+		<@eu.datagrid id="member_list" toolbar="#memberlist_search" idField="id" operations="${operations!}"
+			 url="member.do?loadList" rownumbers="true"
+			 item="com.xdtech.show.vo.MemberItem"/>
+		
+		<div id="memberlist_search">
+			<div id="member_toolbar" style="height: auto">
+				
+				<@eu.linkbutton showName="新增" shiro="show:member:add" iconCls="icon-add" onclick="addMember()"/>
+				<@eu.linkbutton showName="删除" shiro="show:member:delete" iconCls="icon-remove" onclick="deleteMember()"/>
+				<@eu.linkbutton showName="编辑" shiro="show:member:edit" iconCls="icon-edit" onclick="editMember()"/>
+				<@eu.linkbutton showName="刷新" shiro="show:member:refresh" iconCls="icon-reload" onclick="searchMember()"/>
+				
+			</div>
+		</div>
+	</div>
+</div>
