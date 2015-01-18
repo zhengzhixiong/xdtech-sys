@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xdtech.common.fomat.TreeBuilder;
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.common.utils.EmptyUtil;
 import com.xdtech.core.orm.utils.BeanUtils;
+import com.xdtech.sys.dao.OperationDao;
 import com.xdtech.sys.dao.PermissionDao;
 import com.xdtech.sys.model.MenuFunction;
 import com.xdtech.sys.service.MenuFunctionService;
@@ -25,6 +27,10 @@ import com.xdtech.web.model.ResultMessage;
 public class MenuFunctionServiceImpl implements MenuFunctionService {
 	@Autowired
 	private PermissionDao permissionDao;
+	@Autowired
+	private OperationDao operationDao;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	public List<MenuFunction> loadMenuFunctionsByRoles(List<Long> roleIds) {
 		if (EmptyUtil.isEmpty(roleIds)) {
 			return null;
@@ -152,6 +158,28 @@ public class MenuFunctionServiceImpl implements MenuFunctionService {
 			menuButtonItems.add(menuButtonItem);
 		}
 		return menuButtonItems;
+	}
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-12-23下午10:26:52
+	 * @modified by
+	 * @param menuId
+	 * @return
+	 */
+	public boolean deleteMenuInfo(Long menuId) {
+		//删除关联权限sys_role_menu 表信息
+		String sql = "DELETE FROM sys_role_menu WHERE menu_id=? OR menu_id IN (SELECT MENU_FUNCTION_ID FROM sys_menu_function mf WHERE mf.type=1 AND mf.OPER_MENU_ID=?)";
+		jdbcTemplate.update(sql,new Object[]{menuId,menuId});
+		//先删除菜单下的按钮
+		permissionDao.createSQLQuery("delete from sys_menu_function where oper_menu_id=? and type=1", menuId);
+		//删除子菜单下的信息
+		List<MenuFunction> subFunctions = permissionDao.findByHql("from MenuFunction mf where mf.parent.id=?", menuId);
+		for (MenuFunction menuFunction : subFunctions) {
+			deleteMenuInfo(menuFunction.getId());
+		}
+	    delete(menuId);		
+		return true;
 	}
 
 }

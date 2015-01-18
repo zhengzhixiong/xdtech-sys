@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report type="highcharts">
+	<highcharts>
+		<title>
+			<text>事件记录统计</text>
+		</title>
+		<tooltip>
+			<pointFormat>{series.name}:{point.percentage:.1f}%</pointFormat>
+		</tooltip>
+		<exporting>
+			<enabled>false</enabled>
+		</exporting>
+		<credits>
+			<enabled>false</enabled>
+			<text>ZKTeco</text>
+			<href></href>
+		</credits>
+		<plotOptions>
+			<pie>
+				<allowPointSelect>true</allowPointSelect>
+				<cursor>pointer</cursor>
+				<dataLabels>
+					<enabled>true</enabled>
+					<color>#000000</color>
+					<connectorColor>#000000</connectorColor>
+					<format>{point.name}: {point.percentage:.1f} %</format>
+				</dataLabels>
+			</pie>
+		</plotOptions>
+		<series>
+			<serie type="sql" xAxis="true">
+				<type>pie</type>
+				<name>占比</name>
+				<sql>SELECT COUNT(*)/(SELECT COUNT(*) FROM acc_transaction),event_name FROM acc_transaction GROUP BY event_name</sql>
+			</serie>
+		</series>
+	</highcharts>
+</report>

@@ -4,26 +4,26 @@
 
 	<div class="col-sm-12">
 		<div class="form-group">
-			<label for="edit-title-1">姓名: *</label>
+			<label for="edit-title-1">Name: *</label>
 			<input type="text" id="Name" name="name" placeholder="Name" class="form-text form-control" />
 		</div>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="edit-title-1">电话:</label><input type="text" id="Phone"
+			<label for="edit-title-1">Phone:</label><input type="text" id="Phone"
 				name="phone" placeholder="Phone" class="form-text form-control" />
 		</div>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="edit-title-1">邮箱: *</label><input type="text"
+			<label for="edit-title-1">Email: *</label><input type="text"
 				id="Email" name="email" placeholder="Email"
 				class="form-text form-control" />
 		</div>
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="Size">大小:</label><select id="Size" name="size"
+			<label for="Size">Size:</label><select id="Size" name="size"
 				class="form-text form-control"><option value="1">2
 					inches</option>
 				<option value="2">2.5 inches</option>
@@ -50,7 +50,7 @@
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="PercentageofEmbroidery">% 刺绣:</label><select
+			<label for="PercentageofEmbroidery">% Embroidery:</label><select
 				id="PercentageofEmbroidery" name="embroidery"
 				class="form-text form-control"><option value="27">50%</option>
 				<option value="28">75%</option>
@@ -59,7 +59,7 @@
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="Quantity">数量:</label><select id="Quantity"
+			<label for="Quantity">Quantity:</label><select id="Quantity"
 				name="quantity" class="form-text form-control"><option
 					value="30">10</option>
 				<option value="31">20</option>
@@ -79,7 +79,7 @@
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="edit-title-1">预定日期: </label><input type="text"
+			<label for="edit-title-1">Date needed: </label><input type="text"
 				id="Deadline" name="Deadline" placeholder="Deadline"
 				class="form-text form-control" />
 		</div>
@@ -88,7 +88,7 @@
 		<div class="form-group">
 			<div id="edit-field-fq-image-0-1-ahah-wrapper">
 				<div class="form-item" id="edit-field-fq-image-0-1-upload-wrapper">
-					<label for="File">图片上传:</label>
+					<label for="File">Image Upload:</label>
 					<div class="filefield-upload clear-block">
 						<input style="width: 68%" type="file"
 							class="form-file wmds-form-file" id="imageFile" name="imageFile" />
@@ -106,7 +106,7 @@
 	</div>
 	<div class="col-sm-6">
 		<div class="form-group">
-			<label for="Notes">留言: </label>
+			<label for="Notes">Notes: </label>
 			<textarea cols="60" rows="1" id="Notes" name="notes"
 				placeholder="Notes" class="form-textarea  resizable form-control"></textarea>
 		</div>
@@ -127,7 +127,7 @@
 
 			<input name="button"
 				class="btn btn-warning submit-blue-form btn-lg btn-block"
-				id="button" value="Give me your best price" type="submit">
+				id="button" value="Give me your best price" onclick="return check_valid1();" type="submit">
 
 		</div>
 

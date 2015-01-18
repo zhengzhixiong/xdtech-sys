@@ -86,7 +86,7 @@
 											数量：${(row.quantity)!}
 											</p>
 											<p>
-											最迟时间：${(row.dateNeeded)?datetime}
+											最迟时间：<#if (row.dateNeeded)??>${(row.dateNeeded)?string("yyyy-MM-dd HH:mm:ss")}<#else></#if>
 											</p>
 											<#if row.image??&&row.image!=''>
 												<img class="img-responsive max-img" class="wp-image-1987 alignleft" 

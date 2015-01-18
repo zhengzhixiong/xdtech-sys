@@ -65,8 +65,8 @@ public class ShowController {
 	}
 	@RequestMapping(params = "to")
 	public ModelAndView to(String url,HttpServletRequest request) {
-		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
-		request.setAttribute("categories", categoryItems);
+//		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
+//		request.setAttribute("categories", categoryItems);
 		return new ModelAndView("shop/"+url+"_ftl");
 	}
 }

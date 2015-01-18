@@ -21,9 +21,10 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.thoughtworks.xstream.XStream;
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.common.utils.ApplicationContextUtil;
 import com.xdtech.common.utils.EmptyUtil;
 import com.xdtech.core.init.InitCacheData;
@@ -51,27 +52,28 @@ public class DictionaryInit implements SysInitOperation{
 	 * @create 2014-9-25下午9:42:14
 	 * @modified by
 	 */
-	public void initingToDb(BaseService<BaseModel> baseService) {
-		log.info("数据字典初始化开始......");
-		XStream xstream = new XStream(); 
-	    Reader reader = new InputStreamReader(  
-	    		DictionaryInit.class.getResourceAsStream("/com/xdtech/sys/init/DictionaryCode.xml"));  
+	public void initingToDb(BaseService<BaseModel> baseService) { 
 //		String filePath = DictionaryInit.class.getResource("").getPath()+"DictionaryCode.xml";
 //		InputStream is = this.getClass().getResourceAsStream("/DictionaryCode.xml");
 		
-        List<DictionaryCode> dictionaryCodes = (List<DictionaryCode>) xstream.fromXML(reader);
-        for (DictionaryCode dictionaryCode : dictionaryCodes) {
-        	baseService.save(dictionaryCode);
-        	List<CodeValue> codeValues = dictionaryCode.getCodeValues();
-        	if (EmptyUtil.isNotEmpty(codeValues)) {
-				for (CodeValue codeValue : codeValues) {
-					codeValue.setDictionaryCode(dictionaryCode);
-					baseService.save(codeValue);
-				}
-			}
-		}
-        
-        log.info("数据字典初始化结束......");
+
+//		log.info("数据字典初始化开始......");
+//		XStream xstream = new XStream(); 
+//	    Reader reader = new InputStreamReader(  
+//	    		DictionaryInit.class.getResourceAsStream("/com/xdtech/sys/init/DictionaryCode.xml")); 
+//        List<DictionaryCode> dictionaryCodes = (List<DictionaryCode>) xstream.fromXML(reader);
+//        for (DictionaryCode dictionaryCode : dictionaryCodes) {
+//        	baseService.save(dictionaryCode);
+//        	List<CodeValue> codeValues = dictionaryCode.getCodeValues();
+//        	if (EmptyUtil.isNotEmpty(codeValues)) {
+//				for (CodeValue codeValue : codeValues) {
+//					codeValue.setDictionaryCode(dictionaryCode);
+//					baseService.save(codeValue);
+//				}
+//			}
+//		}
+//        
+//        log.info("数据字典初始化结束......");
 	}
 
 	/**
@@ -87,6 +89,18 @@ public class DictionaryInit implements SysInitOperation{
 		for(String key:codeMap.keySet()) {
 			InitCacheData.dictionary.put(key,codeMap.get(key));
 		}
+	}
+
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-12-28下午7:57:28
+	 * @modified by
+	 * @param jdbcTemplate
+	 */
+	public void initingToDb(JdbcTemplate jdbcTemplate) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

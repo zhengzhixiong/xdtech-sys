@@ -17,10 +17,9 @@ package com.xdtech.shop.init;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.core.init.SysInitOperation;
 import com.xdtech.core.model.BaseModel;
-import com.xdtech.sys.init.DictionaryInit;
 
 /**
  * 
@@ -54,4 +53,6 @@ public class CategoryInit implements SysInitOperation{
 	public void initingToCache(BaseService<BaseModel> baseService) {
 		
 	}
+
+	
 }

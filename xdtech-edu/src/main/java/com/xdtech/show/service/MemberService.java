@@ -2,7 +2,7 @@ package com.xdtech.show.service;
 
 import java.util.List;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.show.model.Member;
 import com.xdtech.show.vo.MemberItem;
 
@@ -76,4 +76,14 @@ public interface MemberService extends IBaseService<Member>{
 	 * @return
 	 */
 	MemberItem register(String email, String password, String nickName);
+
+	/**
+	 * 
+	 * @author max.zheng
+	 * @create 2014-12-22下午11:10:12
+	 * @modified by
+	 * @param email
+	 * @return
+	 */
+	boolean checkMemberEmail(String email);
 }

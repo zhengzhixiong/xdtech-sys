@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.xdtech.sys.aspect.SystemControllerLog;
 import com.xdtech.web.model.ResultMessage;
 
 @Controller
@@ -24,6 +25,7 @@ public class AuthLoginController {
 
 	@RequestMapping(params = "login")
 	@ResponseBody
+	@SystemControllerLog(description = "用户登录")  
 	public ResultMessage login(String loginName, String password, Boolean remember,HttpServletRequest request) {
 		AuthenticationToken token = new UsernamePasswordToken(loginName,
 				password, remember);

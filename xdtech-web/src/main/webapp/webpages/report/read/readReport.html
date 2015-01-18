@@ -1,0 +1,58 @@
+<script type="text/javascript">
+	//刷新配置报表树
+	function refreshConfigReport() {
+		//重置用户，默认用户组选择学达平台
+		$('#configReportTree').tree('reload'); 
+// 		$('#user_userlist').datagrid({
+// 			queryParams: {
+// 				time : new Date().getTime()
+// 			}
+// 		});
+// 		clearSearch();
+// 		$('#showConfigReportTab .tabs-panels-noborder').html('');
+	}
+	
+	/**
+	 * 点击用户组树
+	 */
+	function clickConfigReportTree(node) {
+		printLog(node);
+		if ($('#showConfigReportTab').tabs('exists', node.text)){
+			$('#showConfigReportTab').tabs('select', node.text);
+		} else {
+// 			var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+			$('#showConfigReportTab').tabs('add',{
+				title:node.text,
+				href : 'readReport.do?configReportPage&configId='+node.id,
+				closable : true
+			});
+		}
+	}
+</script>
+
+
+
+<div class="easyui-layout" data-options="fit:true">
+	 <div data-options="region:'west',split:true,title:'配置的报表列表',collapsible:false,border:false,tools:[
+				{
+					iconCls:'icon-reload',
+					handler:function(){refreshConfigReport()}
+				}]" style="width:200px;">
+		<@eu.tree id="configReportTree" method="post"
+		url="config.do?reportTree" onClick="clickConfigReportTree(node)"/>
+	</div>
+	<div data-options="region:'center',border:false">
+		<div id="showConfigReportTab" class="easyui-tabs" data-options="fit:true,border:false">
+		</div>
+<!-- 		<div id="configlist_search"> -->
+<!-- 			<div id="config_toolbar" style="height: auto"> -->
+				
+<!-- 				<@eu.linkbutton showName="新增" shiro="report:config:add" iconCls="icon-add" onclick="addConfig()"/> -->
+<!-- 				<@eu.linkbutton showName="删除" shiro="report:config:delete" iconCls="icon-remove" onclick="deleteConfig()"/> -->
+<!-- 				<@eu.linkbutton showName="编辑" shiro="report:config:edit" iconCls="icon-edit" onclick="editConfig()"/> -->
+<!-- 				<@eu.linkbutton showName="刷新" shiro="report:config:refresh" iconCls="icon-reload" onclick="reloadConfig()"/> -->
+				
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</div>
+</div>

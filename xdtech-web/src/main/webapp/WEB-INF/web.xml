@@ -34,10 +34,12 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.xdtech.web.util.MemoryListener</listener-class> -->
+<!-- 	</listener> -->
 	<listener>
-		<listener-class>com.xdtech.web.util.MemoryListener</listener-class>
+		<listener-class>com.xdtech.web.listener.MemoryListener</listener-class>
 	</listener>
-
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -152,6 +154,6 @@
 	</error-page>
 
 	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

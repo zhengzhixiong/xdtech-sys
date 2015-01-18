@@ -1,3 +1,0 @@
-<bean id="customerReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
-	<property name="url" value="/pages/report/report1.jasper" />
-</bean>

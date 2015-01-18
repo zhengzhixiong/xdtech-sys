@@ -12,45 +12,10 @@
 	 * 新增用户
 	 */
 	function addDictionary(){
-		 $.easyui.showDialog({
-             title: "新增字典信息",
-             maximizable: true,
-             autoRestore: true,
-             topMost: false,
-             
-//              applyButtonText: "按钮a",
-//              closeButtonText: "关闭",
-//              enableSaveButton: false,
-			 enableApplyButton:false,
-             href: "dictionaryCode.do?editDictionary",
-             onSave: function (d) { 
-//             	 alert(d);
-				printLog(d);
-                 var validate = d.form("validate");
-//                  parent.$.messager.progress({
-//  					text : '数据处理中，请稍后....'
-//  				});
-//  				var isValid = $(this).form('validate');
-//  				if (!validate) {
-//  					parent.$.messager.progress('close');
-//  				}
-//  				return validate;
-                 if (validate) {
-                	 printLog(d.form("getData"));
-                	 
-//                 	 d.form({url : 'dictionaryCode.do?editDictionary',});
-//                      $.easyui.showOption(d.form("getData"), { title: "您输入的数据为" });
-                 } else {
-                     return false;
-                 }
-             },
-//              onLoad: function () {
-//             	 alert('loading');
-//                  var f = $(this), ret = $.fn.dialog.defaults.onLoad();
-//                  f.form("disableValidation").form("enableValidation");
-//                  return ret;
-//              }
-         });
+		createFromWindow("新增信息", "dictionaryCode.do?editDictionary", "dictionaryCode.do?saveDictionary",
+				function(data) {
+					reloadConfig();
+				});
 // 		$.easyui.showDialog({
 //             title: "快速创建的 Dialog",
 //             top: 130, left: 170, width: 500, height: 220,

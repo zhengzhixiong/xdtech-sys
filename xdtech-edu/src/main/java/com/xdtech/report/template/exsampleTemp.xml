@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report type="ireport">
+	<highcharts>
+		<chart>
+			<!-- 图表类型配置 -->
+			<type>column</type>
+		</chart>
+		<title>
+			<text>第一个图表</text>
+		</title>
+		<exporting>
+			<url>chartAction!export.action</url>
+			<enabled>false</enabled>
+		</exporting>
+		<yAxis>
+			<title>
+				<text>y轴</text>
+			</title>
+		</yAxis>
+		<xAxis>
+			<categories>
+				<category>一月</category>
+				<category>二月</category>
+				<category>三月</category>
+			</categories>
+		</xAxis>
+		<series>
+			<serie>
+				<name>zzx</name>
+				<data>
+					<value>1</value>
+					<value>2</value>
+					<value>5</value>
+				</data>
+			</serie>
+			<serie>
+				<name>lp</name>
+				<data>
+					<value>8</value>
+					<value>7</value>
+					<value>10</value>
+				</data>
+			</serie>
+		</series>
+	</highcharts>
+	<ireport>
+		<title>住户信息</title>
+		<columns>
+			<column key="pin" name="住户编号"></column>
+			<column key="name" name="姓名"></column>
+			<column key="id_card" name="证件号"></column>
+			<column key="home_address" name="家庭住址" width="200"></column>
+			<column key="mobile_phone" name="手机号码"></column>
+			<column key="hire_time" name="起租时间"></column>
+			<column key="expire_time" name="到期时间"></column>
+		</columns>
+		<sql>
+			<![CDATA[
+				SELECT 
+				  0000,
+				  pin,
+				  name,
+				  id_card,
+				  home_address,
+				  mobile_phone,
+				  hire_time,
+				  expire_time,
+				  create_time,
+				  1111 
+				FROM
+				  pers_employee 
+  			]]>
+		</sql>
+	</ireport>
+	<datagrid>
+	    <columns>
+			<column field="pin" title="住户编号"></column>
+			<column field="name" title="姓名"></column>
+			<column field="id_card" title="证件号"></column>
+			<column field="home_address" title="家庭住址" width="200"></column>
+			<column field="mobile_phone" title="手机号码"></column>
+			<column field="hire_time" title="起租时间"></column>
+			<column field="expire_time" title="到期时间"></column>
+		</columns>
+	</datagrid>
+</report>

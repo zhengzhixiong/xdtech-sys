@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.xdtech.core.dao.BaseDao;
 import com.xdtech.core.orm.Page;
@@ -26,7 +25,6 @@ import com.xdtech.web.model.Pagination;
  * @see
  */
 @Service
-@Transactional
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;

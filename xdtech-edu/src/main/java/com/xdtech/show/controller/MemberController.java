@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.xdtech.show.service.MemberService;
 import com.xdtech.show.vo.MemberItem;
 import com.xdtech.web.model.Pagination;
 import com.xdtech.web.model.ResultMessage;
+import com.xdtech.web.util.AppReturnUtils;
 
 /**
  * 
@@ -100,11 +102,12 @@ public class MemberController {
 		ResultMessage r = new ResultMessage();
 		MemberItem memberItem = memberService.loginCheck(userLogin,userKey);
 		if (memberItem!=null) {
+			r.setMsg("登录成功");
+			r.setObj(memberItem);
 			request.getSession().setAttribute("member", memberItem);
-			r.setSuccess(true);
 		}else {
-			r.setMsg("账号或密码有误");
 			r.setSuccess(false);
+			r.setMsg("账号或密码有误");
 		}
 		return r;
 	}
@@ -113,13 +116,31 @@ public class MemberController {
 	@ResponseBody
 	public ResultMessage join(String email,String password,String nickName,HttpServletRequest request) {
 		ResultMessage r = new ResultMessage();
+		if (StringUtils.isEmpty(nickName)) {
+			nickName = "Member";
+		}
 		MemberItem memberItem = memberService.register(email,password,nickName);
 		if (memberItem!=null) {
+			r.setMsg("注册成功");
+			r.setObj(memberItem);
 			request.getSession().setAttribute("member", memberItem);
-			r.setSuccess(true);
 		}else {
 			r.setMsg("注册失败");
 			r.setSuccess(false);
+		}
+		return r;
+	}
+	
+	@RequestMapping(params = "checkIsExist")
+	@ResponseBody
+	public ResultMessage checkIsExist(String email,String nickName,HttpServletRequest request) {
+		ResultMessage r = new ResultMessage();
+		boolean isExist= memberService.checkMemberEmail(email);
+		if (isExist) {
+			r.setSuccess(false);
+			r.setMsg("邮箱已存在！");
+		}else {
+			r.setSuccess(true);
 		}
 		return r;
 	}
@@ -139,13 +160,35 @@ public class MemberController {
 		ResultMessage r = new ResultMessage();
 		if (memberService.saveOrUpdateMember(item)) {
 			request.getSession().setAttribute("member", item);
-			r.setMsg("更新完成");
 			r.setSuccess(true);
+			r.setMsg("更新完成");
 		} else {
-			r.setMsg("更新失败");
 			r.setSuccess(false);
+			r.setMsg("更新失败");
 		}
 		return r;
+	}
+	
+	/*******************以下是手机app接口调用方法*********************/
+	@RequestMapping(params="appLogin")
+	public void appLogin(HttpServletRequest request,HttpServletResponse response,String userLogin,String userKey) {
+		ResultMessage rm = login(userLogin, userKey, "", request);
+        AppReturnUtils.returnJsonpAsk(request, response, rm);
+	}
+	
+	@RequestMapping(params = "appLogout")
+	public void appLogout(HttpServletRequest request,HttpServletResponse response) {
+		request.getSession().removeAttribute("member");
+		AppReturnUtils.returnJsonpAsk(request, response, new ResultMessage(true, "退出成功"));
+	}
+	
+	@RequestMapping(params = "appRegister")
+	public void appRegister(HttpServletRequest request,HttpServletResponse response,String email,String password,String nickName) {
+		ResultMessage rm = checkIsExist(email, nickName, request);
+		if (rm.isSuccess()) {
+			rm = join(email, password, nickName, request);
+		}	
+		AppReturnUtils.returnJsonpAsk(request, response, rm);
 	}
 
 }

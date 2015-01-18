@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report type="highcharts">
+	<highcharts>
+		<chart>
+			<type>line</type>
+		</chart>
+		<title>
+			<text>开门时间段</text>
+		</title>
+		<exporting>
+			<enabled>false</enabled>
+		</exporting>
+		<credits>
+			<enabled>false</enabled>
+			<text>ZKTeco</text>
+			<href></href>
+		</credits>
+		<yAxis>
+			<title>
+				<text>数量</text>
+			</title>
+		</yAxis>
+		<series>
+			<serie type="sql" xAxis="true">
+				<name>当日分析</name>
+				<sql>
+					<![CDATA[
+					SELECT COUNT(*), 
+				    DATE_FORMAT(
+				        event_time,
+				        '%H:00'
+				    ) AS hours,
+				    event_name
+				    FROM acc_transaction WHERE event_time<DATE_SUB(CURDATE(),INTERVAL -24 HOUR) AND event_time>DATE_SUB(CURDATE(),INTERVAL 0 HOUR) GROUP BY hours;
+					]]>
+				</sql>
+			</serie>
+		</series>
+	</highcharts>
+</report>

@@ -135,18 +135,27 @@ function createFromWindow(title,href,submitUrl,callback,enableSaveButton) {
     });
 }
 function createFromWindowOptions(options) {
+	var winWidth = options.width?options.width:800;
+	var winHeight = options.height?options.height:500;
 	return $.easyui.showDialog({
         title: options.title,
         maximizable: options.maximizable,
         autoRestore: true,
-        width : 800,
-		height : 500,
+        width : winWidth,
+		height : winHeight,
         topMost: false,
 		enableApplyButton:false,
 		enableSaveButton:options.enableSaveButton,
         href: options.href,
         onSave: function (d) {
-        	return options.callback(d);
+        	 var validate = d.form("validate");
+             printLog(validate);
+             if (validate) {
+            	 return options.callback(d);
+             } else {
+                 return false;
+             }
+        	
         },
     });
 }

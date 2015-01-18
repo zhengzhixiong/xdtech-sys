@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xdtech.common.utils.DateUtil;
+import com.xdtech.common.utils.DateUtil.DateStyle;
 import com.xdtech.shop.conditions.OrderCondition;
 import com.xdtech.shop.service.CategoryService;
 import com.xdtech.shop.service.OrderService;
@@ -40,6 +43,7 @@ import com.xdtech.show.vo.MemberItem;
 import com.xdtech.stu.conditions.StudentCondition;
 import com.xdtech.web.model.Pagination;
 import com.xdtech.web.model.ResultMessage;
+import com.xdtech.web.util.AppReturnUtils;
 
 /**
  * 
@@ -54,8 +58,8 @@ import com.xdtech.web.model.ResultMessage;
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
-	@Autowired
-	private JavaMailSender sender;
+//	@Autowired
+//	private JavaMailSender sender;
 	@Autowired
 	private CategoryService categoryService;
 
@@ -165,7 +169,9 @@ public class OrderController {
 		}
 		item.setOrderNo(NumberUtil.getDateSerializable());
 		item.setStatus("0");
-		item.setDateNeeded(new Date());
+		if (StringUtils.isNotEmpty(item.getDeadline())) {
+			item.setDateNeeded(DateUtil.StringToDate(item.getDeadline(), DateStyle.MM_DD_YYYY_EN));
+		}
 		if (orderService.saveOrUpdateOrder(item)) {
 			sendEmail(item);
 			r.setSuccess(true);
@@ -183,8 +189,8 @@ public class OrderController {
 			JavaMailSenderImpl javaMail = new JavaMailSenderImpl();
 			Properties prop = new Properties();
 			// 默认商城发送用的用户和密码
-			javaMail.setUsername("zzxstudynumber");
-			javaMail.setPassword("zzxlp522");
+			javaMail.setUsername("max4you");
+			javaMail.setPassword("max123456");
 			prop.setProperty("mail.smtp.host", "smtp.163.com");
 			prop.setProperty("mail.smtp.auth", "true");
 			javaMail.setJavaMailProperties(prop);
@@ -193,7 +199,7 @@ public class OrderController {
 					"UTF-8");
 			messageHelper.setSubject("Thank You for your custom patch inquiry "+item.getOrderNo());
 			messageHelper.setSentDate(new Date());
-			messageHelper.setFrom("zzxstudynumber@163.com", "英雄秀标");
+			messageHelper.setFrom("max4you@163.com", "英雄秀标");
 			messageHelper.setTo(item.getEmail());
 			StringBuffer sb = new StringBuffer();
 			sb.append("<p><span style=\"font-family:arial,helvetica,sans-serif\">Dear "+item.getName()+" ,</span></p>")
@@ -219,8 +225,8 @@ public class OrderController {
 	
 	@RequestMapping(params="myOrders")
 	public String myOrders(HttpServletRequest request,Pagination pg) {
-		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
-		request.setAttribute("categories", categoryItems);
+//		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
+//		request.setAttribute("categories", categoryItems);
 		Map<String, Object> results = null;
 		MemberItem memberItem = (MemberItem) request.getSession().getAttribute("member");
 		results = orderService.loadOrdersWithMemEmail(pg, memberItem.getEmail());
@@ -251,5 +257,19 @@ public class OrderController {
 			r.setSuccess(false);
 		}
 		return r;
+	}
+	
+	/*******************以下是手机app接口调用方法*********************/
+	@RequestMapping(params="appMyOrder")
+	public void appMyOrder(HttpServletRequest request,HttpServletResponse response,Pagination pg) {
+		MemberItem memberItem = (MemberItem) request.getSession().getAttribute("member");
+		ResultMessage rm = new ResultMessage();
+		if (memberItem==null) {
+			rm = new ResultMessage(false, "用户未登录");
+		}else {
+			Map<String, Object> results = orderService.loadOrdersWithMemEmail(pg, memberItem.getEmail());
+			rm.setObj(results);
+		}
+        AppReturnUtils.returnJsonpAsk(request, response, rm);
 	}
 }

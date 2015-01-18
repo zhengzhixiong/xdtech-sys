@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +29,7 @@ import com.xdtech.shop.vo.GoodsItem;
 import com.xdtech.show.vo.MemberItem;
 import com.xdtech.web.model.Pagination;
 import com.xdtech.web.model.ResultMessage;
+import com.xdtech.web.util.AppReturnUtils;
 
 /**
  * 
@@ -182,12 +184,28 @@ public class GoodsController {
 	//前端界面查询
 	@RequestMapping(params="loadGoodsByCtgId")
 	public String loadGoodsByCtgId(Long ctgId,Pagination pg,HttpServletRequest request) {
-		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
-		request.setAttribute("categories", categoryItems);
+//		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
+//		request.setAttribute("categories", categoryItems);
 		request.setAttribute("currentCtg", categoryService.loadCategoryItem(ctgId));
 		Map<String, Object> results = goodsService.loadGoodsByCtgId(pg, ctgId);
 		request.setAttribute("rs", results);
 		return "shop/showGoods_ftl";
+	}
+	
+	/*******************以下是手机app接口调用方法*********************/
+	
+	@RequestMapping(params="appLoadTopGoods")
+	public void appLoadTopGoods(HttpServletRequest request,HttpServletResponse response,Long ctgId,Pagination pg) {
+		Map<String, Object> results = goodsService.loadGoodsByCtgId(pg, ctgId);
+	    System.out.println("登录id="+request.getSession().getId());
+        AppReturnUtils.returnJsonpAsk(request, response, results);
+	}
+	
+	@RequestMapping(params="appLoadGoodsInfo")
+	public void appLoadGoodsInfo(HttpServletRequest request,HttpServletResponse response,Long id) {
+		GoodsItem item = goodsService.loadGoodsItem(id);
+	    System.out.println("登录id="+request.getSession().getId());
+        AppReturnUtils.returnJsonpAsk(request, response, item);
 	}
 
 }

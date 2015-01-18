@@ -17,7 +17,7 @@ package com.xdtech.sys.service;
 import java.util.List;
 import java.util.Map;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.sys.model.CodeValue;
 import com.xdtech.sys.vo.CodeValueItem;
 import com.xdtech.web.model.Pagination;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>注册</title>
+<title>Register</title>
 <!--js and css-->
 <#include "importJsAndCss.html">
 </head>
@@ -22,17 +22,32 @@
         });
         
         function register() {
-        	var data= $("#registerForm").serialize() 
-        	console.log(data);
-        	 $.post('member.do?join',data,function(result){
-        		 
+        	if($('#Email').val()==''||$('#Email').val().length==0) {
+        		alert('Please Enter Your Email');
+        		return;
+        	}
+        	if($('#Password').val()==''||$('#Password').val().length==0) {
+        		alert('Please Enter Your Password');
+        		return;
+        	}
+        		
+        	 var data= $("#registerForm").serialize() 
+        	 $.post('member.do?checkIsExist',data,function(result){
+        		 console.log(result);
                  if (result.success){
-                	 location.href = "show.do?indexShop";
+                     $.post('member.do?join',data,function(result){
+                          if (result.success){
+                         	 location.href = "show.do?to&url=index";
+                          }else {
+                         	 alert(result.msg);
+                          }
+                      },'json');
                  }else {
                 	 alert(result.msg);
                  }
                  
              },'json');
+        	
         }
     </script>
 
@@ -82,29 +97,29 @@
 										<div class="blueform2" style="height: 380px;">
 
 											<div class="col-sm-12">
-												<div class="get-free-quote">注册信息</div>
+												<div class="get-free-quote">Register Info</div>
 											</div>
 											<form role="form" method="POST" id="registerForm"
 												class="new-improved-form" enctype="multipart/form-data">
 
 												<div class="col-sm-12">
 													<div class="form-group">
-														<label for="edit-title-1">邮箱: *</label><input
+														<label for="edit-title-1">Email: *</label><input
 															type="text" id="Email" name="email"
 															placeholder="Email" class="form-text form-control" />
 													</div>
 												</div>
 												<div class="col-sm-12">
 													<div class="form-group">
-														<label for="edit-title-1">昵称:</label><input type="text"
+														<label for="edit-title-1">NickName:</label><input type="text"
 															id="m-Name" name="nickName" placeholder="Name"
 															class="form-text form-control" />
 													</div>
 												</div>
 												<div class="col-sm-12">
 													<div class="form-group">
-														<label for="edit-title-1">密码: *</label><input type="password"
-															id="Phone" name="password" placeholder="Password:"
+														<label for="edit-title-1">Password: *</label><input type="password"
+															id="Password" name="password" placeholder="Password:"
 															class="form-text form-control" />
 													</div>
 												</div>
@@ -119,7 +134,7 @@
 
 														<input name="button"
 															class="btn btn-warning submit-blue-form btn-lg btn-block"
-															id="button" value="注册"
+															id="button" value="Register"
 															onclick="register()" type="button">
 													</div>
 

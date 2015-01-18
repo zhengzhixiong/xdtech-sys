@@ -41,6 +41,8 @@ public class OrderItem extends BaseCondition implements Serializable{
 	private Date createTime;
 	@GridColumn(title="预定日期",width=120)
 	private Date dateNeeded;
+	
+	private String deadline;
 //	@GridColumn(title="图片")
 	private String image;
 	@GridColumn(title="留言")
@@ -167,5 +169,11 @@ public class OrderItem extends BaseCondition implements Serializable{
 			this.statusName = "";
 		}
 		return statusName;
+	}
+	public String getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
 	}
 }

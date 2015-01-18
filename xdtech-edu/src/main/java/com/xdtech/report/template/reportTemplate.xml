@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report type="ireport">
+	<highcharts>
+		<chart>
+			<!-- 图表类型配置 -->
+			<type>column</type>
+		</chart>
+		<title>
+			<text>第一个图表</text>
+		</title>
+		<exporting>
+			<url>chartAction!export.action</url>
+			<enabled>false</enabled>
+		</exporting>
+		<yAxis>
+			<title>
+				<text>y轴</text>
+			</title>
+		</yAxis>
+		<xAxis>
+			<categories>
+				<category>一月</category>
+				<category>二月</category>
+				<category>三月</category>
+			</categories>
+		</xAxis>
+		<series>
+			<serie>
+				<name>zzx</name>
+				<data>
+					<value>1</value>
+					<value>2</value>
+					<value>5</value>
+				</data>
+			</serie>
+			<serie>
+				<name>lp</name>
+				<data>
+					<value>8</value>
+					<value>7</value>
+					<value>10</value>
+				</data>
+			</serie>
+		</series>
+	</highcharts>
+	<datagrid>
+		<title>
+			学生成绩
+		</title>
+		<columns>
+			<column field="ip" title="IP地址"></column>
+			<column field="method" title="执行方法"></column>
+		</columns>
+		<sql>
+				<![CDATA[
+					SELECT 
+					  0000,
+					  ip,
+					  method,
+					  1111 
+					FROM
+					 sys_log
+	  			]]>
+		</sql>
+	</datagrid>
+</report>

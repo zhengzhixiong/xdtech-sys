@@ -28,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xdtech.sys.service.DictionaryCodeService;
 import com.xdtech.sys.vo.DictionaryCodeItem;
-import com.xdtech.sys.vo.UserItem;
 import com.xdtech.web.model.Pagination;
 import com.xdtech.web.model.ResultMessage;
 

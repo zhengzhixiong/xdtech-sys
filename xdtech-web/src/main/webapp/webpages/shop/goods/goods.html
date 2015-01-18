@@ -8,6 +8,8 @@
 		var params = goods_list.datagrid('options').queryParams; //先取得 datagrid 的查询参数  
 		printLog(params);
 		goods_list.datagrid('reload'); //设置好查询参数 reload 一下就可以了  
+		goods_list.datagrid('unselectAll');
+		goods_list.datagrid('uncheckAll');
 	}
 	
 	//表格查询  

@@ -1,0 +1,68 @@
+<table id="${showReportGridId}" data-options="border:false"></table>
+<script type="text/javascript">
+	function exportReport() {
+		var selectReportNode = $('#configReportTree').tree('getSelected');
+		printLog(selectReportNode);
+		if(selectReportNode) {
+			createFromWindowOptions({
+				title:"导出报表",
+				maximizable:false,
+				width:400,
+				height:200,
+				href:"readReport.do?exportWin&configId=" + selectReportNode.id,
+				callback:function(data) {
+					var f  = data.find('#exportReportForm');
+					f.submit();
+				},
+				enableSaveButton:true
+			});
+// 			createFromWindow("导出报表", "readReport.do?exportWin&configId=" + selectReportNode.id,
+// 					"config.do?saveConfig", function(data) {
+// //	 					reloadConfig();
+// 					},true);
+		}else {
+			showMsg('请选中左侧需导出的报表项.');
+		}
+		
+	}
+	
+	$('#${showReportGridId}').datagrid({
+		url:'readReport.do?loadConfigReportData',
+		height:'auto',
+		striped:'false',
+		checkbox:true,
+		fit:true,
+		selectOnCheck:false,
+		checkOnSelect:false,
+// 		toolbar:'#configlist_search',
+		loadMsg:'数据加载中，请稍等...',
+		queryParams:{time : new Date().getTime(),reportId:${(configItem.id)!}},
+		rownumbers:true,
+		singleSelect:true,
+		idField:'id',
+		pageSize: 30,
+		pageList:[10, 30, 50, 100],
+		pagination:true,
+		columns:[${columns!}],
+		toolbar: [{  
+            text: '导出报表',  
+            iconCls: 'icon-export',  
+            handler: function() {  
+//                 openDialog("add_dialog","add"); 
+				exportReport();
+            }  
+        }, '-', {  
+            text: '图表分析',  
+            iconCls: 'icon-edit',  
+            handler: function() {  
+//                 openDialog("add_dialog","edit");  
+            }  
+        }],  
+	});
+	$('#${showReportGridId}').datagrid('getPager').pagination(
+			{beforePageText: '第',
+			afterPageText: '页    共 {pages} 页',
+			displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',});
+</script>
+
+

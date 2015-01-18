@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report type="highcharts">
+	<highcharts>
+		<chart>
+			<!-- 图表类型配置 -->
+			<type>column</type>
+		</chart>
+		<title>
+			<text>区域事件量</text>
+		</title>
+		<exporting>
+			<url>chartAction!export.action</url>
+			<enabled>false</enabled>
+		</exporting>
+		<credits>
+			<enabled>false</enabled>
+			<text>ZKTeco</text>
+			<href></href>
+		</credits>
+		<plotOptions>
+			<series>
+				<animation>false</animation>
+			</series>
+		</plotOptions>
+		<yAxis>
+			<title>
+				<text>数量</text>
+			</title>
+		</yAxis>
+		<series>
+			<serie type="sql" xAxis="true">
+				<name>区域</name>
+				<sql>SELECT COUNT(*),area_name FROM acc_transaction GROUP BY area_name</sql>
+			</serie>
+		</series>
+	</highcharts>
+</report>

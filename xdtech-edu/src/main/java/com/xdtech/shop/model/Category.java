@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -38,7 +39,8 @@ public class Category extends BaseModel implements Serializable{
 	private String code;
 	@Column(name="NAME")
 	private String name;
-	@Column(name="DESCRIPTION",length=1000)
+	@Column(name="DESCRIPTION",length=5000)
+	@Lob
 	private String description;
 	@Column(name="REMARK")
 	private String remark;

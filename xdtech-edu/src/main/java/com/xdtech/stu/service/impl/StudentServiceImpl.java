@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xdtech.base.dao.GradeDao;
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.common.utils.EmptyUtil;
 import com.xdtech.core.orm.utils.BeanUtils;
 import com.xdtech.edu.model.Teacher;

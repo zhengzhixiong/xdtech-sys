@@ -1,15 +1,40 @@
 <table cellpadding="5">
 	<input name="id" type="hidden" value="${(memberItem.id)!}" />
+	<input name="password" type="hidden" value="${(memberItem.password)!}" />
 	<tr>
+		<td>姓名:</td>
+		<td>
+			<input name="name"  class="easyui-validatebox"  value="${(memberItem.name)!}"/>
+		</td>
 		<td>昵称:</td>
 		<td>
-			<input name="nickName"  class="easyui-validatebox" data-options="required: true" value="${(memberItem.nickName)!}"/>
+			<input name="nickName"  class="easyui-validatebox"  value="${(memberItem.nickName)!}"/>
 		</td>
+	</tr>
+	<tr>
+		
+		
+		<tr>
+		<td>手机号码:</td>
+		<td>
+			<input name="telephone"  class="easyui-validatebox"  value="${(memberItem.telephone)!}"/>
+		</td>
+		<td>性别</td>
+		<td><@eu.comboBox url="common.do?loadComboBox&key=SEX&value=${(memberItem.sex)!}" name="sex"/></td>
+	</tr>
 	</tr>
 	<tr>
 		<td>邮箱:</td>
 		<td>
 			<input name="email"  class="easyui-validatebox" data-options="required: true" value="${(memberItem.email)!}"/>
 		</td>
+	</tr>
+	<tr>
+		<td>个性签名:</td>
+		
+		<td colspan="3">
+			<textarea style="height: 120px;" class="easyui-validatebox"  rows="6" cols="40" name="sign">${(memberItem.sign)!}</textarea>
+		</td>
+			
 	</tr>
 </table>

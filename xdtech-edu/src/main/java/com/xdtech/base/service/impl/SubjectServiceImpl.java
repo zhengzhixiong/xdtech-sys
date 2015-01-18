@@ -12,7 +12,7 @@ import com.xdtech.base.dao.SubjectDao;
 import com.xdtech.base.model.Subject;
 import com.xdtech.base.service.SubjectService;
 import com.xdtech.base.vo.SubjectItem;
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.core.orm.utils.BeanUtils;
 import com.xdtech.sys.common.ConStants;
 import com.xdtech.web.model.Pagination;

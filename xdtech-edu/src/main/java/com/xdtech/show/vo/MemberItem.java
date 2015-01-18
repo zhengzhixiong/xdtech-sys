@@ -20,13 +20,13 @@ public class MemberItem implements Serializable{
 	private String name;
 	@GridColumn(title="昵称")
 	private String nickName;
-	@GridColumn(title="邮箱")
+	@GridColumn(title="邮箱",width=140)
 	private String email;
-	@GridColumn(title="密码")
+//	@GridColumn(title="密码")
 	private String password;
 	@GridColumn(title="手机号码")
 	private String telephone;
-	@GridColumn(title="性别")
+	@GridColumn(title="性别",formatter={"M=男","F=女"})
 	private String sex;
 	@GridColumn(title="个人签名",width=200)
 	private String sign;

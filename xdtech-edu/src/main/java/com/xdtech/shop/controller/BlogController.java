@@ -152,14 +152,15 @@ public class BlogController {
 			r.setSuccess(false);
 			r.setMsg("发表失败");
 		}
+//		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
+//		request.setAttribute("categories", categoryItems);
 		request.setAttribute("r", r);
 		return new ModelAndView("shop/postBlog_ftl");
 	}
 	
 	@RequestMapping(params="myBlogs")
 	public String myBlogs(HttpServletRequest request,Pagination pg) {
-		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
-		request.setAttribute("categories", categoryItems);
+		
 		Map<String, Object> results = null;
 		MemberItem memberItem = (MemberItem) request.getSession().getAttribute("member");
 		results = blogService.loadBlogsWithMemId(pg, memberItem.getId());

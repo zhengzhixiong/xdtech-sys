@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.core.dao.BaseDao;
 import com.xdtech.core.model.BaseModel;
 import com.xdtech.core.orm.utils.BeanUtils;

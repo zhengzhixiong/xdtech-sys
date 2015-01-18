@@ -14,10 +14,24 @@
 
 
 	function addMember() {
-		createFromWindow("新增消息信息", "member.do?editMember", "member.do?saveMember",
+		createFromWindow("新增信息", "member.do?editMember", "member.do?saveMember",
 				function(data) {
 					reloadMember();
 				});
+	}
+	//查看订单信息
+	function lookMember() {
+		var rows = member_list.datagrid('getChecked');
+		if (rows&&rows.length>0) {
+			if(rows.length>1) {
+				showMsg('请选择一条操作记录.');
+				return;
+			}
+			createFromWindow("查看信息", "member.do?editMember&memberId=" + rows[0].id,
+					null, null,false);
+		} else {
+			showMsg('请选择操作记录.');
+		}
 	}
 	function deleteMember() {
 		var rows = member_list.datagrid('getChecked');
@@ -49,6 +63,7 @@
 				showMsg('请选择一条操作记录.');
 				return;
 			}
+			printLog(rows[0]);
 			createFromWindow("编辑信息", "member.do?editMember&memberId=" + rows[0].id,
 					"member.do?saveMember", function(data) {
 						reloadMember();
@@ -89,11 +104,11 @@
 		
 		<div id="memberlist_search">
 			<div id="member_toolbar" style="height: auto">
-				
+				<@eu.linkbutton showName="查看" shiro="show:member:look" iconCls="icon-edit" onclick="lookMember()"/>
 				<@eu.linkbutton showName="新增" shiro="show:member:add" iconCls="icon-add" onclick="addMember()"/>
 				<@eu.linkbutton showName="删除" shiro="show:member:delete" iconCls="icon-remove" onclick="deleteMember()"/>
 				<@eu.linkbutton showName="编辑" shiro="show:member:edit" iconCls="icon-edit" onclick="editMember()"/>
-				<@eu.linkbutton showName="刷新" shiro="show:member:refresh" iconCls="icon-reload" onclick="searchMember()"/>
+				<@eu.linkbutton showName="刷新" shiro="show:member:refresh" iconCls="icon-reload" onclick="reloadMember()"/>
 				
 			</div>
 		</div>

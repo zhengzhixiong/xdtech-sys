@@ -102,9 +102,9 @@
 	<bean class="com.xdtech.common.utils.ApplicationContextUtil"></bean>
 
 	<!-- 加入Aspectj配置 -->
-	<aop:aspectj-autoproxy />
-	<!-- log日志切面 -->
-	<bean id="logAspect" class="com.xdtech.sys.aspect.LogAspect" />
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- log日志切面 去除xml配置，采用注解方式 -->
+<!-- 	<bean id="logAspect" class="com.xdtech.sys.aspect.LogAspect" /> -->
 
 
 

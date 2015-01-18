@@ -29,9 +29,9 @@ public class GoodsDao extends HibernateDao<Goods, Long>{
 	public Page<Goods> loadPageByCategory(Pagination pg, Long ctgId) {
 		Page<Goods> page = null;
 		if (ctgId==null||ctgId<0) {
-			page = findPage(pg, "from Goods");
+			page = findPage(pg, "from Goods g where g.status='1'");
 		}else {
-			page = findPage(pg, "select g from Goods g,Category c where g.id in elements (c.goodsList) and c.id=?",ctgId);
+			page = findPage(pg, "select g from Goods g,Category c where g.status='1' and g.id in elements (c.goodsList) and c.id=?",ctgId);
 		}
 		return page;
 	}

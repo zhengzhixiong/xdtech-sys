@@ -57,7 +57,12 @@
 		} else {
 			showMsg('请选择操作记录.');
 		}
-
+	}
+	//刷新应用的类别条目
+	function refreshAppCategory() {
+		$.post('category.do?refreshAppCategory',null,function(result){
+            showMsg(result.msg);
+        },'json');
 	}
 	
 	
@@ -133,6 +138,7 @@
 				<@eu.linkbutton showName="新增" shiro="shop:category:add" iconCls="icon-add" onclick="addCategory()"/>
 				<@eu.linkbutton showName="删除" shiro="shop:category:delete" iconCls="icon-remove" onclick="deleteCategory()"/>
 				<@eu.linkbutton showName="编辑" shiro="shop:category:edit" iconCls="icon-edit" onclick="editCategory()"/>
+				<@eu.linkbutton showName="更新应用类别" shiro="shop:category:refreshApp" iconCls="icon-reload" onclick="refreshAppCategory()"/>
 				<@eu.linkbutton showName="刷新" shiro="shop:category:refresh" iconCls="icon-reload" onclick="reloadCategory()"/>
 				
 			</div>

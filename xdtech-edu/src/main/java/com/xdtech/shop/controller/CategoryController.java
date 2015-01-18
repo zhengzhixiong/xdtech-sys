@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xdtech.common.fomat.TreeBuilder;
+import com.xdtech.common.utils.ApplicationContextUtil;
 import com.xdtech.shop.model.Category;
 import com.xdtech.shop.service.CategoryService;
 import com.xdtech.shop.vo.CategoryItem;
-import com.xdtech.sys.model.UserGroup;
 import com.xdtech.web.model.Pagination;
 import com.xdtech.web.model.ResultMessage;
 import com.xdtech.web.model.TreeItem;
@@ -99,6 +99,15 @@ public class CategoryController {
 		}
 		return r;
 	}
+	@RequestMapping(params = "refreshAppCategory")
+	@ResponseBody
+	public ResultMessage refreshAppCategory(HttpServletRequest request) {
+		ResultMessage r = new ResultMessage();
+		List<CategoryItem> categoryItems = categoryService.loadCategoryItems();
+		ApplicationContextUtil.getApplication().setAttribute("categories", categoryItems);
+		return r;
+	}
+	
 	
 	@RequestMapping(params = "categoryTree")
 	@ResponseBody

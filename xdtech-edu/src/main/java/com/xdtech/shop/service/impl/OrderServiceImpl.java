@@ -1,5 +1,6 @@
 package com.xdtech.shop.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,6 +153,7 @@ public class OrderServiceImpl implements OrderService {
 	public boolean saveOrUpdateOrder(OrderItem item) {
 		Order order = null;
 		if (item.getId()==null) {
+			item.setCreateTime(new Date());
 			order = new Order();
 		}else {
 			order = orderDao.get(item.getId());

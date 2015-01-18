@@ -2,7 +2,7 @@ package com.xdtech.sys.service;
 
 import java.util.List;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.sys.model.MenuFunction;
 import com.xdtech.sys.vo.MenuItem;
 import com.xdtech.web.freemark.item.MenuButtonItem;
@@ -27,5 +27,15 @@ public interface MenuFunctionService extends IBaseService<MenuFunction> {
 	public ResultMessage saveMenuItem(MenuItem item);
 	
 	public List<MenuFunction> loadByRoleId(Long roleId);
+
+	/**
+	 * 
+	 * @author max.zheng
+	 * @create 2014-12-23下午10:26:37
+	 * @modified by
+	 * @param menuId
+	 * @return
+	 */
+	boolean deleteMenuInfo(Long menuId);
 
 }

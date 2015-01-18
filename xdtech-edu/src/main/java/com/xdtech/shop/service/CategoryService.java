@@ -2,7 +2,7 @@ package com.xdtech.shop.service;
 
 import java.util.List;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.shop.model.Category;
 import com.xdtech.shop.vo.CategoryItem;
 

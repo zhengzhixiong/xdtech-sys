@@ -12,7 +12,7 @@ import com.xdtech.base.dao.GradeDao;
 import com.xdtech.base.model.Grade;
 import com.xdtech.base.service.GradeService;
 import com.xdtech.base.vo.GradeItem;
-import com.xdtech.common.service.BaseService;
+import com.xdtech.common.service.impl.BaseService;
 import com.xdtech.core.orm.utils.BeanUtils;
 import com.xdtech.sys.common.ConStants;
 import com.xdtech.web.model.Pagination;

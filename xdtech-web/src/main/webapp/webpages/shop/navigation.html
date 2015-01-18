@@ -13,7 +13,7 @@
 			<div class="collapse aaa navbar-collapse navHeaderCollapse meniu-nav">
 				<ul class="nav navbar-nav navbar-left" id="header-menu">
 					<li id="menu-item-122"
-						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-122"><a>类别</a>
+						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-122"><a>CATEGORY</a>
 						<ul class="sub-menu">
 							<#list categories as ctg>
 								<li id="menu-item-${ctg.id}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-${ctg.id}">
@@ -73,51 +73,51 @@
 <!-- 						href="show.do?to&url=options">Special Options</a></li> -->
 					<li id="menu-item-246"
 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-246"><a
-						href="blog.do?loadBlogs">博客</a></li>
+						href="blog.do?loadBlogs">Blog</a></li>
 <!-- 					<li id="menu-item-181" -->
 <!-- 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-181"><a -->
 <!-- 						href="show.do?to&url=gallery">Gallery of -->
 <!-- 							Patches</a></li> -->
 					<li id="menu-item-195"
 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-195"><a
-						href="show.do?to&url=faq">困惑解答</a></li>
+						href="show.do?to&url=faq">FAQ</a></li>
 <!-- 					<li id="menu-item-228" -->
 <!-- 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-228"><a -->
 <!-- 						href="show.do?to&url=pricing">Pricing</a></li> -->
 					<li id="menu-item-269"
 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-269"><a
-						href="show.do?to&url=howItWork">如何工作</a></li>
+						href="show.do?to&url=howItWork">How It Works</a></li>
 					<li id="menu-item-13"
 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a
-						href="show.do?to&url=about">关于</a></li>
+						href="show.do?to&url=about">About</a></li>
 					<#if member??>
 					<li id="menu-item-122"
 						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-122"><a>${(member.nickName)!'XX'}</a>
 						<ul class="sub-menu">
 							<li id="menu-item-123"
 								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a
-								href="show.do?to&url=editInfo">修改信息</a></li>
+								href="show.do?to&url=editInfo">Account Info</a></li>
 							<li id="menu-item-123"
 								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a
-								href="show.do?to&url=postBlog">发表博客</a></li>
+								href="show.do?to&url=postBlog">Publish Blog</a></li>
 							<li id="menu-item-123"
 								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a
-								href="blog.do?myBlogs&page=1">我的博客</a></li>	
+								href="blog.do?myBlogs&page=1">My Blogs</a></li>	
 							<li id="menu-item-123"
 								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a
-								href="order.do?myOrders">我的订单</a></li>	
+								href="order.do?myOrders">My Orders</a></li>	
 							<li id="menu-item-123"
 								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a
-								href="member.do?logout&flag=Shop">退出登录</a></li>
+								href="member.do?logout&flag=Shop">Logout</a></li>
 						</ul>
 					</li>	
 					<#else>
 					<li id="menu-item-13"
 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a
-						href="show.do?to&url=login">登录</a></li>
+						href="show.do?to&url=login">Login</a></li>
 					<li id="menu-item-13"
 						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13"><a
-						href="show.do?to&url=register">注册</a></li>
+						href="show.do?to&url=register">Register</a></li>
 					</#if>
 				</ul>
 

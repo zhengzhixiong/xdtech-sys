@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xdtech.common.utils.encrypt.DESCoder;
 import com.xdtech.core.orm.Page;
 import com.xdtech.core.orm.utils.BeanUtils;
 import com.xdtech.show.dao.MemberDao;
@@ -126,7 +127,7 @@ public class MemberServiceImpl implements MemberService {
 	public boolean saveOrUpdateMember(MemberItem item) {
 		Member member = null;
 		if (item.getId()==null) {
-			item.setPassword("123456");
+			item.setPassword(DESCoder.encrypt("123456"));
 			member = new Member();
 		}else {
 			member = memberDao.get(item.getId());
@@ -190,7 +191,7 @@ public class MemberServiceImpl implements MemberService {
 	 * @return
 	 */
 	public MemberItem loginCheck(String userLogin, String userKey) {
-		Member member = memberDao.findUnique("from Member where password=? and (nickName=? or email=?)", userKey,userLogin,userLogin);
+		Member member = memberDao.findUnique("from Member where password=? and (nickName=? or email=?)", DESCoder.encrypt(userKey),userLogin,userLogin);
 		if (member!=null) {
 			MemberItem item = new MemberItem();
 			BeanUtils.copyProperties(item, member);
@@ -214,12 +215,27 @@ public class MemberServiceImpl implements MemberService {
 		Member member = new Member();
 		member.setEmail(email);
 		member.setNickName(nickName);
-		member.setPassword(password);
+		//密码加密
+		member.setPassword(DESCoder.encrypt(password));
 		member.setSex("M");
 		save(member);
 		MemberItem item = new MemberItem();
 		BeanUtils.copyProperties(item, member);
 		return item;
+	}
+
+	/**
+	 * @description
+	 * @author max.zheng
+	 * @create 2014-12-22下午11:10:24
+	 * @modified by
+	 * @param email
+	 * @return
+	 */
+	public boolean checkMemberEmail(String email) {
+		Member member = memberDao.findUnique("from Member where email=?", email);
+		return member==null?false:true;
+
 	}
 
 }

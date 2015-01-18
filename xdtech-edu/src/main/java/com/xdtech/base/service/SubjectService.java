@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.xdtech.base.model.Subject;
 import com.xdtech.base.vo.SubjectItem;
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 
 public interface SubjectService extends IBaseService<Subject>{
 

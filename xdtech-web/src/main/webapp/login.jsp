@@ -30,7 +30,7 @@
 								<h1>
 									<i class="icon-leaf green"></i>
 									<span class="red"></span>
-									<span class="white">学达科技</span>
+									<span class="white">Max</span>
 								</h1>
 							</div>
 

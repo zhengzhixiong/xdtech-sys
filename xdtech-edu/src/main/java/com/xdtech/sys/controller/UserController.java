@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xdtech.common.utils.EncryptUtil;
+import com.xdtech.sys.aspect.SystemControllerLog;
 import com.xdtech.sys.model.User;
 import com.xdtech.sys.searchers.UserCondition;
 import com.xdtech.sys.service.UserService;
@@ -37,6 +38,7 @@ public class UserController{
 	}
 	
 	@RequestMapping(params = "editUser")
+	@SystemControllerLog(description = "编辑用户")  
 	public ModelAndView editUser(HttpServletRequest request,Long userId) {
 //		request.setAttribute("usergroupId", usergroupId);
 		if (userId!=null) {
@@ -46,6 +48,7 @@ public class UserController{
 	}
 	@RequestMapping(params = "saveUser")
 	@ResponseBody
+	@SystemControllerLog(description = "更新用户")
 	public ResultMessage saveUser(UserItem item) {
 		ResultMessage r = new ResultMessage();
 		if (userService.saveOrUpdateUser(item)) {

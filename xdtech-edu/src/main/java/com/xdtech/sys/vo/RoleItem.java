@@ -13,7 +13,7 @@ public class RoleItem {
 	private String code; 
 	@GridColumn(title="角色描述",width=200)
 	private String description;
-	@GridColumn(title="是否超级管理员")
+	@GridColumn(title="是否超级管理员",formatter={"true=是","false=否"})
 	private boolean superuser;  
 	public Long getId() {
 		return id;

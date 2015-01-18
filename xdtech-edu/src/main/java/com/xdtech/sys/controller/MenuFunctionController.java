@@ -70,4 +70,15 @@ public class MenuFunctionController {
 	public ResultMessage saveMenuInfo(MenuItem data, HttpServletRequest req) {
 		return menuFunctionService.saveMenuItem(data);
 	}
+	@RequestMapping(params = "deleteMenuById")
+	@ResponseBody
+	public ResultMessage deleteMenuById(Long menuId) {
+		ResultMessage rm = new ResultMessage();
+		if (menuFunctionService.deleteMenuInfo(menuId)) {
+			
+		} else {
+			rm.setSuccess(false);
+		}
+		return rm;
+	}
 }

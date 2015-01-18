@@ -93,26 +93,33 @@
         }
 	}
 </script>
-<div class="easyui-layout" data-options="fit:true,border:false">
-	<div data-options="region: 'west',width:400,border:false" style="padding:1px 1px;">
-		<table id="selectRoles_usergroupRole" >    
-		</table>  
-	</div>
-	
-	<div data-options="region:'center',width:42,border:false">
-		<div  style="text-align: center;margin-top: 200px">
-			<input type="button" value=">" style="width: 40px;"
+<table style="width:100%;height: 100%;">
+  <tr>
+    <td style="width:45%;height: 100%;padding: 2px 2px;">
+<!-- 		<div class="easyui-layout" data-options="border:false"> -->
+<!-- 			<div data-options="region:'center',border:false"> -->
+				<table id="selectRoles_usergroupRole" >    
+				</table>  
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</td>
+    <td style="height: 100%;text-align: center;">
+    	<div style="padding: 2px 2px;">
+    		<input type="button" value=">" style="width: 40px;"
 				onclick="group_leftToRight()" /><br /> 
 	
 				
-			<input type="button"
-				value="<"  style=" width:40px;" onclick="group_rightToLeft()" />
-		</div>
-	</div>
-	
-	<div data-options="region:'east',width:400,border:false" style="padding:1px 1px;">
-		 <table id="unSelectRoles_usergroupRole">    
-		 </table>
-	</div>
-
-</div>
+			<input type="button" value="<" style="width: 40px;" onclick="group_rightToLeft()" />
+    	</div>
+		
+	</td>
+    <td style="width:45%;height: 100%;padding: 2px 2px;">
+<!--     	<div class="easyui-layout" data-options="border:false"> -->
+<!-- 			<div data-options="region:'center',border:false"> -->
+				 <table id="unSelectRoles_usergroupRole">    
+		 		 </table>
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</td>
+  </tr>
+</table>

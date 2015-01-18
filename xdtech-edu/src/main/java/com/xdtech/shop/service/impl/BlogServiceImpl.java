@@ -232,7 +232,8 @@ public class BlogServiceImpl implements BlogService {
 		List<Object> blogs = null;
 		long rows = 0;
 		if (pg!=null) {
-			Page<Blog> page = blogDao.findPage(pg,"from Blog b order by createTime desc");
+			//审核通过的blog
+			Page<Blog> page = blogDao.findPage(pg,"from Blog b where b.status='1' order by createTime desc");
 			blogs = BeanUtils.copyListProperties(
 					BlogItem.class, page.getResult());
 			rows = page.getTotalItems();

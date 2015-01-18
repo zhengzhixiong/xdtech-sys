@@ -1,12 +1,10 @@
 package com.xdtech.sys.service;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.core.orm.test.SpringTxTestCase;
 import com.xdtech.sys.model.User;
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })

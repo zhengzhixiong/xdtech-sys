@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.xdtech.base.model.Grade;
 import com.xdtech.base.vo.GradeItem;
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 
 public interface GradeService extends IBaseService<Grade>{
 

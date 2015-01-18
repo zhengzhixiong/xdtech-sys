@@ -2,7 +2,7 @@ package com.xdtech.stu.service;
 
 import java.util.List;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.stu.model.Student;
 import com.xdtech.stu.vo.StudentItem;
 import com.xdtech.sys.model.MenuFunction;

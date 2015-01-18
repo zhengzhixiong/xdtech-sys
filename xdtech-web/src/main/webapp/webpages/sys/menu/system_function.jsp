@@ -92,7 +92,33 @@
    }
    
    function removeMenu() {
-// 	   $('#userForm').form('clear');  
+// 	   $('#userForm').form('clear'); 
+		printLog(currentMenuNode);
+		if(currentMenuNode) {
+			$.post('menuFunction.do?deleteMenuById',{menuId:currentMenuNode.id},function(data){
+				if(data.success) {
+					$('#sysMenuTree').tree('reload'); 
+				}
+				showMsg(data.msg);
+		       },'json');
+// 		 	$.ajax({
+// 				async : false,
+// 				cache : false,
+// 				type : 'POST',
+// 				url : 'menuFunction.do?deleteMenuById',// 请求的action路径
+// 				data : {menuId:currentMenuNode.id},
+// 				error : function() {// 请求失败处理函数
+// 					showMsg('保存失败.');
+// 				},
+// 				success : function(data) {
+// 					printLog(data);
+// 					if(data.success) {
+// 						$('#sysMenuTree').tree('reload'); 
+// 					}
+// 					showMsg(data.msg);
+// 				}
+// 			});
+		}
    }
    
    function saveMenu() {

@@ -3,7 +3,7 @@ package com.xdtech.sys.service;
 import java.util.List;
 import java.util.Map;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.sys.model.MenuFunction;
 import com.xdtech.sys.model.User;
 import com.xdtech.sys.searchers.UserCondition;

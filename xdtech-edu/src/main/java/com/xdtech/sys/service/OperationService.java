@@ -3,8 +3,6 @@ package com.xdtech.sys.service;
 import java.util.List;
 import java.util.Map;
 
-import com.xdtech.common.service.impl.IBaseService;
-import com.xdtech.sys.model.Operation;
 import com.xdtech.sys.vo.OperationItem;
 
 public interface OperationService {

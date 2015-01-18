@@ -1,6 +1,6 @@
 package com.xdtech.message.service;
 
-import com.xdtech.common.service.impl.IBaseService;
+import com.xdtech.common.service.IBaseService;
 import com.xdtech.message.model.Person;
 import com.xdtech.message.vo.PersonItem;
 
